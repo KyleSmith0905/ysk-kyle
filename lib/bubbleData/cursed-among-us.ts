@@ -1,0 +1,80 @@
+import { IBubbleWithoutPosition, PadBubblePositions } from './_shared';
+
+const bubbleData: IBubbleWithoutPosition[] = [
+	{
+		id: 'about',
+		name: 'About Cursed Among Us',
+		summary: 'An Among Us mod that makes the game extremely difficult. Many tasks that once took a few seconds, now take an infuriating 45 seconds.',
+		image: 'cursed-among-us',
+		connection: '.',
+		position: [50, 50],
+		pivotPosition: [50, 50],
+		deployPosition: [50, 50],
+		radius: 119,
+	},
+	{
+		id: 'image',
+		name: 'Webpage',
+		image: 'cursed-among-us-example',
+		connection: 'about',
+		radius: 100,
+	},
+	{
+		id: 'youtube',
+		name: 'As Seen On Youtube',
+		summary: 'The mod was designed to be a YouTuber\'s goldmine.',
+		connection: 'about',
+		radius: 90,
+	},
+	{
+		id: 'erikCarr',
+		name: 'Erik Carr',
+		summary: 'A YouTuber with 1.6 million subscribers, they made 5+ videos on Cursed Among Us.',
+		link: 'https://www.youtube.com/c/erikcarr',
+		image: 'erik-carr',
+		connection: 'youtube',
+		radius: 90,
+	},
+	{
+		id: 'alexAce',
+		name: 'Alex Ace',
+		summary: 'A YouTuber with 1 million subscribers. He gave excellent feedback on the mod.',
+		link: 'https://www.youtube.com/c/AlexACE',
+		image: 'alex-ace',
+		connection: 'youtube',
+		radius: 90,
+	},
+	{
+		id: 'pat',
+		name: 'Pat',
+		summary: 'A YouTuber with 900 thousand subscribers. Made 2 videos on Cursed Among Us',
+		link: 'https://www.youtube.com/c/PatYouTubee',
+		image: 'pat',
+		connection: 'youtube',
+		radius: 90,
+	},
+	{
+		id: 'role',
+		name: 'My Role',
+		summary: 'I am the owner, main contributor, and maintainer to the mod. However, some graphics design, balancing, and programming was done by other members of the team.',
+		connection: 'about',
+		radius: 109,
+	},
+	{
+		id: 'development',
+		name: 'Development Info',
+		summary: 'The mod is open source and on GitHub.',
+		link: 'https://github.com/Devs-Us/Cursed-Among-Us',
+		connection: 'about',
+		radius: 93,
+	},
+	{
+		id: 'framework',
+		name: 'Framework',
+		summary: 'The mod was built on Reactor, an Among Us modding API. Reactor uses BepInEx and Harmony.',
+		connection: 'development',
+		radius: 94,
+	},
+];
+
+export default PadBubblePositions(bubbleData);

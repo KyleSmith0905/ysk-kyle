@@ -1,0 +1,85 @@
+import { IBubbleWithoutPosition, PadBubblePositions } from './_shared';
+
+const bubbleData: IBubbleWithoutPosition[] = [
+	{
+		id: 'about',
+		name: 'About Sorting Visualizer',
+		summary: 'Sorting visualizer gives it\'s users a chance to learn how sorting algorithms work.',
+		image: 'sorting-algorithm-visualizer',
+		connection: '.',
+		position: [50, 50],
+		pivotPosition: [50, 50],
+		deployPosition: [50, 50],
+		radius: 110,
+	},
+	{
+		id: 'image',
+		name: 'Sorting Algorithm Visualizer Webpage',
+		link: 'https://sorting-algorithm-jet.vercel.app/',
+		image: 'sorting-algorithm-visualizer-page',
+		connection: 'about',
+		radius: 100,
+	},
+	{
+		id: 'development',
+		name: 'Development Info',
+		summary: 'Sorting Algorithm Visualizer is an open source project.',
+		connection: 'about',
+		radius: 96,
+	},
+	{
+		id: 'framework',
+		name: 'Frameworks',
+		summary: 'The website is built on Angular.',
+		connection: 'development',
+		radius: 80,
+	},
+	{
+		id: 'concepts',
+		name: 'Code Concepts',
+		summary: 'Users are given options to visualize arrays with lengths of up to thousands. Optimization is essential, however, it readability and reusability was number one.',
+		connection: 'development',
+		radius: 118,
+	},
+	{
+		id: 'sorts',
+		name: 'Sorting Algorithms',
+		summary: 'There are 15+ sorting algorithms to choose from.',
+		connection: 'about',
+		radius: 94,
+	},
+	{
+		id: 'quickSort',
+		name: 'Quick Sort',
+		summary: 'Quick Sort is a recursive algorithm used partially in many programming languages.',
+		image: 'quick-sort',
+		connection: 'sorts',
+		radius: 93,
+	},
+	{
+		id: 'radixSort',
+		name: 'Radix Sort',
+		summary: 'Radix sort sorts each digit individually.',
+		image: 'radix-sort',
+		connection: 'sorts',
+		radius: 80,
+	},
+	{
+		id: 'bogoSort',
+		name: 'Bogo Sort',
+		summary: 'Bogo sort shuffles an array until it is sorted.',
+		image: 'bogo-sort',
+		connection: 'sorts',
+		radius: 80,
+	},
+	{
+		id: 'sleepSort',
+		name: 'Sleep Sort',
+		image: 'sleep-sort',
+		summary: 'Sleep sort syncronously sleeps for "n" seconds.',
+		connection: 'sorts',
+		radius: 83,
+	},
+];
+
+export default PadBubblePositions(bubbleData);

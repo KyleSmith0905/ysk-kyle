@@ -1,0 +1,35 @@
+{
+  "author": "Kyle Smith",
+  "short_name": "YSK Kyle",
+  "name": "YSK Kyle - Kyle's portfolio website.",
+  "version": "1.0.0",
+  "description": "A portfolio website for Kyle Smith to showcase his programming and web design experience.",
+  "default_locale": "en",
+  "icons": [
+    {
+      "src": "icons/favicon.ico",
+      "type": "image/x-icon",
+      "sizes": "24x24 48x48 96x96 192x192"
+    },
+    {
+      "src": "icons/logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icons/logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+		{
+			"src": "icons/maskableLogo192.png",
+			"type": "image/png",
+			"sizes": "192x192",
+			"purpose": "any maskable"
+		}
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#f2f2f2"
+}
