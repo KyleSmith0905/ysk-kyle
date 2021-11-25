@@ -3,7 +3,7 @@ import { IBubbleWithoutPosition, PadBubblePositions } from './_shared';
 const bubbleData: IBubbleWithoutPosition[] = [
 	{
 		id: 'welcome',
-		name: 'Welcome to YSK Kyle!',
+		name: 'You Should Know Kyle!',
 		summary: 'Click on a bubble to show more about that project.',
 		connection: '.',
 		position: [50, 50],
