@@ -34,12 +34,15 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 	}, []);
 	
 	const BubbleTag = bubble.link === undefined ? 'div' : 'a';
+	const isExternalSite = Boolean(bubble.link?.match(/^https?:\/\//));
 
 	if (isNaN(position[0]) === true) return <></>
 	else if (bubble.summary === undefined) return (
 		<BubbleTag 
 			className='Bubble ImageBubble'
 			href={bubble.link}
+			rel={isExternalSite ? 'nofollow noopener' : ''}
+			target={isExternalSite ? '_blank' : '_self'}
 			style={{
 				position: 'absolute',
 				left: ((position[0] * 20) - bubble.radius) + 'px',
@@ -60,10 +63,12 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 			/>
 		</BubbleTag>
 	)
-	return (
+	else return (
 		<BubbleTag
 			className='Bubble'
 			href={bubble.link}
+			rel={isExternalSite ? 'nofollow noopener' : ''}
+			target={isExternalSite ? '_blank' : '_self'}
 			style={{
 				position: 'absolute',
 				left: ((position[0] * 20) - bubble.radius) + 'px',
