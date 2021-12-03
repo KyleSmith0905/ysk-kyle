@@ -43,13 +43,13 @@ const IsArraysEqual = (array1: any[] | undefined, array2: any[] | undefined): bo
 }
 
 /**
- * Calculates the distance between two points using pythagorean theorem.
- * @param {number} a - The first point.
- * @param {number} b - The second point.
+ * Calculates the distance between two points (one from the center, one at (x, y)) using pythagorean theorem.
+ * @param {number} x - The x coordinate.
+ * @param {number} y - The y coordinate.
  * @returns {number} Returns the distance between two points.
  */
-const Pythagorean = (a: number, b: number): number => {
-	return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+const Pythagorean = (x: number, y: number): number => {
+	return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 }
 
 /**
