@@ -35,7 +35,7 @@ const HomeSVG: FunctionComponent<{setTravelMode: Dispatch<SetStateAction<number>
 					Travel Mode: {travelModes[travelMode]}
 				</button>
 				{router.pathname !== '/' &&
-					<Link href='/'>To Home</Link>
+					<Link href='/'>Back To Home</Link>
 				}
 			</div>
 		</div>
