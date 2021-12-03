@@ -25,6 +25,11 @@ h1, h2, h3, h4, h5, h6, p {
   text-align: center;
 }
 
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
 
 .Hidden {
   display: none;
@@ -32,7 +37,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 @keyframes enterStageLeft {
   0% {
-    transform: translateX(-8em);
+    transform: translateX(calc(-1em - 100%));
   }
   100% {
     transform: translateX(0em);
@@ -44,7 +49,7 @@ h1, h2, h3, h4, h5, h6, p {
     transform: translateX(0em);
   }
   100% {
-    transform: translateX(-8em);
+    transform: translateX(calc(-1em - 100%));
   }
 }
 
@@ -56,7 +61,6 @@ h1, h2, h3, h4, h5, h6, p {
   position: fixed;
   left: 0.9em;
   top: 0.9em;
-  z-index: 100;
 }
 
 #Settings > button {
@@ -64,18 +68,20 @@ h1, h2, h3, h4, h5, h6, p {
   overflow: hidden;
   padding: 1em;
   border: none;
-  border-radius: 20%;
+  border-radius: 1em;
   aspect-ratio: 1;
   cursor: pointer;
 }
 
 #SettingsList {
+  display: flex;
+  flex-direction: column;
   transition: visibility ease-in-out 0.5s;
   animation: 500ms ease-in-out 0s 1 enterStageLeft;
   background-color: hsl(0, 0%, 100%);
-  padding: 1em;
+  padding: 0.6em 1em 0.6em 1em;
   margin-top: 0.9em;
-  border-radius: 20%
+  border-radius: 1em
 }
 
 #SettingsList[class*="Hidden"] {
@@ -84,8 +90,11 @@ h1, h2, h3, h4, h5, h6, p {
   animation: 500ms ease-in-out 0s 1 forwards leaveStageLeft;
 }
 
-#SettingsList > a {
+#SettingsList > * {
   font-size: 1.2em;
+  padding: 0px;
+  margin: 0.4em 0em 0.4em 0em;
+  line-height: 1em;
 }
 
 #MainContent {
@@ -127,7 +136,7 @@ a.Bubble:focus-visible, a.Bubble:hover {
 
 .Bubble > h2, .Bubble > h1 {
   font-size: 1.3em;
-  margin-top: 0.5em;
+	margin-top: 0.5em;
 }
 
 .Bubble img {
@@ -145,7 +154,20 @@ a.Bubble:focus-visible, a.Bubble:hover {
 }
 
 .BackgroundImageContainer {
+  position: absolute;
   top: 0;
   left: 0;
-  position: absolute;
+}
+
+#EdgeScroller {
+	position: fixed;
+	left: 0;
+	top: 0;
+	pointer-events: none;
+
+	transition: opacity ease-in-out 250ms;
+}
+
+#EdgeScroller:not(.DisplayVignette) {
+	opacity: 0;
 }

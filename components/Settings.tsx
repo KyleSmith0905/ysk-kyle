@@ -1,12 +1,16 @@
-import { FunctionComponent, useState } from 'react';
+import { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-const HomeSVG: FunctionComponent = () => {
-	
+const HomeSVG: FunctionComponent<{setTravelMode: Dispatch<SetStateAction<number>>, travelMode: number}> = ({setTravelMode, travelMode}) => {
+	const router = useRouter();
+
 	const [settingsOpen, setSettingsOpen] = useState(false);
 	const toggleSettings = () =>  {
 		setSettingsOpen(!settingsOpen);
 	}
+
+	const travelModes = ['Browser', 'Edge Scrolling']
 
 	return (
 		<div id='Settings'>
@@ -27,7 +31,12 @@ const HomeSVG: FunctionComponent = () => {
 				</svg>
 			</button>
 			<div id='SettingsList' className={settingsOpen ? '': 'Hidden'}>
-				<Link href='/'>To Home</Link>
+				<button onClick={() => setTravelMode((travelMode + 1) % travelModes.length)}>
+					Travel Mode: {travelModes[travelMode]}
+				</button>
+				{router.pathname !== '/' &&
+					<Link href='/'>To Home</Link>
+				}
 			</div>
 		</div>
 	)

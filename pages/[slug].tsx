@@ -1,9 +1,10 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Background from '../components/Background';
 import Bubble from '../components/Bubble';
+import BrowserMovement from '../components/MovementControl/Browser';
+import EdgeScrollMovement from '../components/MovementControl/EdgeScroll';
 import Settings from '../components/Settings';
 import { IBubble } from '../lib/bubbleData/_shared';
 
@@ -11,13 +12,13 @@ import { IBubble } from '../lib/bubbleData/_shared';
 const BubblePage: NextPage = () => {
   const router = useRouter();
 
-  const [bubbles, setBubbles] = React.useState<IBubble[]>([]);
-
+  const [bubbles, setBubbles] = useState<IBubble[]>([]);
+  const [travelMode, setTravelMode] = useState(0);
   
   useEffect(() => {
     scrollTo(1000 - (window.innerWidth / 2), 1000 - (window.innerHeight / 2));
   }, []);
-  
+
   useEffect(() => {
     let projectPath = router.query.slug;
     if (router.pathname === '/') projectPath = 'homepage';
@@ -28,8 +29,9 @@ const BubblePage: NextPage = () => {
 
   return (
     <>
-      <Background bubbles={bubbles}/>
-      <Settings/>
+      <Background
+        bubbles={bubbles}
+      />
       <div id='MainContent'>
         {bubbles.map((bubble: IBubble, index: number) => (
           <Bubble
@@ -40,6 +42,12 @@ const BubblePage: NextPage = () => {
           />
         ))}
       </div>
+      {travelMode === 0 && <BrowserMovement/>}
+      {travelMode === 1 && <EdgeScrollMovement/>}
+      <Settings
+        setTravelMode={setTravelMode}
+        travelMode={travelMode}
+      />
     </>
   )
 }
