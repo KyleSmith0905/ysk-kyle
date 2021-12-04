@@ -1,6 +1,23 @@
 {
-  "name": "portfolio",
-  "private": true,
+  "name": "ysk-kyle",
+  "version": "1.1.0",
+  "description": "A portfolio website for Kyle Smith to showcase his programming and web design experience.",
+  "keywords": ["portfolio", "programming", "resume", "web design", "experience", "frontend programmer"],
+  "homepage": "https://yskkyle.com",
+  "bugs": {
+    "url": "https://github.com/KyleSmith0905/ysk-kyle/issues",
+    "email": "kylesmith090502@gmail.com"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Kyle Smith",
+    "email": "kylesmith090502@gmail.com",
+    "url": "https://yskkyle.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KyleSmith0905/ysk-kyle"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -8,14 +25,15 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "12.0.4",
-    "react": "17.0.2"
+    "next": "~12.0.4",
+    "react": "~17.0.2"
   },
   "devDependencies": {
-    "@types/node": "16.11.8",
-    "@types/react": "17.0.35",
-    "eslint": "7.32.0",
-    "eslint-config-next": "12.0.4",
-    "typescript": "4.5.2"
-  }
+    "@types/node": "~16.11.8",
+    "@types/react": "~17.0.35",
+    "eslint": "~7.32.0",
+    "eslint-config-next": "~12.0.4",
+    "typescript": "~4.5.2"
+  },
+  "private": false
 }
