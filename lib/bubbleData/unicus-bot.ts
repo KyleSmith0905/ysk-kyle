@@ -20,7 +20,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		radius: 106,
 	},
 	{
-		id: 'games',
+		id: 'gameCommands',
 		name: 'Game Commands',
 		summary: 'Unicus allows two users to play live games of Chess, pictionary, and a deception game against each other.',
 		image: 'fun-commands',
@@ -28,7 +28,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		radius: 108,
 	},
 	{
-		id: 'games',
+		id: 'jobCommands',
 		name: 'Job Commands',
 		summary: 'Unicus has commands for users to establish corporations and recruit other users to work for them. Jobs require you to decode information from an image.',
 		image: 'job-commands',
@@ -36,7 +36,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		radius: 118,
 	},
 	{
-		id: 'games',
+		id: 'governmentCommands',
 		name: 'Government Commands',
 		summary: 'Unicus\'s main goal was to recreate democracy. Any user can join an election for governer of a subregion.',
 		image: 'government-commands',
