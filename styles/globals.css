@@ -12,10 +12,6 @@ body {
   height: var(--size);
 }
 
-* {
-  box-sizing: border-box;
-}
-
 a {
   color: inherit;
   text-decoration: none;
@@ -108,6 +104,7 @@ button {
   justify-content: center;
   flex-direction: column;
   position: absolute;
+  box-sizing: border-box;
   border-radius: 50%;
   padding: 1em;
   background-color: hsl(0, 0%, 100%);
@@ -163,7 +160,6 @@ a.Bubble:focus-visible, a.Bubble:hover {
 	left: 0;
 	top: 0;
 	pointer-events: none;
-
 	transition: opacity ease-in-out 250ms;
 }
 
