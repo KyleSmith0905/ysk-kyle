@@ -1,10 +1,8 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import { IBubble } from '../lib/bubbleData/_shared';
 import { IsArrayNaN } from '../lib/utils';
 
 const Circle: FunctionComponent<{bubbles: IBubble[]}> = ({bubbles}) => {
-
-	const [path, setPath] = useState('');
 
 	useEffect(() => {
 		let requestId = 0;
@@ -14,6 +12,9 @@ const Circle: FunctionComponent<{bubbles: IBubble[]}> = ({bubbles}) => {
 		}
 
 		const renderBackground = () => {
+
+			const backgroundPath = document.getElementById('BackgroundPath');
+			if (backgroundPath === null) return;
 
 			let localPath = '';
 
@@ -25,7 +26,7 @@ const Circle: FunctionComponent<{bubbles: IBubble[]}> = ({bubbles}) => {
 				localPath += 'M' + positionToString(connection.position) + 'L' + positionToString(bubble.position);
 			}
 			
-			setPath(localPath);
+			backgroundPath.setAttribute('d', localPath);
 			requestId = requestAnimationFrame(renderBackground);
 		};
 
@@ -40,9 +41,11 @@ const Circle: FunctionComponent<{bubbles: IBubble[]}> = ({bubbles}) => {
 			width={2000}
 		>
 			<path
-				d={path}
+				id='BackgroundPath'
+				d=''
 				stroke='black'
 				strokeWidth={2}
+				fill='none'
 			/>
 		</svg>
 	)
