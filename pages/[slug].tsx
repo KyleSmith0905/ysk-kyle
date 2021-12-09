@@ -23,6 +23,7 @@ const BubblePage: NextPage = () => {
   useEffect(() => {
     let projectPath = router.query.slug;
     if (router.pathname === '/') projectPath = 'homepage';
+    else if (router.pathname === '/404') projectPath = '404';
     if (projectPath === undefined) return;
 
     setBubbles(require('../lib/bubbleData/' + projectPath).default.reverse());
