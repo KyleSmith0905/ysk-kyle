@@ -1,4 +1,5 @@
-import { NextPage } from 'next';
+import { readdir, readdirSync } from 'fs';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Background from '../components/Background';
@@ -53,3 +54,21 @@ const BubblePage: NextPage = () => {
 }
 
 export default BubblePage;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const allPaths = readdirSync('lib/bubbleData')
+  const paramsFormat = allPaths.filter(path => !path.startsWith('_')).map(path => ({ params: { slug: path.replace('.ts', '') } }));
+
+  return {
+    paths: [...paramsFormat],
+    fallback: false,
+  }
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  return {
+    props: {
+      slug: params?.slug,
+    },
+  }
+}
