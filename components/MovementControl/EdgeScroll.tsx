@@ -11,25 +11,30 @@ const EdgeScrollMovement: FunctionComponent = () => {
 
 		drawEdgeScroller();
 		
-		window.addEventListener('resize', () => {
-			drawEdgeScroller();
-		})
-		document.addEventListener('mousemove', (e) => {
-			mousePosition = {x: e.clientX, y: e.clientY};
-		});
-		document.addEventListener('mouseleave', () => {
+		const resizeEvent = () => drawEdgeScroller();
+		const mouseMoveEvent = (e: MouseEvent) => mousePosition = {x: e.clientX, y: e.clientY};
+		const mouseEnterEvent = () => setDisplayVignette(false);
+		const mouseLeaveEvent = () => {
 			mousePosition = {x: window.innerWidth * 0.5, y: window.innerHeight * 0.5};
 			setDisplayVignette(true);
-		});
-		document.addEventListener('mouseenter', () => {
-			setDisplayVignette(false);
-		});
+		};
 
+		window.addEventListener('resize', resizeEvent);
+		document.addEventListener('mousemove', mouseMoveEvent);
+		document.addEventListener('mouseenter', mouseEnterEvent);
+		document.addEventListener('mouseleave', mouseLeaveEvent);
+		
     const interval = setInterval(() => {
       edgeScrolling(mousePosition);
     }, 30)
 
-    return () => clearInterval(interval);
+    return () => {
+			window.removeEventListener('resize', resizeEvent);
+			document.removeEventListener('mousemove', mouseMoveEvent);
+			document.removeEventListener('mouseenter', mouseEnterEvent);
+			document.removeEventListener('mouseleave', mouseLeaveEvent);
+			clearInterval(interval);
+		};
   }, []);
 
 	return (
