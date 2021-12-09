@@ -19,6 +19,7 @@ export const edgeScrolling = (mousePosition: {x: number, y: number}) => {
 
 export const drawEdgeScroller = () => {
 	const background = document.getElementById('EdgeScroller') as HTMLCanvasElement;
+	if (background === undefined) return;
 
 	background.width = window.innerWidth;
 	background.height = window.innerHeight;
