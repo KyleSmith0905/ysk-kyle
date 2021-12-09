@@ -2,26 +2,28 @@ import { Dispatch, FunctionComponent, SetStateAction, useEffect, useState } from
 import Image from 'next/image';
 import { IBubble } from '../lib/bubbleData/_shared';
 import { driftAround, moveToPosition } from '../lib/bubblePhysics';
+import { IsArraysEqual } from '../lib/utils';
 
 
 const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles: Dispatch<SetStateAction<IBubble[]>>}> = ({bubble, bubbles, setBubbles}) => {
-	
+
 	const [hidden, setHidden] = useState(true);
 
 	useEffect(() => {
 		let requestId = 0;
 		const performPhysics = () => {
+			let oldBubbleDeployPosition = bubble.deployPosition;
 			const bubbleElement = document.getElementById(bubble.id);
-			
+
 			moveToPosition(bubble, bubbles);
 			driftAround(bubble, bubbles);
-			
-			
+
 			if (isNaN(bubble.position[0]) === false) setHidden(false);
-			if (bubbleElement === null) return requestAnimationFrame(performPhysics);
+			if (bubbleElement === null) return requestId = requestAnimationFrame(performPhysics);
+
 			bubbleElement.style.transform = 'translate(' + (bubble.position[0] * 20 - bubble.radius) + 'px, ' + (bubble.position[1] * 20 - bubble.radius) + 'px)';
-			setBubbles(bubbles);
-	
+			if (IsArraysEqual(oldBubbleDeployPosition, bubble.deployPosition)) setBubbles(bubbles);
+
 			requestId = requestAnimationFrame(performPhysics);
 		}
 
@@ -30,7 +32,7 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 		
 		return () => cancelAnimationFrame(requestId);
 	}, []);
-	
+
 	const BubbleTag = bubble.link === undefined ? 'div' : 'a';
 	const isExternalSite = Boolean(bubble.link?.match(/^https?:\/\//));
 
