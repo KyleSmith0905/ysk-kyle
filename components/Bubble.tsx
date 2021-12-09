@@ -6,11 +6,11 @@ import { driftAround, moveToPosition } from '../lib/bubblePhysics';
 
 const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles: Dispatch<SetStateAction<IBubble[]>>}> = ({bubble, bubbles, setBubbles}) => {
 	
-	const [timerID, setTimerID] = useState<NodeJS.Timer>();
 	const [hidden, setHidden] = useState(true);
 
-	const timerInterval = () => {		
-		const timer = setInterval(() => {
+	useEffect(() => {
+		let requestId = 0;
+		const performPhysics = () => {
 			const bubbleElement = document.getElementById(bubble.id);
 			
 			moveToPosition(bubble, bubbles);
@@ -18,21 +18,17 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 			
 			
 			if (isNaN(bubble.position[0]) === false) setHidden(false);
-			if (bubbleElement === null) return;
+			if (bubbleElement === null) return requestAnimationFrame(performPhysics);
 			bubbleElement.style.transform = 'translate(' + (bubble.position[0] * 20 - bubble.radius) + 'px, ' + (bubble.position[1] * 20 - bubble.radius) + 'px)';
 			setBubbles(bubbles);
-		}, 30);
-
-		setTimerID(timer);
-	}
-
-	useEffect(() => {
-		if (isNaN(bubble.position[0]) === false) setHidden(false);
-		timerInterval();
-		
-		return () => {
-			if (timerID) clearInterval(timerID);
+	
+			requestId = requestAnimationFrame(performPhysics);
 		}
+
+		if (isNaN(bubble.position[0]) === false) setHidden(false);
+		requestId = requestAnimationFrame(performPhysics);
+		
+		return () => cancelAnimationFrame(requestId);
 	}, []);
 	
 	const BubbleTag = bubble.link === undefined ? 'div' : 'a';
@@ -55,8 +51,7 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 			<Image
 				src={'/images/' + bubble.image + '.png'}
 				alt={bubble.name}
-				quality={75}
-				placeholder='empty'
+				quality={50}
 				priority={true}
 				layout='intrinsic'
 				width={bubble.radius * 2}
@@ -90,7 +85,7 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 						className='BackgroundImage'
 						src={'/images/' + bubble.image + '.png'}
 						alt={bubble.name}
-						quality={5}
+						quality={1}
 						priority={false}
 						width={bubble.radius * 2}
 						height={bubble.radius * 2}
