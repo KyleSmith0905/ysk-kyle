@@ -1,10 +1,11 @@
-import { readdir, readdirSync } from 'fs';
+import { readdirSync } from 'fs';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Background from '../components/Background';
 import Bubble from '../components/Bubble';
 import BrowserMovement from '../components/MovementControl/Browser';
+import ControlStickMovement from '../components/MovementControl/ControlStick';
 import EdgeScrollMovement from '../components/MovementControl/EdgeScroll';
 import Settings from '../components/Settings';
 import { IBubble } from '../lib/bubbleData/_shared';
@@ -46,6 +47,7 @@ const BubblePage: NextPage = () => {
       </div>
       {travelMode === 0 && <BrowserMovement/>}
       {travelMode === 1 && <EdgeScrollMovement/>}
+      {travelMode === 2 && <ControlStickMovement/>}
       <Settings
         setTravelMode={setTravelMode}
         travelMode={travelMode}

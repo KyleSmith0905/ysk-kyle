@@ -10,7 +10,7 @@ const HomeSVG: FunctionComponent<{setTravelMode: Dispatch<SetStateAction<number>
 		setSettingsOpen(!settingsOpen);
 	}
 
-	const travelModes = ['Browser', 'Edge Scrolling']
+	const travelModes = ['Browser', 'Edge Scrolling', 'Control Stick']
 
 	return (
 		<div id='Settings'>
