@@ -6,8 +6,6 @@ const ControlStickMovement: FunctionComponent = () => {
 	const [isGrabbing, setIsGrabbing] = useState(false);
 
   useEffect(() => {
-		document.documentElement.style.overflow = 'hidden';
-
 		const handle = document.getElementById('ControlStickHandle');
 		const base = document.getElementById('ControlStickBase');
 		if (handle === null || base === null) return;

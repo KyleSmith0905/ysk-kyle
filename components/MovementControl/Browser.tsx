@@ -1,10 +1,13 @@
-import { FunctionComponent, useEffect, useState } from 'react';
-import { edgeScrolling } from '../../lib/edgeScrolling';
+import { FunctionComponent, useEffect } from 'react';
 
 const BrowserMovement: FunctionComponent = () => {
 
   useEffect(() => {
 		document.documentElement.style.overflow = 'auto';
+
+		return () => {
+			document.documentElement.style.overflow = 'hidden';
+		}
   }, []);
 
 	return (

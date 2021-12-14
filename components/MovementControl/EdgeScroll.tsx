@@ -6,7 +6,6 @@ const EdgeScrollMovement: FunctionComponent = () => {
 	const [displayVignette, setDisplayVignette] = useState(false);
 
   useEffect(() => {
-		document.documentElement.style.overflow = 'hidden';
 		let mousePosition = {x: 0, y: 0};
 
 		drawEdgeScroller();
