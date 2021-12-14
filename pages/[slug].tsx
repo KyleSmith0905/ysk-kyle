@@ -7,6 +7,7 @@ import Bubble from '../components/Bubble';
 import BrowserMovement from '../components/MovementControl/Browser';
 import ControlStickMovement from '../components/MovementControl/ControlStick';
 import EdgeScrollMovement from '../components/MovementControl/EdgeScroll';
+import PanoramaMovement from '../components/MovementControl/Panorama';
 import Settings from '../components/Settings';
 import { IBubble } from '../lib/bubbleData/_shared';
 
@@ -45,9 +46,10 @@ const BubblePage: NextPage = () => {
           />
         ))}
       </div>
-      {travelMode === 0 && <BrowserMovement/>}
+      {travelMode === 3 && <BrowserMovement/>}
       {travelMode === 1 && <EdgeScrollMovement/>}
       {travelMode === 2 && <ControlStickMovement/>}
+      {travelMode === 0 && <PanoramaMovement/>}
       <Settings
         setTravelMode={setTravelMode}
         travelMode={travelMode}
