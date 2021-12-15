@@ -16,6 +16,7 @@ const HomeSVG: FunctionComponent<{setTravelMode: Dispatch<SetStateAction<number>
 		<div id='Settings'>
 			<button
 				onClick = {toggleSettings}
+				id='DisplaySettings'
 				aria-label = 'DisplaySettings'
 			>
 				<svg width='50' height='50'>

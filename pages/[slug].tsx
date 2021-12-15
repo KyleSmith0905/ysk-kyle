@@ -1,5 +1,6 @@
 import { readdirSync } from 'fs';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Background from '../components/Background';
@@ -14,6 +15,10 @@ import { IBubble } from '../lib/bubbleData/_shared';
 
 const BubblePage: NextPage = () => {
   const router = useRouter();
+  let slug = router.query.slug;
+  if (router.asPath === '/') slug = 'homepage';
+  else if (typeof(slug) !== 'string') slug = '404';
+  const slugFormated = slug.split('-').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
 
   const [bubbles, setBubbles] = useState<IBubble[]>([]);
   const [travelMode, setTravelMode] = useState(0);
@@ -23,16 +28,20 @@ const BubblePage: NextPage = () => {
   }, []);
 
   useEffect(() => {
-    let projectPath = router.query.slug;
-    if (router.pathname === '/') projectPath = 'homepage';
-    else if (router.pathname === '/404') projectPath = '404';
+    let projectPath = slug;
     if (projectPath === undefined) return;
 
     setBubbles(require('../lib/bubbleData/' + projectPath).default.reverse());
-  }, [router.query, router.pathname]);
+  }, [slug, router.pathname]);
 
   return (
     <>
+      <Head>
+        <title>{slugFormated} | YSK Kyle - A portfolio website for Kyle Smith</title>
+        <meta property='og:title' content={slugFormated + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
+        <meta name='twitter:title' content={slugFormated + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
+        <link rel='canonical' href={'https://yskkyle/' + slug}/>
+      </Head>
       <Background
         bubbles={bubbles}
       />
@@ -46,10 +55,10 @@ const BubblePage: NextPage = () => {
           />
         ))}
       </div>
-      {travelMode === 3 && <BrowserMovement/>}
+      {travelMode === 0 && <BrowserMovement/>}
       {travelMode === 1 && <EdgeScrollMovement/>}
       {travelMode === 2 && <ControlStickMovement/>}
-      {travelMode === 0 && <PanoramaMovement/>}
+      {travelMode === 3 && <PanoramaMovement/>}
       <Settings
         setTravelMode={setTravelMode}
         travelMode={travelMode}
