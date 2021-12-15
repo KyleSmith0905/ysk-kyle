@@ -24,7 +24,7 @@ const SetValuesElseNaN = (value: [number, number] | undefined): [number, number]
 	else {
 		return value;
 	}
-}
+};
 
 export const PadBubblePositions = (bubbles: IBubbleWithoutPosition[]): IBubble[] => {
 	// @ts-ignore
@@ -33,10 +33,10 @@ export const PadBubblePositions = (bubbles: IBubbleWithoutPosition[]): IBubble[]
 			position: SetValuesElseNaN(obj.position),
 			pivotPosition: SetValuesElseNaN(obj.pivotPosition),
 			deployPosition: SetValuesElseNaN(obj.deployPosition),
-		}
+		};
 		return Object.assign(obj, newProperties);
 	});
 	return output;
-}
+};
 
-export type {IBubble, IBubbleWithoutPosition}
+export type {IBubble, IBubbleWithoutPosition};

@@ -22,14 +22,14 @@ const ControlStickMovement: FunctionComponent = () => {
 			handle.style.transform = '';
 			localIsGrabbing = false;
 			setIsGrabbing(false);
-		}
+		};
 		const mouseMoveEvent = (e: MouseEvent) => {
 			const baseBounding = base.getBoundingClientRect();
 			relativeMousePosition = [
 				e.clientX - (baseBounding.left + baseBounding.width / 2),
 				e.clientY - (baseBounding.top + baseBounding.height / 2),
 			];
-		}			
+		};			
 		handle.addEventListener('mousedown', mouseDownEvent);
 		document.addEventListener('mouseup', mouseUpEvent);
 		document.addEventListener('mousemove', mouseMoveEvent);
@@ -43,14 +43,14 @@ const ControlStickMovement: FunctionComponent = () => {
 			handle.style.transform = 'translate(' +
 				Math.round(movePosition[0]) + 'px,' +
 				Math.round(movePosition[1]) + 'px)';
-		}, 30)
+		}, 30);
 
 		return () => {
 			clearInterval(interval);
 			handle.removeEventListener('mousedown', mouseDownEvent);
 			document.removeEventListener('mouseup', mouseUpEvent);
 			document.removeEventListener('mousemove', mouseMoveEvent);
-		}
+		};
 
 	}, []);
 
@@ -63,8 +63,8 @@ const ControlStickMovement: FunctionComponent = () => {
 				strokeWidth={5}
 				stroke='#ccc'
 			/>
-		)
-	}
+		);
+	};
 
 	return (
 		<div id='ControlStickContainer'>
@@ -80,6 +80,6 @@ const ControlStickMovement: FunctionComponent = () => {
 			</svg>
 		</div>
 	);
-}
+};
 
 export default ControlStickMovement;

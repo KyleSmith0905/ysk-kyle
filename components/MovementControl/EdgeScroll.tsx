@@ -25,7 +25,7 @@ const EdgeScrollMovement: FunctionComponent = () => {
 		
     const interval = setInterval(() => {
       edgeScrolling(mousePosition);
-    }, 30)
+    }, 30);
 
     return () => {
 			window.removeEventListener('resize', resizeEvent);
@@ -38,7 +38,7 @@ const EdgeScrollMovement: FunctionComponent = () => {
 
 	return (
 		<canvas id='EdgeScroller' className={displayVignette ? '' : 'DisplayVignette'}/>
-	)
-}
+	);
+};
 
 export default EdgeScrollMovement;

@@ -9,7 +9,7 @@ const Circle: FunctionComponent<{bubbles: IBubble[]}> = ({bubbles}) => {
 
 		const positionToString = (position: number[]): string => {
 			return (position[0] * 20).toFixed(2) + ',' + (position[1] * 20).toFixed(2);
-		}
+		};
 
 		const renderBackground = () => {
 
@@ -48,7 +48,7 @@ const Circle: FunctionComponent<{bubbles: IBubble[]}> = ({bubbles}) => {
 				fill='none'
 			/>
 		</svg>
-	)
-}
+	);
+};
 
 export default Circle;

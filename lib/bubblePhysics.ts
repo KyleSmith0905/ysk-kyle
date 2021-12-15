@@ -5,8 +5,9 @@ import { IsArraysEqual, IsArrayNaN, Pythagorean, IsCollideWithBubbles, IsNumberB
 /**
  * Slightly moves around a bubble to simulate slight fluid motion.
  * @param {IBubble} bubble - The bubble's information.
- * @returns {[number, number]} - The new bubble's position.
- */
+ * @param {IBubble[]} bubbles - All bubbles' information.
+ * @return {[number, number]} - The new bubble's position.
+*/
 const driftAround = (bubble: IBubble, bubbles: IBubble[]): [number, number] => {
 	if (IsArrayNaN(bubble.position)) {
 		return bubble.position;
@@ -23,8 +24,8 @@ const driftAround = (bubble: IBubble, bubbles: IBubble[]): [number, number] => {
 		
 	const offset = index * 60000;
 	
-	const angle = currentAngle + ((Noise2D(Date.now() * 1e-4 - offset) - 0.5) * 0.05);
-	const distance = Noise2D(Date.now() * 1e-4 - offset + 30000) * bubble.radius * 0.005;
+	const angle = currentAngle + ((Noise2D(Date.now() * 1e-4 - offset) - 0.5) * 0.025);
+	const distance = Noise2D(Date.now() * 2e-6 - offset + 30000) * bubble.radius * 0.005;
 	
 
 	position[0] = bubble.pivotPosition[0] + Math.cos(angle) * distance;
@@ -33,16 +34,17 @@ const driftAround = (bubble: IBubble, bubbles: IBubble[]): [number, number] => {
 	bubble.position = position;
 	
 	return position;
-}
+};
 	
 /**
  * Slides a bubble to a position.
- * @param {IBubble} bubbleInfo - The bubble's information.
- * @returns {[number, number]} - The new bubble's position.
+ * @param {IBubble} bubble - The bubble's information.
+ * @param {IBubble[]} bubbles - All bubbles' information.
+ * @return {[number, number]} - The new bubble's position.
 */
 const moveToPosition = (bubble: IBubble, bubbles: IBubble[]): [number, number] => {
 	if (IsArrayNaN(bubble.position)) {
-		const connection = bubbles.find(e => e.id === bubble.connection)
+		const connection = bubbles.find(e => e.id === bubble.connection);
 		if (connection === undefined) return bubble.position;
 		
 		if (IsArrayNaN(connection.position)) return bubble.position;
@@ -57,7 +59,7 @@ const moveToPosition = (bubble: IBubble, bubbles: IBubble[]): [number, number] =
 		const deployPosition: [number, number] = [
 			connection.deployPosition[0] + Math.cos(deployAngle) * distance,
 			connection.deployPosition[1] + Math.sin(deployAngle) * distance,
-		]
+		];
 
 		if (IsCollideWithBubbles([...deployPosition, bubble.radius], bubbles.map(e => [...e.deployPosition, e.radius]))) {
 			return bubble.position;
@@ -101,13 +103,13 @@ const moveToPosition = (bubble: IBubble, bubbles: IBubble[]): [number, number] =
 
 		bubble.pivotPosition[0] = (
 			orbitBubble.pivotPosition[0]
-			+ Math.cos(pivotAngle + (differenceAngle * 0.02))
-			* (pivotDistance + (differenceDistance * 0.02))
+			+ Math.cos(pivotAngle + (differenceAngle * 0.013))
+			* (pivotDistance + (differenceDistance * 0.013))
 		);
 		bubble.pivotPosition[1] = (
 			orbitBubble.pivotPosition[1]
-			+ Math.sin(pivotAngle + (differenceAngle * 0.02))
-			* (pivotDistance + (differenceDistance * 0.02))
+			+ Math.sin(pivotAngle + (differenceAngle * 0.013))
+			* (pivotDistance + (differenceDistance * 0.013))
 		);
 
 		bubble.position = bubble.pivotPosition;
@@ -122,7 +124,7 @@ const moveToPosition = (bubble: IBubble, bubbles: IBubble[]): [number, number] =
 		return bubble.position;
 	}
 	return bubble.position;
-}
+};
 
 
 export {driftAround, moveToPosition};

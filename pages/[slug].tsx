@@ -18,7 +18,7 @@ const BubblePage: NextPage = () => {
   let slug = router.query.slug;
   if (router.asPath === '/') slug = 'homepage';
   else if (typeof(slug) !== 'string') slug = '404';
-  const slugFormated = slug.split('-').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
+  const slugFormated = slug.split('-').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
 
   const [bubbles, setBubbles] = useState<IBubble[]>([]);
   const [travelMode, setTravelMode] = useState(0);
@@ -37,7 +37,7 @@ const BubblePage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{slugFormated} | YSK Kyle - A portfolio website for Kyle Smith</title>
+        <title>{slugFormated + '| YSK Kyle - A portfolio website for Kyle Smith'}</title>
         <meta property='og:title' content={slugFormated + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
         <meta name='twitter:title' content={slugFormated + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
         <link rel='canonical' href={'https://yskkyle/' + slug}/>
@@ -64,25 +64,25 @@ const BubblePage: NextPage = () => {
         travelMode={travelMode}
       />
     </>
-  )
-}
+  );
+};
 
 export default BubblePage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allPaths = readdirSync('lib/bubbleData')
+  const allPaths = readdirSync('lib/bubbleData');
   const paramsFormat = allPaths.filter(path => !path.startsWith('_')).map(path => ({ params: { slug: path.replace('.ts', '') } }));
 
   return {
     paths: [...paramsFormat],
     fallback: false,
-  }
-}
+  };
+};
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       slug: params?.slug,
     },
-  }
-}
+  };
+};

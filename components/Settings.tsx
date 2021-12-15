@@ -8,9 +8,9 @@ const HomeSVG: FunctionComponent<{setTravelMode: Dispatch<SetStateAction<number>
 	const [settingsOpen, setSettingsOpen] = useState(false);
 	const toggleSettings = () =>  {
 		setSettingsOpen(!settingsOpen);
-	}
+	};
 
-	const travelModes = ['Browser', 'Edge Scrolling', 'Control Stick', 'Panorama']
+	const travelModes = ['Browser', 'Edge Scrolling', 'Control Stick', 'Panorama'];
 
 	return (
 		<div id='Settings'>
@@ -40,7 +40,7 @@ const HomeSVG: FunctionComponent<{setTravelMode: Dispatch<SetStateAction<number>
 				}
 			</div>
 		</div>
-	)
-}
+	);
+};
 
 export default HomeSVG;

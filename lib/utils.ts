@@ -3,26 +3,26 @@
  * @param {number} value - The number to check.
  * @param {number} min - The minimum value.
  * @param {number} max - The maximum value.
- * @returns {boolean} Returns true if value is between min and max.
+ * @return {boolean} Returns true if value is between min and max.
  */
-const IsNumberBetween = (value: number, a: number, b: number) => {
-	return value < b&& value > a;
-}
+const IsNumberBetween = (value: number, min: number, max: number): boolean => {
+	return value < max && value > min;
+};
 
 /**
  * Checks all numbers in array to see if any are NaN.
- * @param {number[]} coordinates - An array of numbers.
- * @returns {boolean} Returns true if any value in array is NaN.
+ * @param {array} coordinates - An array of numbers.
+ * @return {boolean} Returns true if any value in array is NaN.
  */
 const IsArrayNaN = (coordinates: number[]): boolean => {
 	return coordinates.some(coordinate => isNaN(coordinate));
-}
+};
 
 /**
  * Compares two arrays of any data type.
- * @param {any[]} array1 - The first array to compare.
- * @param {any[]} array2 - The second array to compare.
- * @returns {boolean} Returns true if arrays are equal.
+ * @param {array} array1 - The first array to compare.
+ * @param {array} array2 - The second array to compare.
+ * @return {boolean} Returns true if arrays are equal.
  */
 const IsArraysEqual = (array1: any[] | undefined, array2: any[] | undefined): boolean => {
 	if (
@@ -40,24 +40,24 @@ const IsArraysEqual = (array1: any[] | undefined, array2: any[] | undefined): bo
 	}
 
 	return true;
-}
+};
 
 /**
  * Calculates the distance between two points (one from the center, one at (x, y)) using pythagorean theorem.
  * @param {number} x - The x coordinate.
  * @param {number} y - The y coordinate.
- * @returns {number} Returns the distance between two points.
+ * @return {number} Returns the distance between two points.
  */
 const Pythagorean = (x: number, y: number): number => {
 	return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-}
+};
 
 /**
  * Compares a bubble with all other bubbles to see if it may overlap.
  * @param {[number, number]} bubble - The coordinates to check.
- * @param {[number, number][]} bubbles - The array of coordinates to check against.
+ * @param {array} bubbles - The array of coordinates to check against.
  * @param {number} distance - The distance between bubbles.
- * @returns {number[]} Returns indexes of bubbles that overlap.
+ * @return {array} Returns indexes of bubbles that overlap.
  */
 const CoordinateCollisions = (bubble: [number, number, number], bubbles: [number, number, number][]): number[] => {
 	let overlapping = [];
@@ -70,18 +70,18 @@ const CoordinateCollisions = (bubble: [number, number, number], bubbles: [number
 	}
 
 	return overlapping;
-}
+};
 
 /**
  * Compares a bubble with all other bubbles to see if it may overlap.
  * @param {[number, number]} bubble - The coordinates to check.
- * @param {[number, number][]} bubbles - The array of coordinates to check against.
+ * @param {array} bubbles - The array of coordinates to check against.
  * @param {number} distance - The distance between bubbles.
- * @returns {boolean} Returns true if bubbles collide.
+ * @return {boolean} Returns true if bubbles collide.
 */
 const IsCollideWithBubbles = (bubble: [number, number, number], bubbles: [number, number, number][]): boolean => {
 	return CoordinateCollisions(bubble, bubbles).length > 0;
-}
+};
 
 
 export {IsNumberBetween, IsArrayNaN, IsArraysEqual, Pythagorean, CoordinateCollisions, IsCollideWithBubbles};

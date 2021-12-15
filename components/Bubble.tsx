@@ -25,18 +25,18 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 			if (IsArraysEqual(oldBubbleDeployPosition, bubble.deployPosition)) setBubbles(bubbles);
 
 			requestId = requestAnimationFrame(performPhysics);
-		}
+		};
 
 		if (isNaN(bubble.position[0]) === false) setHidden(false);
 		requestId = requestAnimationFrame(performPhysics);
 		
 		return () => cancelAnimationFrame(requestId);
-	}, []);
+	}, [bubble, bubbles, setBubbles]);
 
 	const BubbleTag = bubble.link === undefined ? 'div' : 'a';
 	const isExternalSite = Boolean(bubble.link?.match(/^https?:\/\//));
 
-	if (hidden) return <></>
+	if (hidden) return <></>;
 	else if (bubble.summary === undefined) return (
 		<BubbleTag 
 			id={bubble.id}
@@ -61,7 +61,7 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 				objectFit='cover'
 			/>
 		</BubbleTag>
-	)
+	);
 	else return (
 		<BubbleTag
 			id={bubble.id}
@@ -97,7 +97,7 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 				</div>
 			}
 		</BubbleTag>
-	)
-}
+	);
+};
 
 export default Bubble;

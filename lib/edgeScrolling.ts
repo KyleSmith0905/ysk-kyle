@@ -1,13 +1,19 @@
 import { Pythagorean } from './utils';
 
+/**
+ * Calculates where to scroll to based on the current scroll position and scrolls automatically.
+ * @param {object} mousePosition - The current mouse position.
+ */
 export const edgeScrolling = (mousePosition: {x: number, y: number}) => {
 	
 	const percentagePosition = {
 		x: mousePosition.x/window.innerWidth,
 		y: mousePosition.y/window.innerHeight
-	}
+	};
 
-	const distance = Pythagorean(percentagePosition.x - 0.5, percentagePosition.y - 0.5);
+	const distance = Pythagorean(
+		percentagePosition.x - 0.5, percentagePosition.y - 0.5
+	);
 
 	if (distance > 0.35) {
 		const angle = Math.atan2(percentagePosition.y - 0.5, percentagePosition.x - 0.5);
@@ -15,8 +21,11 @@ export const edgeScrolling = (mousePosition: {x: number, y: number}) => {
 
 		window.scrollBy(Math.cos(angle) * scalar, Math.sin(angle) * scalar);
 	}
-}
+};
 
+/**
+ * Draws the edge scroller vignette.
+ */
 export const drawEdgeScroller = () => {
 	const background = document.getElementById('EdgeScroller') as HTMLCanvasElement;
 	if (background === undefined) return;
@@ -26,7 +35,7 @@ export const drawEdgeScroller = () => {
 	const aspectRatio = background.width / background.height;
 
 	const context = background.getContext('2d');
-	if (context === null) return
+	if (context === null) return;
 	context.clearRect(0, 0, background.width, background.height);
 	
 	context.rect(0, 0, background.width, background.height);
@@ -44,4 +53,4 @@ export const drawEdgeScroller = () => {
 	context.translate(0, background.height * (aspectRatio - 1) * 0.5);
 
 	context.fill();
-}
+};

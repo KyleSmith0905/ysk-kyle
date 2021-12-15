@@ -4,14 +4,14 @@ describe('Pages', () => {
 
 		cy.visit('/lorem-ipsum', {failOnStatusCode: false});
 		cy.get('#center > h2').should('have.text', '404: Page Not Found');
-	})
+	});
 
 	it('404 on `./404`', () => {
 		cy.request({url: '404', failOnStatusCode: false}).its('status').should('eq', 404);
 
 		cy.visit('/404', {failOnStatusCode: false});
 		cy.get('#center > h2').should('have.text', '404: Page Not Found');
-	})
+	});
 
 	it('homepage on `./` and `./homepage`', () => {
 		cy.visit('/');
@@ -20,13 +20,13 @@ describe('Pages', () => {
 		
 		cy.visit('/homepage');
 		cy.get('#welcome > h2').should('have.text', 'You Should Know Kyle!');
-	})
+	});
 
 
 	it('`./[slug]`', () => {
 		cy.visit('/sorting-algorithm-visualizer');
 		cy.get('#about > h2').should('have.text', 'About Sorting Visualizer');
-	})
-})
+	});
+});
 
 export {};

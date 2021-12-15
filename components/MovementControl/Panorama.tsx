@@ -9,13 +9,13 @@ const PanoramaMovement: FunctionComponent = () => {
 		document.body.style.transform = 'scale(' + Math.min(widthScale, heightScale) + ')';
 
 		return () => {
-			document.body.style.transform = 'none'
+			document.body.style.transform = 'none';
 		};
   }, []);
 
 	return (
 		<></>
-	)
-}
+	);
+};
 
 export default PanoramaMovement;

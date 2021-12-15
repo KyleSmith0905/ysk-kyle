@@ -1,8 +1,9 @@
 import { Pythagorean } from './utils';
 
 /**
- * @param mousePosition - Relative mouse position.
- * @returns - Movement position.
+ * Calculates where the control stick is moving towards.
+ * @param {number[]} mousePosition - Relative mouse position.
+ * @return {[number, number]} - Movement position.
  */
 export const controlStickPhysics = (mousePosition: number[]): [number, number] => {
 	let angle = Math.atan2(mousePosition[1], mousePosition[0]);
@@ -11,4 +12,4 @@ export const controlStickPhysics = (mousePosition: number[]): [number, number] =
 	if (distance < 5) return [0, 0];
 
 	return [Math.cos(angle) * distance, Math.sin(angle) * distance];
-}
+};

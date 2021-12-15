@@ -7,12 +7,12 @@ const BrowserMovement: FunctionComponent = () => {
 
 		return () => {
 			document.documentElement.style.overflow = 'hidden';
-		}
+		};
   }, []);
 
 	return (
 		<></>
-	)
-}
+	);
+};
 
 export default BrowserMovement;
