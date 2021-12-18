@@ -70,50 +70,48 @@ const drawBubble = (context: CanvasRenderingContext2D, x: number, y: number, dat
 };
 
 const Summary = (req: NextApiRequest, res: NextApiResponse) => {
-	return new Promise(() => {
-		const canvas = createCanvas(750, 1000);
+	const canvas = createCanvas(750, 1000);
 
-		const context = canvas.getContext('2d', {alpha: false});
-		registerFont(path.resolve('./public/fonts/Roboto-Bold.ttf'), {family: 'Roboto', weight: 'bold'});
-		registerFont(path.resolve('./public/fonts/Roboto-Regular.ttf'), {family: 'Roboto', weight: 'normal'});
-		
-		context.fillStyle = '#fff';
-		context.fillRect(0, 0, 750, 1000);
-		context.fillStyle = '#0d1117';
-		context.fillRect(0, 0, 750, 175);
+	const context = canvas.getContext('2d', {alpha: false});
+	registerFont(path.resolve('./public/fonts/Roboto-Bold.ttf'), {family: 'Roboto', weight: 'bold'});
+	registerFont(path.resolve('./public/fonts/Roboto-Regular.ttf'), {family: 'Roboto', weight: 'normal'});
+	
+	context.fillStyle = '#fff';
+	context.fillRect(0, 0, 750, 1000);
+	context.fillStyle = '#0d1117';
+	context.fillRect(0, 0, 750, 175);
 
-		context.strokeStyle = '#0d1117';
-		context.lineWidth = 2;
-		for (let i = 0; i < 11; i++) {
-			context.beginPath();
-			context.moveTo(0, 175 + (i * 7));
-			context.lineTo(750, 175 + (i * 7));
-			context.stroke();
-		}
+	context.strokeStyle = '#0d1117';
+	context.lineWidth = 2;
+	for (let i = 0; i < 11; i++) {
+		context.beginPath();
+		context.moveTo(0, 175 + (i * 7));
+		context.lineTo(750, 175 + (i * 7));
+		context.stroke();
+	}
 
-		context.fillStyle = '#fff';
-		context.lineWidth = 4;
-		context.textAlign = 'center';
-		context;
-		context.textBaseline = 'middle';
-		
-		context.font = 'bold 55px Roboto';
-		context.fillText('Random Facts About:', 375, 50);
-		context.fillText('Kyle Smith', 375, 120);
+	context.fillStyle = '#fff';
+	context.lineWidth = 4;
+	context.textAlign = 'center';
+	context;
+	context.textBaseline = 'middle';
+	
+	context.font = 'bold 55px Roboto';
+	context.fillText('Random Facts About:', 375, 50);
+	context.fillText('Kyle Smith', 375, 120);
 
-		drawConnections(context);
+	drawConnections(context);
 
-		const randomFact = summaryFacts[Math.floor(Math.random() * summaryFacts.length)];
-		const branches = randomFact.branch.slice();
-		drawBubble(context, 375, 486, randomFact);
-		drawBubble(context, 185, 815, branches.splice(Math.floor(Math.random() * branches.length), 1)[0]);
-		drawBubble(context, 565, 815, branches.splice(Math.floor(Math.random() * branches.length), 1)[0]);
+	const randomFact = summaryFacts[Math.floor(Math.random() * summaryFacts.length)];
+	const branches = randomFact.branch.slice();
+	drawBubble(context, 375, 486, randomFact);
+	drawBubble(context, 185, 815, branches.splice(Math.floor(Math.random() * branches.length), 1)[0]);
+	drawBubble(context, 565, 815, branches.splice(Math.floor(Math.random() * branches.length), 1)[0]);
 
-		res.status(200);
-		res.setHeader('Content-Type', 'image/jpg');
-		res.end(canvas.toBuffer('image/jpeg', {quality: 0.6}));
-		return;
-	});
+	res.status(200);
+	res.setHeader('Content-Type', 'image/jpeg');
+	res.end(canvas.toBuffer('image/jpeg', {quality: 0.6}));
+	return;
 };
 
 export const config = {
