@@ -1,7 +1,7 @@
 /**
  * Generate noise using sine waves.
- * @param {number} offset - Noise offset.
- * @return {number} - The noise value.
+ * @param offset - Noise offset.
+ * @return The noise value.
  */
 const Noise2D = (offset: number): number => {
 	const value = Math.sin(2 * offset) + Math.sin(Math.PI * offset);

@@ -27,7 +27,6 @@ const SetValuesElseNaN = (value: [number, number] | undefined): [number, number]
 };
 
 export const PadBubblePositions = (bubbles: IBubbleWithoutPosition[]): IBubble[] => {
-	// @ts-ignore
 	const output: IBubble[] = bubbles.map(obj => {
 		const newProperties = {
 			position: SetValuesElseNaN(obj.position),

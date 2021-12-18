@@ -8,7 +8,7 @@ import summaryFacts from '../../lib/summaryData';
  * @param context - The canvas context to use for measuring text.
  * @param text - The text to wrap.
  * @param maxWidth - The maximum width of each line.
- * @returns - Wrapped text.
+ * @returns Wrapped text.
  */
 const wrapText = (context: CanvasRenderingContext2D, text: string, maxWidth: (localHeight: number) => number): string[] => {
 	const words = text.split(' ');

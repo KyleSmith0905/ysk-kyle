@@ -2,9 +2,9 @@ import { Pythagorean } from './utils';
 
 /**
  * Calculates where to scroll to based on the current scroll position and scrolls automatically.
- * @param {object} mousePosition - The current mouse position.
+ * @param mousePosition - The current mouse position.
  */
-export const edgeScrolling = (mousePosition: {x: number, y: number}) => {
+export const EdgeScrolling = (mousePosition: {x: number, y: number}) => {
 	
 	const percentagePosition = {
 		x: mousePosition.x/window.innerWidth,
@@ -26,7 +26,7 @@ export const edgeScrolling = (mousePosition: {x: number, y: number}) => {
 /**
  * Draws the edge scroller vignette.
  */
-export const drawEdgeScroller = () => {
+export const DrawEdgeScroller = () => {
 	const background = document.getElementById('EdgeScroller') as HTMLCanvasElement;
 	if (background === undefined) return;
 

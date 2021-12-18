@@ -28,10 +28,10 @@ const BubblePage: NextPage = () => {
   }, []);
 
   useEffect(() => {
-    let projectPath = slug;
-    if (projectPath === undefined) return;
-
-    setBubbles(require('../lib/bubbleData/' + projectPath).default.reverse());
+    (async () => {
+      const imported = (await import('../lib/bubbleData/' + slug));
+      setBubbles(imported.default.reverse());
+    })();
   }, [slug, router.pathname]);
 
   return (
@@ -70,8 +70,12 @@ const BubblePage: NextPage = () => {
 export default BubblePage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allPaths = readdirSync('lib/bubbleData');
-  const paramsFormat = allPaths.filter(path => !path.startsWith('_')).map(path => ({ params: { slug: path.replace('.ts', '') } }));
+  let allPaths = readdirSync('lib/bubbleData');
+  allPaths = allPaths.map(path => path.split('.')[0]);
+  allPaths = allPaths.filter(path => !path.startsWith('_'));
+  allPaths= allPaths.filter(path => path !== '404');
+
+  const paramsFormat = allPaths.map(path => ({ params: { slug: path } }));
 
   return {
     paths: [...paramsFormat],

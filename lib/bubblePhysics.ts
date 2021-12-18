@@ -4,9 +4,9 @@ import { IsArraysEqual, IsArrayNaN, Pythagorean, IsCollideWithBubbles, IsNumberB
 
 /**
  * Slightly moves around a bubble to simulate slight fluid motion.
- * @param {IBubble} bubble - The bubble's information.
- * @param {IBubble[]} bubbles - All bubbles' information.
- * @return {[number, number]} - The new bubble's position.
+ * @param bubble - The bubble's information.
+ * @param bubbles - All bubbles' information.
+ * @return The new bubble's position.
 */
 const driftAround = (bubble: IBubble, bubbles: IBubble[]): [number, number] => {
 	if (IsArrayNaN(bubble.position)) {
@@ -38,9 +38,9 @@ const driftAround = (bubble: IBubble, bubbles: IBubble[]): [number, number] => {
 	
 /**
  * Slides a bubble to a position.
- * @param {IBubble} bubble - The bubble's information.
- * @param {IBubble[]} bubbles - All bubbles' information.
- * @return {[number, number]} - The new bubble's position.
+ * @param bubble - The bubble's information.
+ * @param bubbles - All bubbles' information.
+ * @return The new bubble's position.
 */
 const moveToPosition = (bubble: IBubble, bubbles: IBubble[]): [number, number] => {
 	if (IsArrayNaN(bubble.position)) {

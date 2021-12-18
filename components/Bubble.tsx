@@ -12,7 +12,7 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 	useEffect(() => {
 		let requestId = 0;
 		const performPhysics = () => {
-			let oldBubbleDeployPosition = bubble.deployPosition;
+			const oldBubbleDeployPosition = bubble.deployPosition;
 			const bubbleElement = document.getElementById(bubble.id);
 
 			moveToPosition(bubble, bubbles);

@@ -1,11 +1,11 @@
 {
   "extends": [
     "eslint:recommended",
-    "next/core-web-vitals"
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
     "quotes": [2, "single", { "allowTemplateLiterals": false }],
-    "semi": [2, "always"],
-    "no-undef": [0]
+    "semi": [2, "always"]
   }
 }
