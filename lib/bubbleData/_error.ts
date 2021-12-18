@@ -3,14 +3,14 @@ import { IBubbleWithoutPosition, PadBubblePositions } from './_shared';
 const bubbleData: IBubbleWithoutPosition[] = [
 	{
 		id: 'center',
-		name: '404: Page Not Found',
-		summary: 'The page you are looking for does not exist. Feel free to go back to the home page.',
+		name: 'An Error Occurred!',
+		summary: 'An error occurred while loading the page. Make sure you are visiting the correct URL.',
 		image: 'ysk-kyle-page',
 		connection: '.',
 		position: [50, 50],
 		pivotPosition: [50, 50],
 		deployPosition: [50, 50],
-		radius: 107,
+		radius: 106,
 	},
 	{
 		id: 'home1',
