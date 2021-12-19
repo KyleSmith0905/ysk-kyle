@@ -8,14 +8,16 @@ import { IsArrayNaN, IsArraysEqual } from '../lib/utils';
 const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles: Dispatch<SetStateAction<IBubble[]>>}> = ({bubble, bubbles, setBubbles}) => {
 
 	const [hidden, setHidden] = useState(true);
-
+	
 	useEffect(() => {
 		let requestId = 0;
+		const loadTime = Date.now();
+
 		const performPhysics = () => {
 			const oldBubbleDeployPosition = bubble.deployPosition;
 			const bubbleElement = document.getElementById(bubble.id);
 
-			if (IsArrayNaN(bubble.position)) spawnBubble(bubble, bubbles);
+			if (IsArrayNaN(bubble.position)) spawnBubble(bubble, bubbles, Date.now() - loadTime);
 			else if (!IsArraysEqual(bubble.pivotPosition, bubble.deployPosition)) moveToPosition(bubble, bubbles);
 			driftAround(bubble, bubbles);
 			

@@ -1,9 +1,9 @@
 import { IBubble } from './bubbleData/_shared';
 import { Noise2D } from './noiseGenerators';
-import { IsArraysEqual, IsArrayNaN, Pythagorean, IsCollideWithBubbles, IsNumberBetween } from './utils';
+import { IsArrayNaN, Pythagorean, IsCollideWithBubbles, IsNumberBetween } from './utils';
 
 /**
- * Slightly moves around a bubble to simulate slight fluid motion.
+ * Slightly moves position around a bubble's pivot position to simulate slight fluid motion.
  * @param bubble - The bubble's information.
  * @param bubbles - All bubbles' information.
  * @return The new bubble's position.
@@ -37,20 +37,20 @@ const driftAround = (bubble: IBubble, bubbles: IBubble[]): [number, number] => {
 };
 
 /**
- * Spawns a bubble and assignes a position.
+ * Spawns a bubble around it's connection and assigns a position.
  * @param bubble - The bubble's information.
  * @param bubbles - All bubbles' information.
  */
-const spawnBubble = (bubble: IBubble, bubbles: IBubble[]) => {
+const spawnBubble = (bubble: IBubble, bubbles: IBubble[], elapsedTime: number): void => {
 	const connection = bubbles.find(e => e.id === bubble.connection);
-	if (connection === undefined) return bubble.position;
+	if (connection === undefined) return;
 	
-	if (IsArrayNaN(connection.position)) return bubble.position;
+	if (IsArrayNaN(connection.position)) return;
 
 	const pivotAngle = Math.random() * Math.PI * 2;
 	const deployAngle = pivotAngle + (Math.random() - 0.5) * Math.PI * 0.25;
 
-	const distance = (bubble.radius + connection.radius) / 20 + 0.5 + Math.random() * 4;
+	const distance = ((bubble.radius + connection.radius) / 20 + 0.5 + Math.random() * 4) + (elapsedTime / 2500);
 
 	const pivotPosition: [number, number] = [connection.pivotPosition[0], connection.pivotPosition[1]];
 
@@ -60,18 +60,16 @@ const spawnBubble = (bubble: IBubble, bubbles: IBubble[]) => {
 	];
 
 	if (IsCollideWithBubbles([...deployPosition, bubble.radius], bubbles.map(e => [...e.deployPosition, e.radius]))) {
-		return bubble.position;
+		return;
 	}
 
 	bubble.pivotPosition = pivotPosition;
 	bubble.deployPosition = deployPosition;
 	bubble.position = pivotPosition;
-
-	return bubble.position;
 };
 
 /**
- * Slides a bubble to a position.
+ * Slides a bubble from pivot position to deploy position.
  * @param bubble - The bubble's information.
  * @param bubbles - All bubbles' information.
  */
