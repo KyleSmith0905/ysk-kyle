@@ -1,8 +1,8 @@
 import { Dispatch, FunctionComponent, SetStateAction, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { IBubble } from '../lib/bubbleData/_shared';
-import { driftAround, moveToPosition } from '../lib/bubblePhysics';
-import { IsArraysEqual } from '../lib/utils';
+import { driftAround, moveToPosition, spawnBubble } from '../lib/bubblePhysics';
+import { IsArrayNaN, IsArraysEqual } from '../lib/utils';
 
 
 const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles: Dispatch<SetStateAction<IBubble[]>>}> = ({bubble, bubbles, setBubbles}) => {
@@ -15,9 +15,10 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 			const oldBubbleDeployPosition = bubble.deployPosition;
 			const bubbleElement = document.getElementById(bubble.id);
 
-			moveToPosition(bubble, bubbles);
+			if (IsArrayNaN(bubble.position)) spawnBubble(bubble, bubbles);
+			else if (!IsArraysEqual(bubble.pivotPosition, bubble.deployPosition)) moveToPosition(bubble, bubbles);
 			driftAround(bubble, bubbles);
-
+			
 			if (isNaN(bubble.position[0]) === false) setHidden(false);
 			if (bubbleElement === null) return requestId = requestAnimationFrame(performPhysics);
 
