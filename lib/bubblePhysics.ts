@@ -59,7 +59,10 @@ const spawnBubble = (bubble: IBubble, bubbles: IBubble[], elapsedTime: number): 
 		connection.deployPosition[1] + Math.sin(deployAngle) * distance,
 	];
 
-	if (IsCollideWithBubbles([...deployPosition, bubble.radius], bubbles.map(e => [...e.deployPosition, e.radius]))) {
+	if (
+		IsCollideWithBubbles([...deployPosition, bubble.radius], bubbles.map(e => [...e.deployPosition, e.radius]))
+		|| Pythagorean(50 - deployPosition[0], 50 - deployPosition[1]) * 20 > 1000 - (bubble.radius * 1.005)
+	) {
 		return;
 	}
 
