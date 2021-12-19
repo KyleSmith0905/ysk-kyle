@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
 import BubblePage from './[slug]';
 
-const MissingPage: NextPage = () => {
+const ErrorPage: NextPage = () => {
 	return <BubblePage slug='_error'/>;
 };
 
-export default MissingPage;
+export default ErrorPage;
