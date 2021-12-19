@@ -1,20 +1,20 @@
 describe('Images', () => {
 	it('Load image bubble', () => {
-		cy.visit('/sorting-algorithm-visualizer');
+		cy.visit('/devs-us');
 		
-		cy.get('#image.ImageBubble img[alt="Sorting Algorithm Visualizer Webpage"]').should('be.visible');
+		cy.get('#image.ImageBubble img[alt="Devs Us logo"]').should('be.visible');
 	});
 
 	it('Load background image in bubble', () => {
-		cy.visit('/');
+		cy.visit('/devs-us');
 		
-		cy.get('#sortingAlgorithm .BackgroundImageContainer img.BackgroundImage[alt="Sorting Visualizer"]').should('be.visible');
+		cy.get('#cursedAmongUs .BackgroundImageContainer img.BackgroundImage[alt="Cursed Among Us"]').should('be.visible');
 	});
 
 	it ('Image bubble is correct size', () => {
-		cy.visit('/sorting-algorithm-visualizer');
+		cy.visit('/devs-us');
 
-		cy.get('#image.ImageBubble img[alt="Sorting Algorithm Visualizer Webpage"]').invoke('outerWidth').should('eq', 200);
+		cy.get('#image.ImageBubble img[alt="Devs Us logo"]').invoke('outerWidth').should('eq', 200);
 		cy.get('#image.ImageBubble').invoke('outerHeight').should('eq', 200);
 	});
 });
