@@ -48,7 +48,8 @@ describe('Movement', () => {
 
 		selectMovementMethod('Panorama');
 
-		cy.get('body').should('have.attr', 'style').should('contain', 'transform: scale(0.33)');
+		cy.get('#Background').should('have.attr', 'style').should('contain', 'transform: scale(0.33)');
+		cy.get('#MainContent').should('have.attr', 'style').should('contain', 'transform: scale(0.33)');
 	});
 });
 
