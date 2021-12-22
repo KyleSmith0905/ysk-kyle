@@ -1,17 +1,17 @@
 describe('Redirects', () => {
   it('Local `a` tags redirects', () => {
-    cy.visit('/');
-    cy.get('#sortingAlgorithm').click();
+    cy.visit('/devs-us');
+    cy.get('#cursedAmongUs').click();
 
-    cy.url().should('include', '/sorting-algorithm-visualizer');
-    cy.get('#about > h2').contains('About Sorting Visualizer');
+    cy.url().should('include', '/cursed-among-us');
+    cy.get('#about > h2').contains('About Cursed Among Us');
   });
   
   it('Local `a` tags have correct attributes', () => {
-    cy.visit('/');
+    cy.visit('/devs-us');
 
-    cy.get('#sortingAlgorithm').invoke('attr', 'target').should('include', '_self');
-    cy.get('#sortingAlgorithm').invoke('attr', 'rel').should('be.empty');
+    cy.get('#cursedAmongUs').invoke('attr', 'target').should('include', '_self');
+    cy.get('#cursedAmongUs').invoke('attr', 'rel').should('be.empty');
   });
 
   it('External `a` tags redirects', () => {
