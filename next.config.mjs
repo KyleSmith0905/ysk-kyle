@@ -1,9 +1,11 @@
-
+/**
+ * @type {import('next').NextConfig}
+ */
 const configSettings = {
 	trailingSlash: false,
 	reactStrictMode: true,
   compress: true,
-	async headers() {
+	headers() {
 		return [
 			{
 				source: '/(.*)',
@@ -30,4 +32,4 @@ const configSettings = {
 	},
 };
 
-module.exports = configSettings;
+export default configSettings;
