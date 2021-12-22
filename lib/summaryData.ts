@@ -77,7 +77,7 @@ const summaryData = [
 	},
 	{
 		name: 'Philosophies',
-		summary: 'When working, I carry a few philosophies that guide my code and daily life.',
+		summary: 'When I code, I carry a few philosophies that guide my code priorities. For example: It\'s always possible to write clean, readable, performant, and safe code.',
 		branch: [
 			{
 				name: 'User Abuse',
