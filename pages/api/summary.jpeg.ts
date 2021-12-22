@@ -25,11 +25,11 @@ const drawBubble = (context: CanvasRenderingContext2D, x: number, y: number, dat
 	context.fillStyle = '#000';
 	context.font = 'bold 35px Roboto';
 	const wrappedName = wrapText(context, data.name, (e) => ((e + 1) ** 0.3) * 200);
-	// fillAlignedText(context, wrappedName, x, y - 120);
+	fillAlignedText(context, wrappedName, x, y - 120);
 	
 	context.font = '21px Roboto';
 	const wrappedSummary = wrapText(context, data.summary, (e) => Math.cos((-6.5 + e + wrappedName.length * 2) * 0.18) * 305);
-	// fillAlignedText(context, wrappedSummary, x, y + wrappedName.length * 35 - 120);
+	fillAlignedText(context, wrappedSummary, x, y + wrappedName.length * 35 - 120);
 };
 
 const Summary = async (req: NextApiRequest, res: NextApiResponse) => {
