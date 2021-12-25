@@ -3,7 +3,7 @@ import { IBubbleWithoutPosition, PadBubblePositions } from './_shared';
 const bubbleData: IBubbleWithoutPosition[] = [
 	{
 		id: 'center',
-		name: 'Merry Christmas Miranda!',
+		name: 'Merry Christmas Mom!',
 		summary: 'I hope you have a wonderful holiday season! I built you a page on my website to show you how much I love you.',
 		connection: '.',
 		position: [50, 50],
