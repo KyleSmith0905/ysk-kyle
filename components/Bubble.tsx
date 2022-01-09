@@ -1,21 +1,30 @@
 import { Dispatch, FunctionComponent, SetStateAction, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { IBubble } from '../lib/bubbleData/_shared';
-import { driftAround, moveToPosition, spawnBubble } from '../lib/bubblePhysics';
-import { IsArrayNaN, IsArraysEqual } from '../lib/utils';
+import { driftAround, moveToPosition, spawnBubble, setRandomPosition} from '../lib/bubblePhysics';
+import { IsArrayNaN, IsArraysEqual, IsUserBot, SetBubbleTransform } from '../lib/utils';
 
 
 const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles: Dispatch<SetStateAction<IBubble[]>>}> = ({bubble, bubbles, setBubbles}) => {
 
-	const [hidden, setHidden] = useState(true);
+	const [hidden, setHidden] = useState(!IsUserBot());
+	
 	
 	useEffect(() => {
-		let requestId = 0;
 		const loadTime = Date.now();
+		
+		let requestId = 0;
 
-		const performPhysics = () => {
-			const oldBubbleDeployPosition = bubble.deployPosition;
+		if (IsUserBot()) {
 			const bubbleElement = document.getElementById(bubble.id);
+			setRandomPosition(bubble);
+			SetBubbleTransform(bubble, bubbleElement);
+			return;
+		}
+		
+		const performPhysics = () => {
+			const bubbleElement = document.getElementById(bubble.id);
+			const oldBubbleDeployPosition = bubble.deployPosition;
 
 			if (IsArrayNaN(bubble.position)) spawnBubble(bubble, bubbles, Date.now() - loadTime);
 			else if (!IsArraysEqual(bubble.pivotPosition, bubble.deployPosition)) moveToPosition(bubble, bubbles);
@@ -24,7 +33,7 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 			if (isNaN(bubble.position[0]) === false) setHidden(false);
 			if (bubbleElement === null) return requestId = requestAnimationFrame(performPhysics);
 
-			bubbleElement.style.transform = 'translate(' + (bubble.position[0] * 20 - bubble.radius) + 'px, ' + (bubble.position[1] * 20 - bubble.radius) + 'px)';
+			SetBubbleTransform(bubble, bubbleElement);
 			if (IsArraysEqual(oldBubbleDeployPosition, bubble.deployPosition)) setBubbles(bubbles);
 
 			requestId = requestAnimationFrame(performPhysics);

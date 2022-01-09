@@ -1,3 +1,5 @@
+import { IBubble } from './bubbleData/_shared';
+
 /**
  * Checks if a number is between two values
  * @param value - The number to check.
@@ -81,5 +83,23 @@ const IsCollideWithBubbles = (bubble: [number, number, number], bubbles: [number
 	return CoordinateCollisions(bubble, bubbles).length > 0;
 };
 
+/**
+ * Detects if the user is a self-identified robot, crawler, or anything else.
+ * @returns Whether the user is a userbot.
+ */
+const IsUserBot = (): boolean => {
+	navigator.userAgent.toLowerCase();
+	const COMMON_BOT_NAMES = ['bot', 'crawl', 'spider', 'slurp', 'ia_archiver'];
+	if (COMMON_BOT_NAMES.some(bot => navigator.userAgent.includes(bot))) {
+		return true;
+	}
+	else return false;
+};
 
-export {IsNumberBetween, IsArrayNaN, IsArraysEqual, Pythagorean, CoordinateCollisions, IsCollideWithBubbles};
+const SetBubbleTransform = (bubble: IBubble, bubbleElement: HTMLElement | null): void => {
+	if (bubbleElement) bubbleElement.style.transform = 'translate('
+	+ (bubble.position[0] * 20 - bubble.radius) + 'px,'
+	+ (bubble.position[1] * 20 - bubble.radius) + 'px)';
+};
+
+export {IsNumberBetween, IsArrayNaN, IsArraysEqual, Pythagorean, CoordinateCollisions, IsCollideWithBubbles, IsUserBot, SetBubbleTransform};

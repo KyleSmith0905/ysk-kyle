@@ -129,5 +129,19 @@ const moveToPosition = (bubble: IBubble, bubbles: IBubble[]): [number, number] =
 	return bubble.position;
 };
 
+const setRandomPosition = (bubble: IBubble): [number, number] => {
+	const randomAngle = Math.random() * Math.PI * 2;
+	const randomDistance = Math.random() * (bubble.radius * 0.5) + (bubble.radius * 0.05);
 
-export {driftAround, spawnBubble, moveToPosition};
+	bubble.pivotPosition = [
+		50 + Math.cos(randomAngle) * randomDistance,
+		50 + Math.sin(randomAngle) * randomDistance,
+	];
+
+	bubble.deployPosition = bubble.pivotPosition;
+	bubble.position = bubble.pivotPosition;
+
+	return bubble.position;
+};
+
+export {driftAround, spawnBubble, moveToPosition, setRandomPosition};
