@@ -5,8 +5,14 @@ You Should Know Kyle is my portfolio website to display Kyle Smith's experience 
 
 ## How To Use
 
-### Travel Mode
-Click on the top-left button to open a menu, then tap on "Travel Mode" to switch between travel modes. Travel modes include:
+### Hyperlink
+If you find a bubble that is glowing blue, you may click on the bubble to bring you to another page.
+
+### Settings Panel
+Click on the top-left button to open a menu, there will be several settings listed.
+
+#### Travel Mode
+Travel modes include:
 - Browser (default): Just like a browser. Move the scroll bars or drag around to move.
 - Edge Scroller: Move your mouse to the edge of the screen to move.
 - Control Stick: Just like a video game controller. Move a stick around to move.
@@ -15,8 +21,8 @@ Click on the top-left button to open a menu, then tap on "Travel Mode" to switch
 ### Hyperlink
 If you find a bubble that is glowing blue, you may click on the bubble to bring you to another page.
 
-### Back To Home
-Click on the top-left button to open a menu, then tap on "Back To Home" to navigate back to the homepage.
+#### Back To Home
+Navigate back to the homepage.
 
 ## Contribution
 All pull requests and issues will be looked over. This site is meant to show my web development experience; therefore, I am treating pull requests as issues.
