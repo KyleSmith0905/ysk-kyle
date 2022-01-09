@@ -91,7 +91,7 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 					<Image
 						className='BackgroundImage'
 						src={'/images/' + bubble.image + '.png'}
-						alt={bubble.name}
+						alt=''
 						quality={1}
 						priority={false}
 						width={bubble.radius * 2}
