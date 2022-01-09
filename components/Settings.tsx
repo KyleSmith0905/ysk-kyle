@@ -13,7 +13,7 @@ const HomeSVG: FunctionComponent<{setTravelMode: Dispatch<SetStateAction<number>
 	const travelModes = ['Browser', 'Edge Scrolling', 'Control Stick', 'Panorama'];
 
 	return (
-		<div id='Settings'>
+		<aside id='Settings'>
 			<button
 				onClick = {toggleSettings}
 				id='DisplaySettings'
@@ -39,7 +39,7 @@ const HomeSVG: FunctionComponent<{setTravelMode: Dispatch<SetStateAction<number>
 					<Link href='/'>Back To Home</Link>
 				}
 			</div>
-		</div>
+		</aside>
 	);
 };
 

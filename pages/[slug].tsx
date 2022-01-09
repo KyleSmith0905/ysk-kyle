@@ -39,7 +39,7 @@ const BubblePage: NextPage<{slug: string}> | FunctionComponent<{slug: string}> =
       <Background
         bubbles={bubbles}
       />
-      <div id='MainContent'>
+      <main id='MainContent'>
         {bubbles.map((bubble: IBubble, index: number) => (
           <Bubble
             setBubbles={setBubbles}
@@ -48,7 +48,7 @@ const BubblePage: NextPage<{slug: string}> | FunctionComponent<{slug: string}> =
             key={index}
           />
         ))}
-      </div>
+      </main>
       {travelMode === 0 && <BrowserMovement/>}
       {travelMode === 1 && <EdgeScrollMovement/>}
       {travelMode === 2 && <ControlStickMovement/>}
