@@ -18,8 +18,11 @@ Travel modes include:
 - Control Stick: Just like a video game controller. Move a stick around to move.
 - Panorama: You can see the entire screen without having to move.
 
-### Hyperlink
-If you find a bubble that is glowing blue, you may click on the bubble to bring you to another page.
+#### Color Mode
+Color modes include:
+- Light (default): White background, black text.
+- Dark: Black background, white text.
+- Iconic: Blue and orange saturated background, white text.
 
 #### Back To Home
 Navigate back to the homepage.

@@ -43,7 +43,7 @@ const Circle: FunctionComponent<{bubbles: IBubble[]}> = ({bubbles}) => {
 			<path
 				id='BackgroundPath'
 				d=''
-				stroke='black'
+				stroke='var(--color-text)'
 				strokeWidth={2}
 				fill='none'
 			/>

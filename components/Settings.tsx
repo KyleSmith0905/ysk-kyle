@@ -1,21 +1,38 @@
-import { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
+import { Dispatch, FunctionComponent, MouseEventHandler, SetStateAction, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { COLOR_MODES } from '../lib/colorMode';
 
 const HomeSVG: FunctionComponent<{setTravelMode: Dispatch<SetStateAction<number>>, travelMode: number}> = ({setTravelMode, travelMode}) => {
 	const router = useRouter();
 
 	const [settingsOpen, setSettingsOpen] = useState(false);
-	const toggleSettings = () =>  {
-		setSettingsOpen(!settingsOpen);
+	const [colorTheme, setColorTheme] = useState(0);
+
+	const toggleSettings = () => setSettingsOpen(!settingsOpen);
+
+	const colorThemes = COLOR_MODES.map((e) => e.name);
+	const travelModes = ['Browser', 'Edge Scrolling', 'Control Stick', 'Panorama'];
+
+	const handleColorThemeChange: MouseEventHandler<HTMLButtonElement> = (): void => {
+		const root = document.querySelector(':root') as HTMLElement;
+		if (!root) return;
+
+		const newColorTheme = (colorTheme + 1) % colorThemes.length;
+		const newColorThemeColors = COLOR_MODES[newColorTheme];
+		setColorTheme(newColorTheme);
+
+		root.style.setProperty('--color-primary', newColorThemeColors.primary);
+		root.style.setProperty('--color-secondary', newColorThemeColors.secondary);
+		root.style.setProperty('--color-text', newColorThemeColors.text);
 	};
 
-	const travelModes = ['Browser', 'Edge Scrolling', 'Control Stick', 'Panorama'];
+	console.log(colorTheme, colorThemes);
 
 	return (
 		<aside id='Settings'>
 			<button
-				onClick = {toggleSettings}
+				onClick={toggleSettings}
 				id='DisplaySettings'
 				aria-label = 'DisplaySettings'
 			>
@@ -27,17 +44,20 @@ const HomeSVG: FunctionComponent<{setTravelMode: Dispatch<SetStateAction<number>
 						fill='transparent'
 						strokeLinecap='round'
 						strokeWidth={7}
-						stroke='#000'
+						stroke='var(--color-text)'
 					/>
 				</svg>
 			</button>
 			<div id='SettingsList' className={settingsOpen ? '': 'Hidden'}>
-				<button onClick={() => setTravelMode((travelMode + 1) % travelModes.length)}>
-					Travel Mode: {travelModes[travelMode]}
-				</button>
 				{router.pathname !== '/' &&
 					<Link href='/'>Back To Home</Link>
 				}
+				<button onClick={() => setTravelMode((travelMode + 1) % travelModes.length)}>
+					Travel Mode: {travelModes[travelMode]}
+				</button>
+				<button onClick={handleColorThemeChange}>
+					Color Theme: {colorThemes[colorTheme]}
+				</button>
 			</div>
 		</aside>
 	);

@@ -45,8 +45,8 @@ export const DrawEdgeScroller = () => {
 		background.width / 2, background.height / 2, background.width * 0.47
 	);
 
-	grd.addColorStop(0, 'rgba(0,0,0,0)');
-	grd.addColorStop(1, 'rgba(0,0,0,0.1)');
+	grd.addColorStop(0, 'rgba(47, 47, 47, 0)');
+	grd.addColorStop(1, 'rgba(47, 47, 47, 0.13)');
 	context.fillStyle = grd;
 
 	context.scale(1, 1 / aspectRatio);

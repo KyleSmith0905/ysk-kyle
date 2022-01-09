@@ -61,7 +61,8 @@ const ControlStickMovement: FunctionComponent = () => {
 				r={radius}
 				fill='none'
 				strokeWidth={5}
-				stroke='#ccc'
+				stroke='var(--color-text)'
+				opacity={0.2}
 			/>
 		);
 	};
