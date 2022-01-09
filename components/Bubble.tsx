@@ -47,6 +47,7 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 			href={bubble.link}
 			rel={isExternalSite ? 'nofollow noopener' : ''}
 			target={isExternalSite ? '_blank' : '_self'}
+			tabIndex={0}
 			style={{
 				position: 'absolute',
 				width: (bubble.radius * 2) + 'px',
@@ -72,6 +73,7 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 			href={bubble.link}
 			rel={isExternalSite ? 'nofollow noopener' : ''}
 			target={isExternalSite ? '_blank' : '_self'}
+			tabIndex={0}
 			style={{
 				position: 'absolute',
 				width: (bubble.radius * 2) + 'px',
