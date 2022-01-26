@@ -27,8 +27,6 @@ const HomeSVG: FunctionComponent<{setTravelMode: Dispatch<SetStateAction<number>
 		root.style.setProperty('--color-text', newColorThemeColors.text);
 	};
 
-	console.log(colorTheme, colorThemes);
-
 	return (
 		<aside id='Settings'>
 			<button
