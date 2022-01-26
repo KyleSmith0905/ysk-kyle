@@ -102,4 +102,18 @@ const SetBubbleTransform = (bubble: IBubble, bubbleElement: HTMLElement | null):
 	+ (bubble.position[1] * 20 - bubble.radius) + 'px)';
 };
 
-export {IsNumberBetween, IsArrayNaN, IsArraysEqual, Pythagorean, CoordinateCollisions, IsCollideWithBubbles, IsUserBot, SetBubbleTransform};
+const objectToQueryString = (obj: {[key: string]: string | undefined}): string => {
+	return Object.keys(obj).map(key => encodeURI(key) + '=' + encodeURI(obj[key] ?? '')).join('&');
+};
+
+export {
+	IsNumberBetween,
+	IsArrayNaN,
+	IsArraysEqual,
+	Pythagorean,
+	CoordinateCollisions,
+	IsCollideWithBubbles,
+	IsUserBot,
+	SetBubbleTransform,
+	objectToQueryString
+};
