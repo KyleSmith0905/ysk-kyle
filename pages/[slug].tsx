@@ -2,7 +2,7 @@ import { readdirSync } from 'fs';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { FunctionComponent, useEffect, useState } from 'react';
-import Background from '../components/Background';
+import Connections from '../components/Connections';
 import Bubble from '../components/Bubble';
 import BrowserMovement from '../components/MovementControl/Browser';
 import ControlStickMovement from '../components/MovementControl/ControlStick';
@@ -36,7 +36,7 @@ const BubblePage: NextPage<{slug: string}> | FunctionComponent<{slug: string}> =
         <meta property='og:title' content={slugFormated + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
         <meta name='twitter:title' content={slugFormated + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
       </Head>
-      <Background
+      <Connections
         bubbles={bubbles}
       />
       <main id='MainContent'>
