@@ -40,7 +40,42 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		name: 'The Partical Engine',
 		summary: 'The bubbles were simulated using a quick partical engine I wrote.',
 		connection: 'developmentInfo',
-		radius: 104,
+		radius: 103,
+	},
+	{
+		id: 'updateProfile',
+		name: 'Update Profile',
+		summary: 'A script running from YSKKyle updates my profile pictures on all my major social media using REST API.',
+		connection: 'about',
+		radius: 97,
+	},
+	{
+		id: 'updateTwitter',
+		name: 'Twitter',
+		summary: 'Twitter requires that API requests contain a nonce, and a hash using an API secret.',
+		connection: 'updateProfile',
+		radius: 90,
+	},
+	{
+		id: 'updateGravatar',
+		name: 'GitHub and StackOverflow',
+		summary: 'GitHub and StackOverflow use Gravatar. I send XML-RPC messages through Gravatar to get, upload, delete, and pin images.',
+		connection: 'updateProfile',
+		radius: 115,
+	},
+	{
+		id: 'updateReddit',
+		name: 'Reddit',
+		summary: 'Although Reddit API returns service temporary unavailable, it is fully capable of uploading profile pictures.',
+		connection: 'updateProfile',
+		radius: 97,
+	},
+	{
+		id: 'updateDiscord',
+		name: 'Discord',
+		summary: 'Discord was simple: get authorization code from request, then throw it back to the server to update profile picture.',
+		connection: 'updateProfile',
+		radius: 98,
 	},
 ];
 

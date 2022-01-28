@@ -44,7 +44,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	{
 		id: 'sorts',
 		name: 'Sorting Algorithms',
-		summary: 'There are 15+ sorting algorithms to choose from.',
+		summary: 'There are 18 sorting algorithms to choose from.',
 		connection: 'about',
 		radius: 94,
 	},
@@ -79,6 +79,22 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Sleep sort syncronously sleeps for "n" seconds.',
 		connection: 'sorts',
 		radius: 83,
+	},
+	{
+		id: 'bubbleSort',
+		name: 'Bubble Sort',
+		image: 'bubble-sort',
+		summary: 'Bubble sort moves large elements to the right in a loop.',
+		connection: 'sorts',
+		radius: 83,
+	},
+	{
+		id: 'heapSort',
+		name: 'Heap Sort',
+		image: 'heap-sort',
+		summary: 'Heap sort creates a heap to quickly allocate the smallest values.',
+		connection: 'sorts',
+		radius: 81,
 	},
 ];
 
