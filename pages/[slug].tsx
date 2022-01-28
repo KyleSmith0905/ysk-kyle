@@ -3,6 +3,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { FunctionComponent, useEffect, useState } from 'react';
 import Connections from '../components/Connections';
+import Background from '../components/Background';
 import Bubble from '../components/Bubble';
 import BrowserMovement from '../components/MovementControl/Browser';
 import ControlStickMovement from '../components/MovementControl/ControlStick';
@@ -36,9 +37,10 @@ const BubblePage: NextPage<{slug: string}> | FunctionComponent<{slug: string}> =
         <meta property='og:title' content={slugFormated + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
         <meta name='twitter:title' content={slugFormated + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
       </Head>
-      <Connections
-        bubbles={bubbles}
-      />
+      <div style={{position: 'relative'}}>
+        <Connections bubbles={bubbles} />
+        <Background />
+      </div>
       <main id='MainContent'>
         {bubbles.map((bubble: IBubble, index: number) => (
           <Bubble
@@ -49,10 +51,10 @@ const BubblePage: NextPage<{slug: string}> | FunctionComponent<{slug: string}> =
           />
         ))}
       </main>
-      {travelMode === 0 && <BrowserMovement/>}
-      {travelMode === 1 && <EdgeScrollMovement/>}
-      {travelMode === 2 && <ControlStickMovement/>}
-      {travelMode === 3 && <PanoramaMovement/>}
+      {travelMode === 0 && <BrowserMovement />}
+      {travelMode === 1 && <EdgeScrollMovement />}
+      {travelMode === 2 && <ControlStickMovement />}
+      {travelMode === 3 && <PanoramaMovement />}
       <Settings
         setTravelMode={setTravelMode}
         travelMode={travelMode}

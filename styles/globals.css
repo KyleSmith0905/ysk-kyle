@@ -59,6 +59,7 @@ button {
 
 #Background {
   width: 100%;
+  position: absolute;
 }
 
 #Settings {
