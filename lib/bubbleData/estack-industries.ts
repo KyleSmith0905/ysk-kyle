@@ -10,6 +10,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		pivotPosition: [50, 50],
 		deployPosition: [50, 50],
 		radius: 104,
+		size: 'large',
 	},
 	{
 		id: 'image',
@@ -24,6 +25,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Here are a few bubbles to describe my work life experience.',
 		connection: 'about',
 		radius: 91,
+		size: 'medium',
 	},
 	{
 		id: 'meetings',
@@ -31,6 +33,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Meetings were held remotely twice a week. We updated each other on the progress we made that week.',
 		connection: 'worklife',
 		radius: 91,
+		size: 'small',
 	},
 	{
 		id: 'communication',
@@ -38,6 +41,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Personally, I communicated often with team members. I often notice co-workers could benefit from reusable components (or code) from previous tasks.',
 		connection: 'worklife',
 		radius: 110,
+		size: 'small',
 	},
 	{
 		id: 'tasks',
@@ -45,6 +49,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Weekly, we are assigned a task. Most often, it\'s to make a webpage on the website.',
 		connection: 'worklife',
 		radius: 84,
+		size: 'small',
 	},
 	{
 		id: 'accomplishments',
@@ -52,6 +57,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'During my time at Estack, I accomplished many things. Here are some of the most important accomplishments.',
 		connection: 'about',
 		radius: 108,
+		size: 'medium',
 	},
 	{
 		id: 'linkage',
@@ -59,6 +65,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'I connected the entire frontend to itself and to the backend.',
 		connection: 'accomplishments',
 		radius: 75,
+		size: 'small',
 	},
 	{
 		id: 'background',
@@ -66,6 +73,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'After noticing no page had the background design from figma, I built a component that generated the background. Over time, the component grew to acquire more features.',
 		connection: 'accomplishments',
 		radius: 118,
+		size: 'small',
 	},
 	{
 		id: 'accountpage',
@@ -73,6 +81,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'I was assigned to build an account page, this featured a working message box, statistics dashboard, and many other functionalities.',
 		connection: 'accomplishments',
 		radius: 110,
+		size: 'small',
 	},
 ];
 

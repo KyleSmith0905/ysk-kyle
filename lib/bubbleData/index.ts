@@ -10,6 +10,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		pivotPosition: [50, 50],
 		deployPosition: [50, 50],
 		radius: 93,
+		size: 'large',
 	},
 	{
 		id: 'gameDev',
@@ -17,6 +18,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Projects pertaining to developing video games or modifications for video games.',
 		connection: 'welcome',
 		radius: 96,
+		size: 'medium',
 	},
 	{
 		id: 'devsUs',
@@ -26,6 +28,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'devs-us',
 		connection: 'gameDev',
 		radius: 75,
+		size: 'small',
 	}, 
 	{
 		id: 'cursedAmongUs',
@@ -35,6 +38,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'cursed-among-us',
 		connection: 'devsUs',
 		radius: 85,
+		size: 'small',
 	},
 	{
 		id: 'amongChess',
@@ -44,6 +48,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'among-chess',
 		connection: 'devsUs',
 		radius: 82,
+		size: 'small',
 	},
 	{
 		id: 'epicColors',
@@ -53,6 +58,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'epic-colors',
 		connection: 'devsUs',
 		radius: 74,
+		size: 'small',
 	},
 	{
 		id: 'appDev',
@@ -60,6 +66,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Projects pertaining to developing web apps and mobile apps.',
 		connection: 'welcome',
 		radius: 89,
+		size: 'medium',
 	},
 	{
 		id: 'portfolio',
@@ -69,6 +76,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'ysk-kyle',
 		connection: 'appDev',
 		radius: 81,
+		size: 'small',
 	},
 	{
 		id: 'oldPortfolio',
@@ -78,6 +86,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'old-ysk-kyle',
 		connection: 'portfolio',
 		radius: 79,
+		size: 'small',
 	},
 	{
 		id: 'rtlChallenges',
@@ -87,6 +96,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'rtl-challenges',
 		connection: 'appDev',
 		radius: 85,
+		size: 'small',
 	},
 	{
 		id: 'sortingAlgorithm',
@@ -96,6 +106,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'sorting-algorithm-visualizer',
 		connection: 'appDev',
 		radius: 83,
+		size: 'small',
 	},
 	{
 		id: 'scriptDev',
@@ -103,6 +114,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Projects pertaining that cannot be described as apps or games.',
 		connection: 'welcome',
 		radius: 89,
+		size: 'medium',
 	},
 	{
 		id: 'unicusBot',
@@ -112,6 +124,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'unicus-bot',
 		connection: 'scriptDev',
 		radius: 73,
+		size: 'small',
 	},
 	{
 		id: 'cyberCircleIdenticon',
@@ -121,6 +134,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		link: 'cyber-circle-identicon',
 		image: 'cyber-circle-identicon',
 		radius: 83,
+		size: 'small',
 	},
 	{
 		id: 'professional',
@@ -128,6 +142,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Projects worked on as part of formal work experience.',
 		connection: 'welcome',
 		radius: 89,
+		size: 'small',
 	},
 	{
 		id: 'estack',
@@ -137,6 +152,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		link: 'estack-industries',
 		image: 'estack-industries',
 		radius: 89,
+		size: 'small',
 	},
 ];
 

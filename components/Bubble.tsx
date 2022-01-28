@@ -47,12 +47,16 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 
 	const BubbleTag = bubble.link === undefined ? 'div' : 'a';
 	const isExternalSite = Boolean(bubble.link?.match(/^https?:\/\//));
+	let sizeClass = '';
+	if (bubble.size === 'small') sizeClass = 'BubbleSmall';
+	else if (bubble.size === 'large') sizeClass = 'BubbleLarge';
+	else sizeClass = 'BubbleMedium';
 
 	if (hidden) return <></>;
 	else if (bubble.summary === undefined) return (
 		<BubbleTag 
 			id={bubble.id}
-			className='Bubble ImageBubble'
+			className={'Bubble ImageBubble ' + sizeClass}
 			href={bubble.link}
 			rel={isExternalSite ? 'nofollow noopener' : ''}
 			target={isExternalSite ? '_blank' : '_self'}
@@ -78,7 +82,7 @@ const Bubble: FunctionComponent<{bubble: IBubble, bubbles: IBubble[], setBubbles
 	else return (
 		<BubbleTag
 			id={bubble.id}
-			className='Bubble'
+			className={'Bubble ' + sizeClass}
 			href={bubble.link}
 			rel={isExternalSite ? 'nofollow noopener' : ''}
 			target={isExternalSite ? '_blank' : '_self'}

@@ -11,6 +11,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		pivotPosition: [50, 50],
 		deployPosition: [50, 50],
 		radius: 125,
+		size: 'large',
 	},
 	{
 		id: 'commands',
@@ -18,6 +19,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Unicus receives messages receives chat messages and sends back an embed or image, mostly with side effects.',
 		connection: 'about',
 		radius: 106,
+		size: 'medium',
 	},
 	{
 		id: 'gameCommands',
@@ -26,6 +28,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'fun-commands',
 		connection: 'commands',
 		radius: 108,
+		size: 'small',
 	},
 	{
 		id: 'jobCommands',
@@ -34,6 +37,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'job-commands',
 		connection: 'commands',
 		radius: 118,
+		size: 'small',
 	},
 	{
 		id: 'governmentCommands',
@@ -42,6 +46,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'government-commands',
 		connection: 'commands',
 		radius: 110,
+		size: 'small',
 	},
 	{
 		id: 'development',
@@ -49,6 +54,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Unicus is open source and on GitHub. The code is deprecated and unorganized.',
 		connection: 'about',
 		radius: 104,
+		size: 'medium',
 	},
 	{
 		id: 'framework',
@@ -56,14 +62,16 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Unicus is built on Eris Discord Library on NodeJS, and stores data with Mongoose.',
 		connection: 'development',
 		radius: 97,
+		size: 'small',
 	},
 	{
 		id: 'images',
 		name: 'Generating Images',
-		summary: 'Unicus uses canvas to draw images dynamically.',
+		summary: 'Unicus uses node-canvas to draw images dynamically.',
 		image: 'stock-graph',
 		connection: 'development',
-		radius: 85,
+		radius: 89,
+		size: 'small',
 	},
 ];
 

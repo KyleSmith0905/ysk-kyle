@@ -11,6 +11,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		pivotPosition: [50, 50],
 		deployPosition: [50, 50],
 		radius: 105,
+		size: 'large',
 	},
 	{
 		id: 'image',
@@ -25,6 +26,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'The website was built on a Wordpress theme. I heavily modified the CSS to customize it to my theme.',
 		connection: 'about',
 		radius: 108,
+		size: 'medium',
 	},
 	{
 		id: 'flaw',
@@ -32,6 +34,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'For a Wordpress site, it lacked the customization I wanted.',
 		connection: 'about',
 		radius: 97,
+		size: 'small',
 	},
 ];
 

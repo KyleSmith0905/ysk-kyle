@@ -11,6 +11,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		pivotPosition: [50, 50],
 		deployPosition: [50, 50],
 		radius: 103,
+		size: 'large',
 	},
 	{
 		id: 'image',
@@ -27,6 +28,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		link: 'https://github.com/KyleSmith0905',
 		connection: 'about',
 		radius: 112,
+		size: 'medium',
 	},
 	{
 		id: 'framework',
@@ -34,6 +36,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'YSK Kyle was built with React and Next.',
 		connection: 'developmentInfo',
 		radius: 87,
+		size: 'small',
 	},
 	{
 		id: 'particalEngine',
@@ -41,6 +44,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'The bubbles were simulated using a quick partical engine I wrote.',
 		connection: 'developmentInfo',
 		radius: 103,
+		size: 'small',
 	},
 	{
 		id: 'updateProfile',
@@ -48,6 +52,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'A script running from YSKKyle updates my profile pictures on all my major social media using REST API.',
 		connection: 'about',
 		radius: 97,
+		size: 'medium',
 	},
 	{
 		id: 'updateTwitter',
@@ -55,6 +60,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Twitter requires that API requests contain a nonce, and a hash using an API secret.',
 		connection: 'updateProfile',
 		radius: 90,
+		size: 'small',
 	},
 	{
 		id: 'updateGravatar',
@@ -62,6 +68,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'GitHub and StackOverflow use Gravatar. I send XML-RPC messages through Gravatar to get, upload, delete, and pin images.',
 		connection: 'updateProfile',
 		radius: 115,
+		size: 'small',
 	},
 	{
 		id: 'updateReddit',
@@ -69,6 +76,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Although Reddit API returns service temporary unavailable, it is fully capable of uploading profile pictures.',
 		connection: 'updateProfile',
 		radius: 97,
+		size: 'small',
 	},
 	{
 		id: 'updateDiscord',
@@ -76,6 +84,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Discord was simple: get authorization code from request, then throw it back to the server to update profile picture.',
 		connection: 'updateProfile',
 		radius: 98,
+		size: 'small',
 	},
 ];
 

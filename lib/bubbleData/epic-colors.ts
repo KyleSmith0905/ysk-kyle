@@ -11,6 +11,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		pivotPosition: [50, 50],
 		deployPosition: [50, 50],
 		radius: 105,
+		size: 'large',
 	},
 	{
 		id: 'image',
@@ -26,6 +27,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		link: 'https://github.com/Devs-Us/EpicColors',
 		connection: 'about',
 		radius: 119,
+		size: 'medium',
 	},
 	{
 		id: 'contribution',
@@ -33,6 +35,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'I was a major GitHub contributor. I introduced a variety of features.',
 		connection: 'about',
 		radius: 100,
+		size: 'medium',
 	},
 	{
 		id: 'refactor',
@@ -40,13 +43,15 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'To make it a lot easier to add new colors, I introduced a reusable way to add colors. I moved everything from arrays, to classes.',
 		connection: 'contribution',
 		radius: 98,
+		size: 'small',
 	},
 	{
 		id: 'autoBuild',
 		name: 'Auto Template',
 		summary: 'Before our team introduced a feature allowing everyone to make a template of their favorite colors. I foresaw some minor issues, particularly with ease-of-use. Solution: I made the template build automatically.',
 		connection: 'contribution',
-		radius: 123,
+		radius: 125,
+		size: 'small',
 	},
 	{
 		id: 'animated',
@@ -54,6 +59,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'To make Epic Colors stand out, we introduced animated colors.',
 		connection: 'contribution',
 		radius: 91,
+		size: 'medium',
 	},
 	{
 		id: 'hueAnimated',
@@ -61,6 +67,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Gradually change through colors of the rainbow over a set period of time.',
 		connection: 'animated',
 		radius: 88,
+		size: 'small',
 	},
 	{
 		id: 'refreshAnimated',
@@ -68,6 +75,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Instantly swap to another color every set period of time.',
 		connection: 'animated',
 		radius: 83,
+		size: 'small',
 	},
 ];
 

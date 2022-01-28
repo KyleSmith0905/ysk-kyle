@@ -11,6 +11,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		pivotPosition: [50, 50],
 		deployPosition: [50, 50],
 		radius: 107,
+		size: 'large',
 	},
 	{
 		id: 'example',
@@ -18,27 +19,28 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Here are 3 examples of randomly generated Cyber Circles.',
 		connection: 'about',
 		radius: 81,
+		size: 'medium',
 	},
 	{
 		id: 'example-1',
 		name: 'Webpage',
 		image: 'cc-identicon-example-1',
 		connection: 'example',
-		radius: 100,
+		radius: 80,
 	},
 	{
 		id: 'example-2',
 		name: 'Webpage',
 		image: 'cc-identicon-example-2',
 		connection: 'example',
-		radius: 100,
+		radius: 80,
 	},
 	{
 		id: 'example-3',
 		name: 'Webpage',
 		image: 'cc-identicon-example-3',
 		connection: 'example',
-		radius: 100,
+		radius: 80,
 	},
 	{
 		id: 'hashing',
@@ -46,6 +48,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'The text begins by being hashed, using a personal implementation of SHA-256.',
 		connection: 'about',
 		radius: 88,
+		size: 'small',
 	},
 	{
 		id: 'serialization',
@@ -53,6 +56,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'By reading the bytes of the hashed text, I generate random values for all the values I need.',
 		connection: 'hashing',
 		radius: 92,
+		size: 'small',
 	},
 	{
 		id: 'physics',
@@ -60,6 +64,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Using the values of the circle\'s element positions, I calculate the optimal place to locate each circle, I remove circles that doesn\'t fit.',
 		connection: 'serialization',
 		radius: 98,
+		size: 'small',
 	},
 	{
 		id: 'rendering',
@@ -67,6 +72,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'With the calculated circle\'s data, I generate a PNG by passing it through a render function I optimized for Cyber Circles.',
 		connection: 'physics',
 		radius: 96,
+		size: 'small',
 	},
 	{
 		id: 'development',
@@ -75,6 +81,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		connection: 'about',
 		link: 'https://github.com/KyleSmith0905/cyber-circle-identicon',
 		radius: 100,
+		size: 'medium',
 	},
 	{
 		id: 'documentation',
@@ -83,6 +90,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		connection: 'development',
 		link: 'https://ccidenticon.vercel.app/',
 		radius: 99,
+		size: 'small',
 	},
 ];
 

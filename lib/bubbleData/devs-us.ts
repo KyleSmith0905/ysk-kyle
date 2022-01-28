@@ -10,6 +10,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		pivotPosition: [50, 50],
 		deployPosition: [50, 50],
 		radius: 119,
+		size: 'large',
 	},
 	{
 		id: 'image',
@@ -25,6 +26,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		link: 'https://github.com/Devs-Us',
 		connection: 'about',
 		radius: 90,
+		size: 'medium',
 	},
 	{
 		id: 'cursedAmongUs',
@@ -34,6 +36,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		connection: 'modsDeveloped',
 		link: 'cursed-among-us',
 		radius: 75,
+		size: 'small',
 	},
 	{
 		id: 'epicColors',
@@ -43,6 +46,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		connection: 'modsDeveloped',
 		link: 'epic-colors',
 		radius: 68,
+		size: 'small',
 	},
 	{
 		id: 'role',
@@ -50,6 +54,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'After a few major contributions, I went from programmer to an owner of Devs Us.',
 		connection: 'about',
 		radius: 92,
+		size: 'medium',
 	},
 ];
 

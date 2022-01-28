@@ -11,6 +11,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		pivotPosition: [50, 50],
 		deployPosition: [50, 50],
 		radius: 110,
+		size: 'large',
 	},
 	{
 		id: 'image',
@@ -26,6 +27,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Sorting Algorithm Visualizer is an open source project.',
 		connection: 'about',
 		radius: 96,
+		size: 'medium',
 	},
 	{
 		id: 'framework',
@@ -33,6 +35,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'The website is built on Angular.',
 		connection: 'development',
 		radius: 80,
+		size: 'small',
 	},
 	{
 		id: 'concepts',
@@ -40,6 +43,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Users are given options to visualize arrays with lengths of up to thousands. Optimization is essential, however, it readability and reusability was number one.',
 		connection: 'development',
 		radius: 118,
+		size: 'small',
 	},
 	{
 		id: 'sorts',
@@ -47,6 +51,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'There are 18 sorting algorithms to choose from.',
 		connection: 'about',
 		radius: 94,
+		size: 'medium',
 	},
 	{
 		id: 'quickSort',
@@ -55,6 +60,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'quick-sort',
 		connection: 'sorts',
 		radius: 93,
+		size: 'small',
 	},
 	{
 		id: 'radixSort',
@@ -63,6 +69,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'radix-sort',
 		connection: 'sorts',
 		radius: 80,
+		size: 'small',
 	},
 	{
 		id: 'bogoSort',
@@ -71,6 +78,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'bogo-sort',
 		connection: 'sorts',
 		radius: 80,
+		size: 'small',
 	},
 	{
 		id: 'sleepSort',
@@ -79,6 +87,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Sleep sort syncronously sleeps for "n" seconds.',
 		connection: 'sorts',
 		radius: 83,
+		size: 'small',
 	},
 	{
 		id: 'bubbleSort',
@@ -87,6 +96,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Bubble sort moves large elements to the right in a loop.',
 		connection: 'sorts',
 		radius: 83,
+		size: 'small',
 	},
 	{
 		id: 'heapSort',
@@ -95,6 +105,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Heap sort creates a heap to quickly allocate the smallest values.',
 		connection: 'sorts',
 		radius: 81,
+		size: 'small',
 	},
 ];
 

@@ -11,6 +11,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		pivotPosition: [50, 50],
 		deployPosition: [50, 50],
 		radius: 112,
+		size: 'large'
 	},
 	{
 		id: 'image',
@@ -26,6 +27,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'RTL Challenges was my first web design experience. The site however, looks rather professional.',
 		connection: 'about',
 		radius: 104,
+		size: 'medium'
 	},
 	{
 		id: 'framework',
@@ -33,6 +35,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'The website was built with React and Next. Database and authentification was built with Firebase. Backend testing with Mocha.',
 		connection: 'development',
 		radius: 104,
+		size: 'small',
 	},
 	{
 		id: 'lighthouse',
@@ -40,6 +43,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'The site received 100% on best practices, accessibility, and SEO, with a 99% on performance on Google\'s Lighthouse.',
 		connection: 'about',
 		radius: 104,
+		size: 'small'
 	},
 	{
 		id: 'performance',
@@ -47,6 +51,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'During development, I made performance a priority (mostly on the homepage and other shared pages). I considered hosting, http requests, promises, and many more.',
 		connection: 'lighthouse',
 		radius: 117,
+		size: 'small'
 	},
 	{
 		id: 'practices',
@@ -54,6 +59,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'I researched what users love. Things like removing the flash of unstyled content, and mobile optimization.',
 		connection: 'lighthouse',
 		radius: 101,
+		size: 'small'
 	},
 	{
 		id: 'accessibility',
@@ -61,6 +67,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'I had always thought no disability should bar someone from accessing the website. All essential buttons are tabbable, all headings are properly tagged, and special theme settings.',
 		connection: 'lighthouse',
 		radius: 114,
+		size: 'small'
 	},
 ];
 

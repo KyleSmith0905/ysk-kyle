@@ -9,6 +9,7 @@ interface IBubble {
 	pivotPosition: [number, number]; // Position without drift
 	deployPosition: [number, number]; // Position of the bubble when deployed
 	radius: number; // Radius of the bubble
+	size?: 'small' | 'medium' | 'large'; // Size of the bubble
 }
 
 interface IBubbleWithoutPosition extends Omit<IBubble, 'position' | 'pivotPosition' | 'deployPosition'> {
@@ -27,13 +28,15 @@ const SetValuesElseNaN = (value: [number, number] | undefined): [number, number]
 };
 
 export const PadBubblePositions = (bubbles: IBubbleWithoutPosition[]): IBubble[] => {
-	const output: IBubble[] = bubbles.map(obj => {
+	const output: IBubble[] = bubbles.map(bubble => {
 		const newProperties = {
-			position: SetValuesElseNaN(obj.position),
-			pivotPosition: SetValuesElseNaN(obj.pivotPosition),
-			deployPosition: SetValuesElseNaN(obj.deployPosition),
+			position: SetValuesElseNaN(bubble.position),
+			pivotPosition: SetValuesElseNaN(bubble.pivotPosition),
+			deployPosition: SetValuesElseNaN(bubble.deployPosition),
 		};
-		return Object.assign(obj, newProperties);
+		if (bubble.size === 'small') bubble.radius = bubble.radius * 0.9;
+		else if (bubble.size === 'large') bubble.radius = bubble.radius * 1.11;
+		return Object.assign(bubble, newProperties);
 	});
 	return output;
 };

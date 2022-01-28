@@ -11,6 +11,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		pivotPosition: [50, 50],
 		deployPosition: [50, 50],
 		radius: 119,
+		size: 'large',
 	},
 	{
 		id: 'image',
@@ -25,6 +26,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'The mod was designed to be a YouTuber\'s goldmine.',
 		connection: 'about',
 		radius: 90,
+		size: 'medium',
 	},
 	{
 		id: 'erikCarr',
@@ -34,6 +36,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'erik-carr',
 		connection: 'youtube',
 		radius: 90,
+		size: 'small',
 	},
 	{
 		id: 'alexAce',
@@ -43,6 +46,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'alex-ace',
 		connection: 'youtube',
 		radius: 90,
+		size: 'small',
 	},
 	{
 		id: 'pat',
@@ -52,6 +56,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		image: 'pat',
 		connection: 'youtube',
 		radius: 90,
+		size: 'small',
 	},
 	{
 		id: 'role',
@@ -59,6 +64,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'I am the owner, main contributor, and maintainer to the mod. However, some graphics design, balancing, and programming was done by other members of the team.',
 		connection: 'about',
 		radius: 109,
+		size: 'medium',
 	},
 	{
 		id: 'development',
@@ -67,6 +73,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		link: 'https://github.com/Devs-Us/Cursed-Among-Us',
 		connection: 'about',
 		radius: 93,
+		size: 'medium',
 	},
 	{
 		id: 'framework',
@@ -74,6 +81,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'The mod was built on Reactor, an Among Us modding API. Reactor uses BepInEx and Harmony.',
 		connection: 'development',
 		radius: 94,
+		size: 'small',
 	},
 ];
 

@@ -11,6 +11,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		pivotPosition: [50, 50],
 		deployPosition: [50, 50],
 		radius: 115,
+		size: 'large',
 	},
 	{
 		id: 'image',
@@ -25,6 +26,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'The mod has many variations to spice up each game.',
 		connection: 'about',
 		radius: 77,
+		size: 'medium',
 	},
 	{
 		id: 'realTime',
@@ -32,6 +34,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'The real time variation allows both players to play without taking turns, it\'s very action pack.',
 		connection: 'settings',
 		radius: 90,
+		size: 'small',
 	},
 	{
 		id: 'chess960',
@@ -39,6 +42,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Chess 960 board randomizes the pieces positions, every game is different.',
 		connection: 'settings',
 		radius: 87,
+		size: 'small',
 	},
 	{
 		id: 'development',
@@ -47,6 +51,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		link: 'https://github.com/KyleSmith0905/Among-Chess',
 		connection: 'about',
 		radius: 93,
+		size: 'medium',
 	},
 	{
 		id: 'framework',
@@ -54,6 +59,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'The mod was built on Reactor, an Among Us modding API. Reactor uses BepInEx and Harmony.',
 		connection: 'development',
 		radius: 94,
+		size: 'small',
 	},
 ];
 
