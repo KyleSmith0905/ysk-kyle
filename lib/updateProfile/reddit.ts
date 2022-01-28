@@ -37,6 +37,10 @@ const ChangeProfile = async (picture: Buffer) => {
 	const requestBody = new FormData();
 	Object.keys(fileData).forEach(key => requestBody.append(key, fileData[key]));
 	
+	// console.log('https://oauth.reddit.com/r/u_' + encodeURI(process.env.REDDIT_USERNAME) + '/api/upload_sr_img');
+	// console.log('script:com.yskkyle.UpdateProfile:1.0 (by /u/' + process.env.REDDIT_USERNAME + ')');
+	// console.log(requestBody);
+
 	fetch('https://oauth.reddit.com/r/u_' + encodeURI(process.env.REDDIT_USERNAME) + '/api/upload_sr_img', {
 		method: 'POST',
 		headers: {
