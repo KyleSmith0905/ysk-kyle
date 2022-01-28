@@ -1,13 +1,13 @@
-name: Hourly cron job
+name: Daily cron job
 on:
   schedule:
-    - cron: '*/60 * * * *'
+    - cron: '0 0 * * *'
 jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
-      - name: Hourly cron job
+      - name: Daily cron job
         run: |
           curl --request POST \
-          --url 'https://yskkyle.com/api/update-profile' \
-          --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'
+          --url https://yskkyle.com/api/update-profile \
+          --header Authorization: Bearer ${{ secrets.ACTION_KEY }}
