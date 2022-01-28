@@ -1,4 +1,3 @@
-// Stylesheets
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -6,7 +5,7 @@ import { useEffect } from 'react';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
       navigator.serviceWorker.register('/service-worker.js');
     }
   }, []);
