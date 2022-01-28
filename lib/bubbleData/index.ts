@@ -110,7 +110,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	},
 	{
 		id: 'scriptDev',
-		name: 'Scripts Development',
+		name: 'Script Development',
 		summary: 'Projects pertaining that cannot be described as apps or games.',
 		connection: 'welcome',
 		radius: 89,
