@@ -6,7 +6,7 @@ import { COLOR_MODES } from '../lib/colorMode';
 const HomeSVG: FunctionComponent<{setTravelMode: Dispatch<SetStateAction<number>>, travelMode: number}> = ({setTravelMode, travelMode}) => {
 	const router = useRouter();
 
-	const [settingsOpen, setSettingsOpen] = useState(false);
+	const [settingsOpen, setSettingsOpen] = useState(true);
 	const [colorTheme, setColorTheme] = useState(0);
 
 	const toggleSettings = () => setSettingsOpen(!settingsOpen);
