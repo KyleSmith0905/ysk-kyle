@@ -3,7 +3,7 @@ import createIdenticon from 'cyber-circle-identicon';
 import crypto from 'crypto';
 import setDiscord from '../../lib/updateProfile/discord';
 import setTwitter from '../../lib/updateProfile/twitter';
-import setReddit from '../../lib/updateProfile/reddit';
+// import setReddit from '../../lib/updateProfile/reddit';
 import setGravatar from '../../lib/updateProfile/gravatar';
 import setYoutube from '../../lib/updateProfile/youtube';
 
@@ -16,8 +16,9 @@ const UpdateProfile = async (req: NextApiRequest, res: NextApiResponse) => {
 		return;
 	}
 
+	
 	const { authorization } = req.headers;
-
+	
 	if (authorization !== 'Bearer '+ process.env.API_SECRET_KEY) {
 		res.writeHead(401);
 		res.end('Unauthorized');
@@ -39,17 +40,19 @@ const UpdateProfile = async (req: NextApiRequest, res: NextApiResponse) => {
 			}
 		}
 	};
-	const identicon = createIdenticon(identiconKey.toString('utf8'), identiconSettings);
-	const largeClippedIdenticon = createIdenticon(identiconKey.toString('utf8'), {...identiconSettings, clipped: true});
 
+	const identicon = createIdenticon(identiconKey.toString('utf8'), identiconSettings);
+	const clippedIdenticon = createIdenticon(identiconKey.toString('utf8'), {...identiconSettings, clipped: true});
+	
 	setDiscord(identicon);
-	setYoutube(largeClippedIdenticon);
+	setYoutube(clippedIdenticon);
 	setTwitter(identicon);
-	setReddit(identicon);
+	// setReddit(identicon);
 	setGravatar(identicon);
 	
 	res.writeHead(200);
 	res.end('Performed cron job successfully');
+	return;
 };
 
 export default UpdateProfile;
