@@ -8,7 +8,7 @@ describe('Images', () => {
 	it('Load background image in bubble', () => {
 		cy.visit('/devs-us');
 		
-		cy.get('#cursedAmongUs .BackgroundImageContainer img.BackgroundImage[alt="Cursed Among Us"]').should('be.visible');
+		cy.get('#cursedAmongUs .BackgroundImageContainer img.BackgroundImage[alt=""]').should('be.visible');
 	});
 
 	it ('Image bubble is correct size', () => {

@@ -4,7 +4,8 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  useEffect(() => {
+
+	useEffect(() => {
     if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
       navigator.serviceWorker.register('/service-worker.js');
     }
@@ -43,7 +44,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name='twitter:title' content='YSK Kyle - A portfolio website for Kyle Smith' />
         <meta name='twitter:description' content='YSK Kyle is a portfolio website for Kyle Smith to showcase his web design and programming experience.' />
       </Head>
-      <Component {...pageProps} />
+      <div id='ColorTheme' className={pageProps.cookies?.colorTheme ?? 'Light'}>
+        <Component {...pageProps} />
+      </div>
     </>
   );
 };

@@ -2,11 +2,11 @@ describe('Settings', () => {
 	it('Open and close settings', () => {
 		cy.visit('/');
 		
-		cy.get('#SettingsList').invoke('attr', 'class').should('include', 'Hidden');
-		cy.get('#DisplaySettings').click();
 		cy.get('#SettingsList').invoke('attr', 'class').should('not.include', 'Hidden');
 		cy.get('#DisplaySettings').click();
 		cy.get('#SettingsList').invoke('attr', 'class').should('include', 'Hidden');
+		cy.get('#DisplaySettings').click();
+		cy.get('#SettingsList').invoke('attr', 'class').should('not.include', 'Hidden');
 	});
 
 	it('Back to home', () => {

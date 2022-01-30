@@ -2,7 +2,6 @@ const movementMethods = ['Browser', 'Edge Scrolling', 'Control Stick', 'Panorama
 
 const selectMovementMethod = (methodName: string) => {
 	const movementIndex = movementMethods.findIndex(e => e === methodName);
-	cy.get('#DisplaySettings').click();
 
 	for (let i = 0; i < movementIndex; i++) {
 		cy.get('#SettingsList > button:contains("Travel Mode")').click();

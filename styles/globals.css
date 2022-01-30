@@ -5,6 +5,25 @@
   --color-text: hsl(0, 0%, 0%);
 }
 
+#ColorTheme.Light {
+  --color-primary: hsl(0, 0%, 100%);
+  --color-secondary: hsl(0, 0%, 95%);
+  --color-text: hsl(0, 0%, 0%);
+}
+
+#ColorTheme.Dark {
+  --color-primary: hsl(0, 0%, 6%);
+  --color-secondary: hsl(0, 0%, 0%);
+  --color-text: hsl(0, 0%, 100%);
+}
+
+#ColorTheme.Iconic {
+  --color-primary: hsl(220, 100%, 50%);
+  --color-secondary: hsl(40, 100%, 50%);
+  --color-text: hsl(0, 0%, 100%);
+}
+
+
 html {
   overflow: hidden;
 }
@@ -14,7 +33,6 @@ body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: var(--color-secondary);
   width: var(--size);
   height: var(--size);
 }
@@ -57,11 +75,6 @@ button {
   }
 }
 
-#Background {
-  width: 100%;
-  position: absolute;
-}
-
 #Settings {
   position: fixed;
   left: 0.9em;
@@ -100,6 +113,19 @@ button {
   text-align: left;
   font-size: 1.2em;
   line-height: 1em;
+}
+
+#Background {
+  position: absolute;
+  background-color: var(--color-secondary);
+  width: var(--size);
+  height: var(--size);
+}
+
+#Underlay {
+  width: var(--size);
+	height: var(--size);
+  position: relative;
 }
 
 #MainContent {

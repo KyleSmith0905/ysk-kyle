@@ -11,24 +11,23 @@ const PathCircle = (size: number) => {
 	return startLocation + firstArc + secondArc;
 };
 
-const Circle: FunctionComponent = () => {
+const Background: FunctionComponent = () => {
 
 	return (
 		<svg
-			id='Background'
 			height={2000}
 			width={2000}
+			style={{width: '100%', position: 'absolute'}}
 		>
 			<path
-				id='BackgroundPath'
 				d={PathCross() + PathCircle(333) + PathCircle(666) + PathCircle(999)}
 				stroke='var(--color-text)'
-				opacity={0.1}
-				strokeWidth={0.5}
+				opacity={0.15}
+				strokeWidth={1}
 				fill='none'
 			/>
 		</svg>
 	);
 };
 
-export default Circle;
+export default Background;

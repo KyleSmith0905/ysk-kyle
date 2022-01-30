@@ -2,7 +2,9 @@ import { FunctionComponent, useEffect } from 'react';
 import { IBubble } from '../lib/bubbleData/_shared';
 import { IsArrayNaN } from '../lib/utils';
 
-const Circle: FunctionComponent<{bubbles: IBubble[]}> = ({bubbles}) => {
+const Connections: FunctionComponent<{
+	bubbles: IBubble[]
+}> = ({bubbles}) => {
 
 	useEffect(() => {
 		let requestId = 0;
@@ -13,7 +15,7 @@ const Circle: FunctionComponent<{bubbles: IBubble[]}> = ({bubbles}) => {
 
 		const renderBackground = () => {
 
-			const backgroundPath = document.getElementById('BackgroundPath');
+			const backgroundPath = document.getElementById('ConnectionsPath');
 			if (backgroundPath === null) return;
 
 			let localPath = '';
@@ -36,12 +38,13 @@ const Circle: FunctionComponent<{bubbles: IBubble[]}> = ({bubbles}) => {
 
 	return (
 		<svg
-			id='Background'
+			id='Connections'
 			height={2000}
 			width={2000}
+			style={{width: '100%', position: 'absolute'}}
 		>
 			<path
-				id='BackgroundPath'
+				id='ConnectionsPath'
 				d=''
 				stroke='var(--color-text)'
 				strokeWidth={2}
@@ -51,4 +54,4 @@ const Circle: FunctionComponent<{bubbles: IBubble[]}> = ({bubbles}) => {
 	);
 };
 
-export default Circle;
+export default Connections;

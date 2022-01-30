@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import BubblePage from './[slug]';
 
 const ErrorPage: NextPage = () => {
@@ -6,3 +6,11 @@ const ErrorPage: NextPage = () => {
 };
 
 export default ErrorPage;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+	return {
+		props: {
+			cookies: req.cookies,
+		}
+	};
+};
