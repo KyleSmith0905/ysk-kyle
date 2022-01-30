@@ -20,7 +20,7 @@ const Background: FunctionComponent = () => {
 			style={{width: '100%', position: 'absolute'}}
 		>
 			<path
-				d={PathCross() + PathCircle(333) + PathCircle(666) + PathCircle(999)}
+				d={PathCross() + PathCircle(333) + PathCircle(666) + PathCircle(999) + PathCircle(1332)}
 				stroke='var(--color-text)'
 				opacity={0.15}
 				strokeWidth={1}
