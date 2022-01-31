@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { readdirSync } from 'fs';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
@@ -13,38 +12,41 @@ import PanoramaMovement from '../components/MovementControl/Panorama';
 import Settings from '../components/Settings';
 import { IBubble } from '../lib/bubbleData/_shared';
 import { Cookies, getCookie } from '../lib/cookies';
+import { IsUserBot } from '../lib/utils';
 
+interface BubblePageProps {
+  slug: string;
+  bubbles: IBubble[];
+  cookies?: Cookies;
+  isUserBot?: boolean;
+}
 
 const BubblePage:
-  NextPage<{slug: string, cookies?: Cookies}> |
-  FunctionComponent<{slug: string, cookies?: Cookies}> = ({
-    slug, cookies = {}
+  NextPage<BubblePageProps> |
+  FunctionComponent<BubblePageProps> = ({
+    slug, cookies = {}, bubbles: localBubble = [], isUserBot = false
 }) => {
-
   const slugFormated = slug.split('-').map((s: string) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
-
-  const [bubbles, setBubbles] = useState<IBubble[]>([]);
+  
+  const reverseBubbles = localBubble.slice().reverse();
+  const [bubbles, setBubbles] = useState<IBubble[]>(reverseBubbles);
   const [travelMode, setTravelMode] = useState(cookies.travelMode ?? 'Browser');
   const [colorTheme, setColorTheme] = useState(cookies.colorTheme ?? 'Light');
   
-  useEffect(() => {
+  useEffect(() =>{
     scrollTo(1000 - (window.innerWidth / 2), 1000 - (window.innerHeight / 2));
+  }, []);
+
+  useEffect(() => {
     if (Object.keys(cookies).length === 0) {
       const travelMode = getCookie('travelMode');
       if (travelMode) setTravelMode(travelMode);
       const colorTheme = getCookie('colorTheme');
       if (colorTheme) setColorTheme(colorTheme);
-      const root = document.getElementById('ColorTheme') as HTMLElement;
+      const root = document.getElementById('ColorTheme');
       if (root && colorTheme) root.className = colorTheme;
     }
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      const imported = (await import('../lib/bubbleData/' + slug));
-      setBubbles(imported.default.reverse());
-    })();
-  }, [slug]);
+  }, [cookies]);
 
   return (
     <>
@@ -64,6 +66,7 @@ const BubblePage:
             setBubbles={setBubbles}
             bubbles={bubbles}
             bubble={bubble}
+            isUserBot={isUserBot}
             key={index}
           />
         ))}
@@ -95,10 +98,17 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req }) =>
   allPaths = allPaths.filter(path => path !== '404');
 	allPaths = allPaths.filter(path => path !== 'index');
 
+  const notFound = !allPaths.includes(slug);
+
+  const bubbleDataImport = notFound ? {} : (await import('../lib/bubbleData/' + slug));
+  const bubbles = bubbleDataImport.default;
+
   return {
     props: {
       slug: params?.slug,
       cookies: req.cookies,
+      bubbles: bubbles,
+      isUserBot: IsUserBot(req.headers['user-agent']),
     },
     notFound: !allPaths.includes(slug),
   };

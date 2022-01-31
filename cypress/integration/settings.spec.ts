@@ -12,7 +12,6 @@ describe('Settings', () => {
 	it('Back to home', () => {
 		cy.visit('/sorting-algorithm-visualizer');
 	
-		cy.get('#DisplaySettings').click();
 		cy.get('#SettingsList > a[href="/"]').click();
 
 		cy.url().should('eq', 'http://localhost:3000/');
@@ -21,8 +20,6 @@ describe('Settings', () => {
 	it('Change movement settings', () => {
 		cy.visit('/');
 	
-		cy.get('#DisplaySettings').click();
-
 		cy.get('#SettingsList > button:contains(Travel Mode)').click().should('have.text', 'Travel Mode: Edge Scrolling');
 	});
 });

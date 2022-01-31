@@ -17,7 +17,9 @@ const IsNumberBetween = (value: number, min: number, max: number): boolean => {
  * @return Returns true if any value in array is NaN.
  */
 const IsArrayNaN = (coordinates: number[]): boolean => {
-	return coordinates.some(coordinate => isNaN(coordinate));
+	return coordinates.some(coordinate => {
+		return isNaN(coordinate) || coordinate === null;
+	});
 };
 
 /**
@@ -83,17 +85,28 @@ const IsCollideWithBubbles = (bubble: [number, number, number], bubbles: [number
 	return CoordinateCollisions(bubble, bubbles).length > 0;
 };
 
+const UserAgentIsBot = (userAgent: string): boolean => {
+	const COMMON_BOT_NAMES = ['bot', 'crawl', 'spider', 'slurp', 'archiver'];
+	if (COMMON_BOT_NAMES.some(bot => userAgent.includes(bot))) {
+		return true;
+	}
+	else return false;
+};
+
 /**
  * Detects if the user is a self-identified robot, crawler, or anything else.
  * @returns Whether the user is a userbot.
  */
-const IsUserBot = (): boolean => {
-	navigator.userAgent.toLowerCase();
-	const COMMON_BOT_NAMES = ['bot', 'crawl', 'spider', 'slurp', 'ia_archiver'];
-	if (COMMON_BOT_NAMES.some(bot => navigator.userAgent.includes(bot))) {
-		return true;
+const IsUserBot = (userAgent?: string): boolean => {
+	if (userAgent) {
+		return UserAgentIsBot(userAgent);
 	}
-	else return false;
+	else if (typeof window === 'undefined') { 
+		return false;
+	}
+	else {
+		return UserAgentIsBot(window.navigator.userAgent);
+	}
 };
 
 const SetBubbleTransform = (bubble: IBubble, bubbleElement: HTMLElement | null): void => {

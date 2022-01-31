@@ -9,10 +9,6 @@ import { IsArrayNaN, Pythagorean, IsCollideWithBubbles, IsNumberBetween } from '
  * @return The new bubble's position.
 */
 const driftAround = (bubble: IBubble, bubbles: IBubble[]): [number, number] => {
-	if (IsArrayNaN(bubble.position)) {
-		return bubble.position;
-	}
-	
 	const index = bubbles.findIndex(e => e.id === bubble.id);
 	
 	const position: [number, number] = [...bubble.position];

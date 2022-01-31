@@ -1,16 +1,9 @@
-import { GetServerSideProps, NextPage } from 'next';
+import { NextPage } from 'next';
+import bubbles from '../lib/bubbleData/_error';
 import BubblePage from './[slug]';
 
 const ErrorPage: NextPage = () => {
-	return <BubblePage slug='_error'/>;
+	return <BubblePage slug='_error' bubbles={bubbles}/>;
 };
 
 export default ErrorPage;
-
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-	return {
-		props: {
-			cookies: req.cookies,
-		}
-	};
-};

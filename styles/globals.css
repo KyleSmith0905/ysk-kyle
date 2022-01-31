@@ -201,6 +201,10 @@ a.Bubble:focus-visible::after, a.Bubble:hover::after, div.Bubble:focus-visible::
   font-size: 1.11em;
 }
 
+.Bubble[class*="Hidden"] {
+  visibility: hidden;
+}
+
 .BackgroundImage {
   filter:
     blur(3px)
