@@ -44,12 +44,20 @@ const UpdateProfile = async (req: NextApiRequest, res: NextApiResponse) => {
 	const identicon = createIdenticon(identiconKey.toString('utf8'), identiconSettings);
 	const clippedIdenticon = createIdenticon(identiconKey.toString('utf8'), {...identiconSettings, clipped: true});
 	
-	setDiscord(identicon).catch((err) => console.log(err));
-	setYoutube(clippedIdenticon).catch((err) => console.log(err));
-	setTwitter(identicon).catch((err) => console.log(err));
-	setGravatar(identicon).catch((err) => console.log(err));
-	// const redditPromise = setReddit(identicon).catch((err) => console.log(err));
-	
+	try {
+		const discordPromise = setDiscord(identicon);
+		const youtubePromise = setYoutube(clippedIdenticon);
+		const twitterPromise = setTwitter(identicon);
+		const gravatarPromise = setGravatar(identicon);
+		// const redditPromise = setReddit(identicon);
+		
+		await Promise.all([discordPromise, youtubePromise, twitterPromise, gravatarPromise]);
+	}
+	catch (err) {
+		res.writeHead(500);
+		res.end('Internal Server Error - Error Message: ' + err);
+	}
+
 	res.writeHead(200);
 	res.end('Performed cron job successfully');
 	return;
