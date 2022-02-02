@@ -8,6 +8,4 @@ jobs:
     steps:
       - name: Daily cron job
         run: |
-          curl --request POST \
-          --url 'https://yskkyle.com/api/update-profile' \
-          --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'
+          curl --request POST --url https://yskkyle.com/api/update-profile --header "Authorization: Bearer ${{ secrets.ACTION_KEY }}"
