@@ -3,9 +3,9 @@ import createIdenticon from 'cyber-circle-identicon';
 import crypto from 'crypto';
 import setDiscord from '../../lib/updateProfile/discord';
 import setTwitter from '../../lib/updateProfile/twitter';
-// import setReddit from '../../lib/updateProfile/reddit';
 import setGravatar from '../../lib/updateProfile/gravatar';
 import setYoutube from '../../lib/updateProfile/youtube';
+// import setReddit from '../../lib/updateProfile/reddit';
 
 const UpdateProfile = async (req: NextApiRequest, res: NextApiResponse) => {
 	if (req.method !== 'POST') {
@@ -44,11 +44,11 @@ const UpdateProfile = async (req: NextApiRequest, res: NextApiResponse) => {
 	const identicon = createIdenticon(identiconKey.toString('utf8'), identiconSettings);
 	const clippedIdenticon = createIdenticon(identiconKey.toString('utf8'), {...identiconSettings, clipped: true});
 	
-	setDiscord(identicon);
-	setYoutube(clippedIdenticon);
-	setTwitter(identicon);
-	// setReddit(identicon);
-	setGravatar(identicon);
+	setDiscord(identicon).catch((err) => console.log(err));
+	setYoutube(clippedIdenticon).catch((err) => console.log(err));
+	setTwitter(identicon).catch((err) => console.log(err));
+	setGravatar(identicon).catch((err) => console.log(err));
+	// const redditPromise = setReddit(identicon).catch((err) => console.log(err));
 	
 	res.writeHead(200);
 	res.end('Performed cron job successfully');
