@@ -13,6 +13,14 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		size: 'large',
 	},
 	{
+		id: 'contact',
+		name: 'Contact',
+		summary: 'My phone number, email, social media, and other communication channels.',
+		connection: 'welcome',
+		link: 'contact',
+		radius: 88,
+	},
+	{
 		id: 'gameDev',
 		name: 'Game Development',
 		summary: 'Projects pertaining to developing video games or modifications for video games.',
