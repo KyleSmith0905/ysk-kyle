@@ -1,3 +1,5 @@
+import { CanvasRenderingContext2D } from 'canvas';
+
 /**
  * Convert text to an array of lines, wrapping at the specified width.
  * @param context - The canvas context to use for measuring text.
