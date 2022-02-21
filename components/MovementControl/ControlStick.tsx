@@ -13,26 +13,29 @@ const ControlStickMovement: FunctionComponent = () => {
 		let relativeMousePosition = [0, 0];
 		let localIsGrabbing = false;
 
-		const mouseDownEvent = (e: MouseEvent) => {
+		const interactStartEvent = (e: MouseEvent | TouchEvent) => {
 			e.preventDefault();
 			localIsGrabbing = true;
 			setIsGrabbing(true);
 		};
-		const mouseUpEvent = () => {
+		const interactEndEvent = () => {
 			handle.style.transform = '';
 			localIsGrabbing = false;
 			setIsGrabbing(false);
 		};
-		const mouseMoveEvent = (e: MouseEvent) => {
-			const baseBounding = base.getBoundingClientRect();
+		const interactMoveEvent = (e: MouseEvent | TouchEvent) => {
+			const position = e instanceof TouchEvent ? e.touches[0] : e;
 			relativeMousePosition = [
-				e.clientX - (baseBounding.left + baseBounding.width / 2),
-				e.clientY - (baseBounding.top + baseBounding.height / 2),
+				position.clientX - (base.offsetLeft + base.offsetWidth / 2),
+				position.clientY - (base.offsetTop + base.offsetHeight / 2),
 			];
-		};			
-		handle.addEventListener('mousedown', mouseDownEvent);
-		document.addEventListener('mouseup', mouseUpEvent);
-		document.addEventListener('mousemove', mouseMoveEvent);
+		};
+		handle.addEventListener('mousedown', interactStartEvent);
+		document.addEventListener('mouseup', interactEndEvent);
+		document.addEventListener('mousemove', interactMoveEvent);
+		handle.addEventListener('touchstart', interactStartEvent);
+		document.addEventListener('touchend', interactEndEvent);
+		document.addEventListener('touchmove', interactMoveEvent);
 
 		const interval = setInterval(() => {
 			if (localIsGrabbing === false) return;
@@ -47,9 +50,12 @@ const ControlStickMovement: FunctionComponent = () => {
 
 		return () => {
 			clearInterval(interval);
-			handle.removeEventListener('mousedown', mouseDownEvent);
-			document.removeEventListener('mouseup', mouseUpEvent);
-			document.removeEventListener('mousemove', mouseMoveEvent);
+			handle.removeEventListener('mousedown', interactStartEvent);
+			document.removeEventListener('mouseup', interactEndEvent);
+			document.removeEventListener('mousemove', interactMoveEvent);
+			handle.removeEventListener('touchstart', interactStartEvent);
+			document.removeEventListener('touchend', interactEndEvent);
+			document.removeEventListener('touchmove', interactMoveEvent);
 		};
 
 	}, []);

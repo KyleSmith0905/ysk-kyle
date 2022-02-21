@@ -15,24 +15,34 @@ const EdgeScrollMovement: FunctionComponent = () => {
 		DrawEdgeScroller();
 		
 		const resizeEvent = () => DrawEdgeScroller();
-		const mouseMoveEvent = (e: MouseEvent) => mousePosition = {x: e.clientX, y: e.clientY};
-		const mouseEnterEvent = () => {
+		const interactMoveEvent = (e: MouseEvent | TouchEvent) => {
+			const position = e instanceof TouchEvent ? e.touches[0] : e;
+			mousePosition = {x: position.clientX, y: position.clientY};
+		};
+		const interactStartEvent = () => {
 			activeMoving = true;
 			setDisplayVignette(true);
 		};
-		const mouseLeaveEvent = () => {
+		const interactEndEvent = () => {
 			activeMoving = false;
 			setDisplayVignette(false);
 		};
 
 		window.addEventListener('resize', resizeEvent);
-		document.addEventListener('mousemove', mouseMoveEvent);
-		document.addEventListener('mouseenter', mouseEnterEvent);
-		document.addEventListener('mouseleave', mouseLeaveEvent);
-		settingsList.addEventListener('mousemove', mouseLeaveEvent);
-		settingsList.addEventListener('mouseleave', mouseEnterEvent);
-		displaySettings.addEventListener('mousemove', mouseLeaveEvent);
-		displaySettings.addEventListener('mouseleave', mouseEnterEvent);
+		document.addEventListener('mousemove', interactMoveEvent);
+		document.addEventListener('touchmove', interactMoveEvent);
+		document.addEventListener('mouseenter', interactStartEvent);
+		document.addEventListener('touchstart', interactStartEvent);
+		document.addEventListener('mouseleave', interactEndEvent);
+		document.addEventListener('touchend', interactEndEvent);
+		settingsList.addEventListener('mouseleave', interactStartEvent);
+		settingsList.addEventListener('touchstart', interactStartEvent);
+		settingsList.addEventListener('mousemove', interactEndEvent);
+		settingsList.addEventListener('touchend', interactEndEvent);
+		displaySettings.addEventListener('mouseleave', interactStartEvent);
+		displaySettings.addEventListener('touchstart', interactStartEvent);
+		displaySettings.addEventListener('mousemove', interactEndEvent);
+		displaySettings.addEventListener('touchend', interactEndEvent);
 		
     const interval = setInterval(() => {
 			if (activeMoving === false) return;
@@ -41,13 +51,20 @@ const EdgeScrollMovement: FunctionComponent = () => {
 		
     return () => {
 			window.removeEventListener('resize', resizeEvent);
-			document.removeEventListener('mousemove', mouseMoveEvent);
-			document.removeEventListener('mouseenter', mouseEnterEvent);
-			document.removeEventListener('mouseleave', mouseLeaveEvent);
-			settingsList.removeEventListener('mousemove', mouseLeaveEvent);
-			settingsList.removeEventListener('mouseleave', mouseEnterEvent);
-			displaySettings.removeEventListener('mousemove', mouseLeaveEvent);
-			displaySettings.removeEventListener('mouseleave', mouseEnterEvent);
+			document.removeEventListener('mousemove', interactMoveEvent);
+			document.removeEventListener('touchmove', interactMoveEvent);
+			document.removeEventListener('mouseenter', interactStartEvent);
+			document.removeEventListener('touchstart', interactStartEvent);
+			document.removeEventListener('mouseleave', interactEndEvent);
+			document.removeEventListener('touchend', interactEndEvent);
+			settingsList.removeEventListener('mouseleave', interactStartEvent);
+			settingsList.removeEventListener('touchstart', interactStartEvent);
+			settingsList.removeEventListener('mousemove', interactEndEvent);
+			settingsList.removeEventListener('touchend', interactEndEvent);
+			displaySettings.removeEventListener('mouseleave', interactStartEvent);
+			displaySettings.removeEventListener('touchstart', interactStartEvent);
+			displaySettings.removeEventListener('mousemove', interactEndEvent);
+			displaySettings.removeEventListener('touchend', interactEndEvent);
 			clearInterval(interval);
 		};
   }, []);
