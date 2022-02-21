@@ -1,4 +1,11 @@
 {
 	"baseUrl": "http://localhost:3000",
-	"chromeWebSecurity": false
+	"chromeWebSecurity": false,
+	"fixturesFolder": "tests/fixtures",
+  "integrationFolder": "tests/integration",
+  "pluginsFile": "tests/plugins/index.js",
+  "screenshotsFolder": "tests/screenshots",
+  "videosFolder": "tests/videos",
+  "downloadsFolder": "tests/downloads",
+  "supportFile": "tests/support/index.js"
 }

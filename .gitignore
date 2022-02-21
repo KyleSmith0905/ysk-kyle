@@ -38,5 +38,5 @@ yarn-error.log*
 *.tsbuildinfo
 
 # cypress
-cypress/videos/
-cypress/screenshots/
+tests/videos/
+tests/screenshots/
