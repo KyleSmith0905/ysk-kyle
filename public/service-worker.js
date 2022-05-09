@@ -1,18 +1,7 @@
-const PRECACHE = 'precache-yskkyle-v1';
 const RUNTIME = 'runtime';
 
-const PRECACHE_URLS = ['./'];
-
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(PRECACHE)
-      .then(cache => cache.addAll(PRECACHE_URLS))
-      .then(self.skipWaiting())
-  );
-});
-
 self.addEventListener('activate', event => {
-  const currentCaches = [PRECACHE, RUNTIME];
+  const currentCaches = [RUNTIME];
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return cacheNames.filter(cacheName => !currentCaches.includes(cacheName));
