@@ -39,9 +39,9 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		size: 'small',
 	},
 	{
-		id: 'particalEngine',
-		name: 'The Partical Engine',
-		summary: 'The bubbles were simulated using a quick partical engine I wrote.',
+		id: 'particleEngine',
+		name: 'The Particle Engine',
+		summary: 'The bubbles were simulated using a quick particle engine I wrote.',
 		connection: 'developmentInfo',
 		radius: 103,
 		size: 'small',

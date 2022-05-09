@@ -4,7 +4,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	{
 		id: 'about',
 		name: 'About EStack Industries',
-		summary: 'Estack Industries is a subsidary of TeckLink with the goal of developing a Real Estate web app.',
+		summary: 'Estack Industries is a subsidiary of TeckLink with the goal of developing a Real Estate web app.',
 		connection: '.',
 		position: [50, 50],
 		pivotPosition: [50, 50],
@@ -76,7 +76,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		size: 'small',
 	},
 	{
-		id: 'accountpage',
+		id: 'accountPage',
 		name: 'Account Page',
 		summary: 'I was assigned to build an account page, this featured a working message box, statistics dashboard, and many other functionalities.',
 		connection: 'accomplishments',

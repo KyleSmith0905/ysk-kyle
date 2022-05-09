@@ -84,7 +84,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		id: 'sleepSort',
 		name: 'Sleep Sort',
 		image: 'sleep-sort',
-		summary: 'Sleep sort syncronously sleeps for "n" seconds.',
+		summary: 'Sleep sort synchronously sleeps for "n" seconds.',
 		connection: 'sorts',
 		radius: 83,
 		size: 'small',

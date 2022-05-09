@@ -56,7 +56,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	{
 		id: 'practices',
 		name: 'Best Practices',
-		summary: 'I researched what users love. Things like removing the flash of unstyled content, and mobile optimization.',
+		summary: 'I researched what users love. Things like removing the flash of not styled content, and mobile optimization.',
 		connection: 'lighthouse',
 		radius: 101,
 		size: 'small'
@@ -64,7 +64,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	{
 		id: 'accessibility',
 		name: 'Accessibility',
-		summary: 'I had always thought no disability should bar someone from accessing the website. All essential buttons are tabbable, all headings are properly tagged, and special theme settings.',
+		summary: 'I had always thought no disability should bar someone from accessing the website. All essential buttons are tabulable, all headings are properly tagged, and special theme settings.',
 		connection: 'lighthouse',
 		radius: 114,
 		size: 'small'
