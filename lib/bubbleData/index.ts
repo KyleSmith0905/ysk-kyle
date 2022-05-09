@@ -162,6 +162,16 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		radius: 89,
 		size: 'small',
 	},
+	{
+		id: 'sparrow',
+		name: 'Sparrow Design',
+		summary: 'Full-time full stack developer at an mobile/web development agency.',
+		connection: 'professional',
+		link: 'sparrow-design',
+		image: 'sparrow-design',
+		radius: 97,
+		size: 'small',
+	},
 ];
 
 export default PadBubblePositions(bubbleData);
