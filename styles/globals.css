@@ -3,6 +3,7 @@
   --color-primary: hsl(0, 0%, 100%);
   --color-secondary: hsl(0, 0%, 95%);
   --color-text: hsl(0, 0%, 0%);
+  --font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif
 }
 
 #ColorTheme.Light {
@@ -32,9 +33,13 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: var(--font-family);
   width: var(--size);
   height: var(--size);
+}
+
+button {
+  font-family: var(--font-family)
 }
 
 a {
