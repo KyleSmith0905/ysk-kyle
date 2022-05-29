@@ -120,11 +120,18 @@ button {
   line-height: 1em;
 }
 
-#Background {
+#Background > * {
   position: absolute;
-  background-color: var(--color-secondary);
   width: var(--size);
   height: var(--size);
+}
+
+#Background > .fill {
+  background-color: var(--color-secondary);
+}
+
+#Background > .pattern {
+  mask-image: radial-gradient(circle, transparent 15%, hsl(0deg, 0%, 100%, 60%));
 }
 
 #Underlay {
