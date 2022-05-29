@@ -4,7 +4,6 @@ import crypto from 'crypto';
 import setDiscord from '../../lib/updateProfile/discord';
 import setTwitter from '../../lib/updateProfile/twitter';
 import setGravatar from '../../lib/updateProfile/gravatar';
-import setYoutube from '../../lib/updateProfile/youtube';
 import setReddit from '../../lib/updateProfile/reddit';
 
 const UpdateProfile = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -43,18 +42,15 @@ const UpdateProfile = async (req: NextApiRequest, res: NextApiResponse) => {
 	};
 
 	const identicon = createIdenticon(identiconKey.toString('utf8'), identiconSettings);
-	const clippedIdenticon = createIdenticon(identiconKey.toString('utf8'), {...identiconSettings, clipped: true});
 	
 	try {
 		const discordPromise = setDiscord(identicon);
-		const youtubePromise = setYoutube(clippedIdenticon);
 		const twitterPromise = setTwitter(identicon);
 		const gravatarPromise = setGravatar(identicon);
 		const redditPromise = setReddit(identicon);
 		
 		await Promise.all([
 			discordPromise,
-			youtubePromise,
 			twitterPromise,
 			gravatarPromise,
 			redditPromise
