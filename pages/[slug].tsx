@@ -26,7 +26,7 @@ const BubblePage:
   FunctionComponent<BubblePageProps> = ({
     slug, cookies = {}, bubbles: localBubble = [], isUserBot = false
 }) => {
-  const slugFormated = slug.split('-').map((s: string) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+  const slugFormatted = slug.split('-').map((s: string) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
   
   const reverseBubbles = localBubble.slice().reverse();
   const [bubbles, setBubbles] = useState<IBubble[]>(reverseBubbles);
@@ -51,9 +51,9 @@ const BubblePage:
   return (
     <>
       <Head>
-        <title>{slugFormated + ' | YSK Kyle - A portfolio website for Kyle Smith'}</title>
-        <meta property='og:title' content={slugFormated + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
-        <meta name='twitter:title' content={slugFormated + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
+        <title>{slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'}</title>
+        <meta property='og:title' content={slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
+        <meta name='twitter:title' content={slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
       </Head>
       <div id='Background' />
       <div id='Underlay'>
