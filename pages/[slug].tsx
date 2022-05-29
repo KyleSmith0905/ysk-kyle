@@ -24,21 +24,21 @@ interface BubblePageProps {
 const BubblePage:
   NextPage<BubblePageProps> |
   FunctionComponent<BubblePageProps> = ({
-    slug, cookies = {}, bubbles: localBubble = [], isUserBot = false
+    slug, cookies, bubbles: localBubble = [], isUserBot = false
 }) => {
   const slugFormatted = slug.split('-').map((s: string) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
   
   const reverseBubbles = localBubble.slice().reverse();
   const [bubbles, setBubbles] = useState<IBubble[]>(reverseBubbles);
-  const [travelMode, setTravelMode] = useState(cookies.travelMode ?? 'Browser');
-  const [colorTheme, setColorTheme] = useState(cookies.colorTheme ?? 'Light');
+  const [travelMode, setTravelMode] = useState(cookies?.travelMode ?? 'Browser');
+  const [colorTheme, setColorTheme] = useState(cookies?.colorTheme ?? 'Light');
   
   useEffect(() =>{
     scrollTo(1000 - (window.innerWidth / 2), 1000 - (window.innerHeight / 2));
   }, []);
 
   useEffect(() => {
-    if (Object.keys(cookies).length === 0) {
+    if (cookies && Object.keys(cookies).length === 0) {
       const travelMode = getCookie('travelMode');
       if (travelMode) setTravelMode(travelMode);
       const colorTheme = getCookie('colorTheme');
