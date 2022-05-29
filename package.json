@@ -31,8 +31,8 @@
     "start": "next build && next start",
     "lint": "next lint",
     "test": "cypress run",
-    "build:vercel": "npm run build",
-    "install:vercel": "npm install"
+    "build:vercel": "pnpm run build",
+    "install:vercel": "pnpm install"
   },
   "dependencies": {
     "cyber-circle-identicon": "^0.2.0",
