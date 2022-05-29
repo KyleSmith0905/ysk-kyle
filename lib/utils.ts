@@ -86,6 +86,7 @@ const IsCollideWithBubbles = (bubble: [number, number, number], bubbles: [number
 };
 
 const UserAgentIsBot = (userAgent: string): boolean => {
+	userAgent = userAgent.toLowerCase();
 	const COMMON_BOT_NAMES = ['bot', 'crawl', 'spider', 'slurp', 'archiver'];
 	if (COMMON_BOT_NAMES.some(bot => userAgent.includes(bot))) {
 		return true;
