@@ -4,11 +4,11 @@ const PathCross = () => 'M1000,0V2000M0,1000H2000';
 
 const PathCircle = (size: number) => {
 	const twiceSize = size * 2;
-	const radii = size + ',' + size;
-	const startLocation = 'M1000,' + (1000 - size);
-	const firstArc = 'a' + radii + ' 0 1,0 0,' + twiceSize;
-	const secondArc = 'a' + radii + ' 0 1,0 0,' + (-twiceSize);
-	return startLocation + firstArc + secondArc;
+	const radii = `${size},${size}`;
+	const startLocation = `M1000,${1000 - size}`;
+	const firstArc = `a${radii} 0 1,0 0, ${twiceSize}`;
+	const secondArc = `a${radii} 0 1,0 0, ${-twiceSize}`;
+	return `${startLocation}${firstArc}${secondArc}`;
 };
 
 const Background: FunctionComponent = () => {
