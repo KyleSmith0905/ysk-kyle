@@ -28,7 +28,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, is
 			return;
 		}
 		
-		const unhideElement = () => {
+		const showElement = () => {
 			setHidden(false);
 			SetBubbleTransform(bubble, bubbleElement.current);
 		};
@@ -40,7 +40,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, is
 			if (IsArrayNaN(bubble.position)) {
 				spawnBubble(bubble, bubbles, Date.now() - loadTime);
 				SetBubbleTransform(bubble, bubbleElement);
-				if (IsArrayNaN(bubble.position) === false) unhideElement();
+				if (IsArrayNaN(bubble.position) === false) showElement();
 			}
 			else {
 				if (!IsArraysEqual(bubble.pivotPosition, bubble.deployPosition)) moveToPosition(bubble, bubbles);
@@ -55,7 +55,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, is
 			requestId = requestAnimationFrame(performPhysics);
 		};
 
-		if (IsArrayNaN(bubble.position) === false) unhideElement();
+		if (IsArrayNaN(bubble.position) === false) showElement();
 		requestId = requestAnimationFrame(performPhysics);
 		
 		return () => cancelAnimationFrame(requestId);
