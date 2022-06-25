@@ -114,9 +114,11 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, is
 			<h2>
 				{bubble.name}
 			</h2>
-			<p>
-				{bubble.summary}
-			</p>
+			{bubble.summary !== '' && (
+				<p>
+					{bubble.summary}
+				</p>
+			)}
 			{bubble.image &&
 				<div className='BackgroundImageContainer'>
 					<Image
