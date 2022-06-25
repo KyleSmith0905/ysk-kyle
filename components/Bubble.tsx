@@ -109,8 +109,8 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, is
 				position: 'absolute',
 				width: (bubble.radius * 2) + 'px',
 				height: (bubble.radius * 2) + 'px',
-			}
-		}>
+			}}
+		>
 			<h2>
 				{bubble.name}
 			</h2>
