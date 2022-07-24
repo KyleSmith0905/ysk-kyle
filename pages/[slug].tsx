@@ -3,7 +3,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { FunctionComponent, useEffect, useState } from 'react';
 import Connections from '../components/Connections';
-import Background from '../components/Background';
+import BackgroundConnections from '../components/BackgroundConnections';
 import Bubble from '../components/Bubble';
 import BrowserMovement from '../components/MovementControl/Browser';
 import ControlStickMovement from '../components/MovementControl/ControlStick';
@@ -13,6 +13,7 @@ import Settings from '../components/Settings';
 import { IBubble } from '../lib/bubbleData/_shared';
 import { Cookies, getCookie } from '../lib/cookies';
 import { IsUserBot } from '../lib/utils';
+import Background from '../components/Background';
 
 interface BubblePageProps {
   slug: string;
@@ -55,7 +56,8 @@ const BubblePage:
         <meta property='og:title' content={slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
         <meta name='twitter:title' content={slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
       </Head>
-      <div id='Background'>
+      <Background/>
+      {/* <div id='Background'>
         <div className='fill'/>
         <svg className='pattern' height="100%" width="100%">
           <defs>
@@ -65,10 +67,10 @@ const BubblePage:
           </defs>
           <rect fill="url(#background-pattern)" height="200%" width="200%"/>
         </svg>
-      </div>
+      </div> */}
       <div id='Underlay'>
         <Connections bubbles={bubbles} />
-        <Background />
+        {/* <BackgroundConnections /> */}
       </div>
       <main id='MainContent'>
         {bubbles.map((bubble: IBubble, index: number) => (
