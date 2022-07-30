@@ -1,9 +1,8 @@
 import { readdirSync } from 'fs';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useCallback, useEffect, useState } from 'react';
 import Connections from '../components/Connections';
-import BackgroundConnections from '../components/BackgroundConnections';
 import Bubble from '../components/Bubble';
 import BrowserMovement from '../components/MovementControl/Browser';
 import ControlStickMovement from '../components/MovementControl/ControlStick';
@@ -14,6 +13,9 @@ import { IBubble } from '../lib/bubbleData/_shared';
 import { Cookies, getCookie } from '../lib/cookies';
 import { IsUserBot } from '../lib/utils';
 import Background from '../components/Background';
+import BackgroundConnections from '../components/BackgroundConnections';
+import { ColorModes } from '../lib/colorMode';
+import { GraphicsLevels } from '../lib/graphicsLevel';
 
 interface BubblePageProps {
   slug: string;
@@ -32,7 +34,9 @@ const BubblePage:
   const reverseBubbles = localBubble.slice().reverse();
   const [bubbles, setBubbles] = useState<IBubble[]>(reverseBubbles);
   const [travelMode, setTravelMode] = useState(cookies?.travelMode ?? 'Browser');
-  const [colorTheme, setColorTheme] = useState(cookies?.colorTheme ?? 'Light');
+  const [colorTheme, setColorTheme] = useState<ColorModes>(cookies?.colorTheme ?? 'Dark');
+  const [graphics, setGraphics] = useState<GraphicsLevels>(cookies?.graphics ?? 'Auto');
+  const [autoGraphics, setAutoGraphics] = useState<GraphicsLevels | 'Assume-High'>('High');
   
   useEffect(() =>{
     scrollTo(1000 - (window.innerWidth / 2), 1000 - (window.innerHeight / 2));
@@ -42,12 +46,21 @@ const BubblePage:
     if (cookies && Object.keys(cookies).length === 0) {
       const travelMode = getCookie('travelMode');
       if (travelMode) setTravelMode(travelMode);
-      const colorTheme = getCookie('colorTheme');
+      const graphics = getCookie('graphics') as GraphicsLevels;
+      if (graphics) setGraphics(graphics);
+      const colorTheme = getCookie('colorTheme') as ColorModes;
       if (colorTheme) setColorTheme(colorTheme);
       const root = document.getElementById('ColorTheme');
       if (root && colorTheme) root.className = colorTheme;
     }
   }, [cookies]);
+
+  // Compares the user's graphics settings to a parameter.
+  const isGraphics = useCallback((compareGraphics: GraphicsLevels) => {
+    let activeGraphics = graphics === 'Auto' ? autoGraphics : graphics;
+    if (activeGraphics === 'Assume-High') activeGraphics = 'High';
+    return activeGraphics === compareGraphics;
+  }, [graphics, autoGraphics]);
 
   return (
     <>
@@ -56,21 +69,22 @@ const BubblePage:
         <meta property='og:title' content={slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
         <meta name='twitter:title' content={slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
       </Head>
-      <Background/>
-      {/* <div id='Background'>
+      {isGraphics('High') && <Background setAutoGraphics={setAutoGraphics} colorTheme={colorTheme}/>}
+      {isGraphics('Low') && (<div id='Background'>
         <div className='fill'/>
-        <svg className='pattern' height="100%" width="100%">
-          <defs>
-            <pattern id="background-pattern" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="rotate(135)">
-              <circle cx="16" cy="16" r="0.7" fill="var(--color-text)"/>
-            </pattern>
-          </defs>
-          <rect fill="url(#background-pattern)" height="200%" width="200%"/>
-        </svg>
-      </div> */}
+          <svg className='pattern' height="100%" width="100%">
+            <defs>
+              <pattern id="background-pattern" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="rotate(135)">
+                <circle cx="16" cy="16" r="0.7" fill="var(--color-text)"/>
+              </pattern>
+            </defs>
+            <rect fill="url(#background-pattern)" height="200%" width="200%"/>
+          </svg>
+        </div>
+      )}
       <div id='Underlay'>
         <Connections bubbles={bubbles} />
-        {/* <BackgroundConnections /> */}
+        {isGraphics('Low') && <BackgroundConnections />}
       </div>
       <main id='MainContent'>
         {bubbles.map((bubble: IBubble, index: number) => (
@@ -92,6 +106,8 @@ const BubblePage:
         travelMode={travelMode}
         setColorTheme={setColorTheme}
         colorTheme={colorTheme}
+        setGraphics={setGraphics}
+        graphics={graphics}
       />
     </>
   );

@@ -1,43 +1,62 @@
-import { FunctionComponent, useEffect, useRef } from 'react';
-import { WebGLRenderer, PerspectiveCamera } from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { Dispatch, FunctionComponent, SetStateAction, useEffect, useRef } from 'react';
+import { WebGLRenderer, PerspectiveCamera, Scene, Color } from 'three';
 import { ambianceGenerator } from './sceneAmbience';
 import { starGenerator } from './sceneStars';
+import { cloudGenerator } from './sceneClouds';
 import { SceneGenerator } from './utility';
+import { GraphicsLevels } from '../../lib/graphicsLevel';
+import { ColorModes, COLOR_MODES } from '../../lib/colorMode';
 
-const Background: FunctionComponent = () => {
+const Background: FunctionComponent<{
+	setAutoGraphics: Dispatch<SetStateAction<GraphicsLevels | 'Assume-High'>>,
+	colorTheme: ColorModes,
+}> = ({setAutoGraphics, colorTheme}) => {
 	const backgroundRef = useRef<HTMLCanvasElement>(null);
+	const colorThemeRef = useRef<string>();
+
+	useEffect(() => {
+		colorThemeRef.current = colorTheme;
+	}, [colorTheme]);
 
 	useEffect(() => {
 		if (!backgroundRef.current) return;
+		let componentDetached = false;
+
 		const width = document.documentElement.offsetWidth;
 		const height = document.documentElement.offsetHeight;
 
-		const camera = new PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 5, 5000 );
-		const renderer = new WebGLRenderer({canvas: backgroundRef.current});
+		const camera = new PerspectiveCamera(75, 1, 5, 800);
+		const renderer = new WebGLRenderer({
+			canvas: backgroundRef.current,
+			alpha: false,
+			antialias: false,
+		});
 		renderer.setSize(width, height);
+		const scene = new Scene();
+		let colorMode = COLOR_MODES.find(e => e.name === colorTheme) ?? COLOR_MODES[0];
+		scene.background = new Color(colorMode?.secondary);
 
 		const sceneGenerators: {[key: string]: SceneGenerator} = {
 			star: starGenerator,
 			ambiance: ambianceGenerator,
+			cloud: cloudGenerator,
 		};
 
 		// Hydrates the scenes and prepares everything for animation.
-		const layerResult = Object.values(sceneGenerators).map(layer => layer({camera, renderer, width, height}));
-		layerResult.forEach((e) => e.initial());
+		const layerResult = Object.values(sceneGenerators).map(layer => layer({scene, width, height}));
+		layerResult.forEach((e) => e.initial({colorMode}));
 		
 		camera.position.z = 5;
-		camera.rotateX(1);
-		camera.rotateY(0);
-		let startingSpeed = 20;
-		
-		// TEMP
-		const controls = new OrbitControls(camera, renderer.domElement);
-		controls.update();
 		
 		renderer.autoClear = false;
 		
+		const lastFiveAnimationTimes = [0, 0, 0, 0, 0];
+
+		let startingSpeed = 25;
 		const render = () => {
+			const startTimestamp = Date.now();
+
+			if (componentDetached) return;
 			startingSpeed = startingSpeed / 1.01;
 			const speed = 1 + startingSpeed;
 			
@@ -45,17 +64,35 @@ const Background: FunctionComponent = () => {
 
 			// Animate the scenes.
 			layerResult.forEach((e) => e.loop({speed}));
+			renderer.render(scene, camera);
 
-			// TEMP
-			controls.update();
+			// Determine if the scene is slow on the user's device.
+			const endTimestamp = Date.now();
+			const animationTime = startTimestamp - endTimestamp;
+			lastFiveAnimationTimes.push(animationTime);
+			lastFiveAnimationTimes.shift();
+			if (lastFiveAnimationTimes.every((time) => time < -30)) {
+				setAutoGraphics('Low');
+			}
+
+			// Recolor the scene's objects.
+			if (colorThemeRef.current !== colorMode.name) {
+				colorMode = COLOR_MODES.find(e => e.name === colorThemeRef.current) ?? COLOR_MODES[0];
+				scene.background = new Color(colorMode?.secondary);
+				layerResult.forEach((e) => e.recolor({colorMode}));
+			}
 
 			requestAnimationFrame(render);
 		};
 		render();
-	}, []);
+
+		return () => {
+			componentDetached = true;
+		};
+	}, [setAutoGraphics]);
 
 	return (
-		<div style={{position: 'absolute'}}>
+		<div style={{position: 'absolute', display: 'flex'}}>
 			<canvas ref={backgroundRef}/>
 		</div>
 	);

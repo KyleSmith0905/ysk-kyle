@@ -1,17 +1,21 @@
 import { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { COLOR_MODES } from '../lib/colorMode';
+import { ColorModes, COLOR_MODES } from '../lib/colorMode';
 import { setCookie } from '../lib/cookies';
+import { GraphicsLevels } from '../lib/graphicsLevel';
 
 const HomeSVG: FunctionComponent<{
 	setTravelMode: Dispatch<SetStateAction<string>>,
 	travelMode: string,
-	setColorTheme: Dispatch<SetStateAction<string>>,
-	colorTheme: string,
+	setColorTheme: Dispatch<SetStateAction<ColorModes>>,
+	colorTheme: ColorModes,
+	setGraphics: Dispatch<SetStateAction<GraphicsLevels>>
+	graphics: GraphicsLevels,
 }> = ({
 	setTravelMode, travelMode,
 	setColorTheme, colorTheme,
+	setGraphics, graphics,
 }) => {
 
 	const router = useRouter();
@@ -20,9 +24,10 @@ const HomeSVG: FunctionComponent<{
 
 	const toggleSettings = () => setSettingsOpen(!settingsOpen);
 
-	const colorThemes = COLOR_MODES.map((e) => e.name);
+	const colorThemes = COLOR_MODES.map((e) => e.name) as ColorModes[];
 	const travelModes = ['Browser', 'Edge Scrolling', 'Control Stick', 'Panorama'];
-
+	const graphicsLevels: GraphicsLevels[] = ['Auto', 'Low', 'High'];
+	
 	const handleColorThemeChange = () => {
 		const root = document.getElementById('ColorTheme') as HTMLElement;
 		if (!root) return;
@@ -66,6 +71,14 @@ const HomeSVG: FunctionComponent<{
 					setCookie('colorTheme', newColorTheme);
 				}}>
 					Color Theme: {colorTheme}
+				</button>
+				<button onClick={() => {
+					const newGraphics = graphicsLevels[(graphicsLevels.indexOf(graphics) + 1) % graphicsLevels.length];
+					setGraphics(newGraphics);
+					setCookie('graphics', newGraphics);
+					console.log(newGraphics);
+				}}>
+					Graphics Level: {graphics}
 				</button>
 			</div>
 		</aside>

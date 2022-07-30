@@ -5,6 +5,8 @@ interface ColorMode {
 	text: string;
 }
 
+type ColorModes = 'Light' | 'Dark' | 'Iconic';
+
 const COLOR_MODES: ColorMode[] = [
 	{
 		name: 'Light',
@@ -27,3 +29,4 @@ const COLOR_MODES: ColorMode[] = [
 ];
 
 export { COLOR_MODES };
+export type { ColorModes, ColorMode };

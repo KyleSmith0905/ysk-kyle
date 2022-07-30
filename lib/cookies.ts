@@ -1,6 +1,10 @@
+import { ColorModes } from './colorMode';
+import { GraphicsLevels } from './graphicsLevel';
+
 interface Cookies {
-	colorTheme: string;
+	colorTheme: ColorModes;
 	travelMode: string;
+	graphics: GraphicsLevels;
 }
 
 const getCookie = (name: string) => {
