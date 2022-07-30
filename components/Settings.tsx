@@ -1,11 +1,9 @@
 import { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { ColorModes, COLOR_MODES } from '../lib/colorMode';
 import { setCookie } from '../lib/cookies';
 import { GraphicsLevels } from '../lib/graphicsLevel';
 
-const HomeSVG: FunctionComponent<{
+const Settings: FunctionComponent<{
 	setTravelMode: Dispatch<SetStateAction<string>>,
 	travelMode: string,
 	setColorTheme: Dispatch<SetStateAction<ColorModes>>,
@@ -17,9 +15,6 @@ const HomeSVG: FunctionComponent<{
 	setColorTheme, colorTheme,
 	setGraphics, graphics,
 }) => {
-
-	const router = useRouter();
-
 	const [settingsOpen, setSettingsOpen] = useState(true);
 
 	const toggleSettings = () => setSettingsOpen(!settingsOpen);
@@ -54,9 +49,6 @@ const HomeSVG: FunctionComponent<{
 				</svg>
 			</button>
 			<div id='SettingsList' className={settingsOpen ? '': 'Hidden'}>
-				{router.pathname !== '/' &&
-					<Link href='/'>Back To Home</Link>
-				}
 				<button onClick={() => {
 					const newTravelMode = travelModes[(travelModes.indexOf(travelMode) + 1) % travelModes.length];
 					setTravelMode(newTravelMode);
@@ -85,4 +77,4 @@ const HomeSVG: FunctionComponent<{
 	);
 };
 
-export default HomeSVG;
+export default Settings;

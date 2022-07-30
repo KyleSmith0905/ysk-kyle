@@ -16,6 +16,7 @@ import Background from '../components/Background';
 import BackgroundConnections from '../components/BackgroundConnections';
 import { ColorModes } from '../lib/colorMode';
 import { GraphicsLevels } from '../lib/graphicsLevel';
+import HomeButton from '../components/HomeButton';
 
 interface BubblePageProps {
   slug: string;
@@ -109,6 +110,7 @@ const BubblePage:
         setGraphics={setGraphics}
         graphics={graphics}
       />
+      <HomeButton/>
     </>
   );
 };
