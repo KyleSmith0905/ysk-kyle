@@ -21,18 +21,36 @@ const Background: FunctionComponent<{
 	useEffect(() => {
 		if (!backgroundRef.current) return;
 		let componentDetached = false;
-
-		const width = document.documentElement.offsetWidth;
-		const height = document.documentElement.offsetHeight;
-
+		
 		const camera = new PerspectiveCamera(75, 1, 5, 800);
 		const renderer = new WebGLRenderer({
 			canvas: backgroundRef.current,
 			alpha: false,
 			antialias: false,
 		});
-		renderer.setSize(width, height);
 		const scene = new Scene();
+
+		// Saves and updates screen size.
+		let width = Math.min(Math.max(window.innerWidth, window.innerHeight), 2000);
+		let height = width;
+		const screenResizeTracker = () => {
+			width = Math.min(Math.max(window.innerWidth, window.innerHeight), 2000);
+			height = width;
+			renderer.setSize(width, height);
+			renderer.setViewport((width - window.innerWidth) / -2, (height - window.innerHeight) / 2, width, height);
+		};
+		window.addEventListener('resize', screenResizeTracker);
+		renderer.setSize(width, height);
+		renderer.setViewport((width - window.innerWidth) / -2, (height - window.innerHeight) / 2, width, height);
+
+		// Tracks the mouse position for later.
+		const mousePosition: {x: number, y: number} = {x: window.innerWidth / 2, y: window.innerHeight / 2};
+		const mouseMovementTracker = (event: MouseEvent) => {
+			mousePosition.x = event.clientX;
+			mousePosition.y = event.clientY;
+		};
+		document.addEventListener('mousemove', mouseMovementTracker);
+
 		let colorMode = COLOR_MODES.find(e => e.name === colorTheme) ?? COLOR_MODES[0];
 		scene.background = new Color(colorMode?.secondary);
 
@@ -53,14 +71,33 @@ const Background: FunctionComponent<{
 		const lastFiveAnimationTimes = [0, 0, 0, 0, 0];
 
 		let startingSpeed = 25;
+
 		const render = () => {
+			if (componentDetached) return;
 			const startTimestamp = Date.now();
 
-			if (componentDetached) return;
+			// Sets the speed of the current frame.
 			startingSpeed = startingSpeed / 1.01;
 			const speed = 1 + startingSpeed;
 			
 			renderer.clear();
+
+			// Recolor the scene's objects.
+			if (colorThemeRef.current !== colorMode.name) {
+				colorMode = COLOR_MODES.find(e => e.name === colorThemeRef.current) ?? COLOR_MODES[0];
+				scene.background = new Color(colorMode?.secondary);
+				layerResult.forEach((e) => e.recolor({colorMode}));
+			}
+
+			// Controls interactivity with the background.
+			const screenX = document.documentElement.scrollLeft + (window.innerWidth / 2) - 1000;
+			const screenY = document.documentElement.scrollTop + (window.innerHeight / 2) - 1000;
+			camera.position.x = screenX * 0.01;
+			camera.position.y = screenY * -0.01;
+			const cursorX = mousePosition.x - (window.innerWidth / 2);
+			const cursorY = mousePosition.y - (window.innerHeight / 2);
+			camera.rotation.y = cursorX * -0.00003;
+			camera.rotation.x = cursorY * -0.00003;
 
 			// Animate the scenes.
 			layerResult.forEach((e) => e.loop({speed}));
@@ -75,24 +112,19 @@ const Background: FunctionComponent<{
 				setAutoGraphics('Low');
 			}
 
-			// Recolor the scene's objects.
-			if (colorThemeRef.current !== colorMode.name) {
-				colorMode = COLOR_MODES.find(e => e.name === colorThemeRef.current) ?? COLOR_MODES[0];
-				scene.background = new Color(colorMode?.secondary);
-				layerResult.forEach((e) => e.recolor({colorMode}));
-			}
-
 			requestAnimationFrame(render);
 		};
 		render();
 
 		return () => {
 			componentDetached = true;
+			document.removeEventListener('mousemove', mouseMovementTracker);
+			window.removeEventListener('resize', screenResizeTracker);
 		};
 	}, [setAutoGraphics]);
 
 	return (
-		<div style={{position: 'absolute', display: 'flex'}}>
+		<div style={{position: 'fixed', display: 'flex'}}>
 			<canvas ref={backgroundRef}/>
 		</div>
 	);
