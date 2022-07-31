@@ -96,8 +96,8 @@ const Background: FunctionComponent<{
 			camera.position.y = screenY * -0.01;
 			const cursorX = mousePosition.x - (window.innerWidth / 2);
 			const cursorY = mousePosition.y - (window.innerHeight / 2);
-			camera.rotation.y = cursorX * -0.00003;
-			camera.rotation.x = cursorY * -0.00003;
+			camera.rotation.y = cursorX * -0.00001;
+			camera.rotation.x = cursorY * -0.00001;
 
 			// Animate the scenes.
 			layerResult.forEach((e) => e.loop({speed}));
