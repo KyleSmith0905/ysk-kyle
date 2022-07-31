@@ -21,7 +21,7 @@ const cloudGenerator: SceneGenerator = ({scene}) => {
 			
 			const colorModeBlend = new Color(colorMode.primary);
 
-			for (let i = 0; i < 60; i++) {
+			for (let i = 0; i < 50; i++) {
 				const cloudColor = getCloudColor(colorModeBlend);
 
 				// Generates an orange cloud texture by cropping part a noise map.
