@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useEffect } from 'react';
+import { COLOR_MODES } from '../lib/colorMode';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
 
@@ -10,6 +11,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       navigator.serviceWorker.register('/service-worker.js');
     }
   }, []);
+
+  const cookiesColorMode = COLOR_MODES.find(e => e.name === (pageProps.cookies?.colorTheme ?? 'Dark'));
   
   return (
     <>
@@ -19,7 +22,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name='description' content='YSK Kyle is a portfolio website for Kyle Smith to showcase his web design and programming experience.' />
         <meta name='keywords' content='portfolio, programming, resume, web design, experience, frontend programmer' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <meta name='theme-color' content='#f2f2f2' />
+        <meta name='theme-color' content={cookiesColorMode?.primary} />
         <link rel='icon' type='image/ico' href='/icons/favicon.ico' />
         <link rel='apple-touch-icon' href='/icons/logo192.png' />
         <link rel='manifest' href='/manifest.json' />
@@ -44,7 +47,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name='twitter:title' content='YSK Kyle - A portfolio website for Kyle Smith' />
         <meta name='twitter:description' content='YSK Kyle is a portfolio website for Kyle Smith to showcase his web design and programming experience.' />
       </Head>
-      <div id='ColorTheme' className={pageProps.cookies?.colorTheme ?? 'Dark'}>
+      <div id='ColorTheme' className={cookiesColorMode.name}>
         <Component {...pageProps} />
       </div>
     </>

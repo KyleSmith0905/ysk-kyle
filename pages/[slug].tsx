@@ -14,9 +14,10 @@ import { Cookies, getCookie } from '../lib/cookies';
 import { IsUserBot } from '../lib/utils';
 import Background from '../components/Background';
 import BackgroundConnections from '../components/BackgroundConnections';
-import { ColorModes } from '../lib/colorMode';
+import { ColorModes, COLOR_MODES } from '../lib/colorMode';
 import { GraphicsLevels } from '../lib/graphicsLevel';
 import HomeButton from '../components/HomeButton';
+import { welcomeMessage } from '../lib/consoleMessages';
 
 interface BubblePageProps {
   slug: string;
@@ -69,6 +70,7 @@ const BubblePage:
         <title>{slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'}</title>
         <meta property='og:title' content={slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
         <meta name='twitter:title' content={slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
+        <meta name='theme-color' content={COLOR_MODES.find(e => e.name === colorTheme)?.primary} />
       </Head>
       {isGraphics('High') && <Background setAutoGraphics={setAutoGraphics} colorTheme={colorTheme}/>}
       {isGraphics('Low') && (<div id='Background'>
