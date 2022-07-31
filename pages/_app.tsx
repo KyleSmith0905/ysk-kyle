@@ -47,7 +47,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name='twitter:title' content='YSK Kyle - A portfolio website for Kyle Smith' />
         <meta name='twitter:description' content='YSK Kyle is a portfolio website for Kyle Smith to showcase his web design and programming experience.' />
       </Head>
-      <div id='ColorTheme' className={cookiesColorMode.name}>
+      <div id='ColorTheme' className={cookiesColorMode?.name}>
         <Component {...pageProps} />
       </div>
     </>
