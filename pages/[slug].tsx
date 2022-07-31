@@ -73,7 +73,9 @@ const BubblePage:
         <meta name='twitter:title' content={slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
         <meta name='theme-color' content={COLOR_MODES.find(e => e.name === colorTheme)?.primary} />
       </Head>
-      {isGraphics('High') && <Background setAutoGraphics={setAutoGraphics} colorTheme={colorTheme}/>}
+      {isGraphics('High') && (
+        <Background setAutoGraphics={setAutoGraphics} colorTheme={colorTheme}/>
+      )}
       {isGraphics('Low') && (<div id='Background'>
         <div className='fill'/>
           <svg className='pattern' height="100%" width="100%">
