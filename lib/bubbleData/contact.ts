@@ -54,7 +54,16 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	{
 		id: 'linkedin',
 		name: 'LinkedIn',
-		summary: 'My LinkedIn custom url is /KyleSmith0905, I go by the name as Kyle Smith.',
+		summary: 'My LinkedIn custom url is /KyleSmith0905, throw me a message anytime!',
+		link: 'https://www.linkedin.com/in/KyleSmith0905/',
+		connection: 'social',
+		radius: 84,
+		size: 'small',
+	},
+	{
+		id: 'gitHub',
+		name: 'GitHub',
+		summary: 'My github name is KyleSmith0905, check out my repositories https://github.com/KyleSmith0905.',
 		link: 'https://www.linkedin.com/in/KyleSmith0905/',
 		connection: 'social',
 		radius: 84,
