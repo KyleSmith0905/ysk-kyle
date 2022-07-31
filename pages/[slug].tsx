@@ -42,6 +42,7 @@ const BubblePage:
   
   useEffect(() =>{
     scrollTo(1000 - (window.innerWidth / 2), 1000 - (window.innerHeight / 2));
+    console.log(welcomeMessage());
   }, []);
 
   useEffect(() => {
