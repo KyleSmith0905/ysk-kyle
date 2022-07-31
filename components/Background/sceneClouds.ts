@@ -55,7 +55,7 @@ const cloudGenerator: SceneGenerator = ({scene}) => {
 					alphaTest: 0.02,
 				});
 				const planeMesh = new Mesh(planeGeometry, cloudMaterial);
-				const position = randomPointInTorus(100, 170);
+				const position = randomPointInTorus(100, 220);
 				planeMesh.position.set(position.x, position.y, MathUtils.randFloat(-250, -900));
 				planeMesh.rotateZ(position.angle);
 				scene.add(planeMesh);
@@ -67,7 +67,7 @@ const cloudGenerator: SceneGenerator = ({scene}) => {
 				cloud.translateZ(0.1 * speed);
 				cloud.material.opacity = sineSmooth(cloud.position.z, -150, -800, 1, 0);
 				if (cloud.position.z > -150) {
-					const position = randomPointInTorus(150, 270);
+					const position = randomPointInTorus(100, 220);
 					cloud.position.set(position.x, position.y, MathUtils.randFloat(-800, -1000));
 					cloud.rotateZ(position.angle);
 				}
