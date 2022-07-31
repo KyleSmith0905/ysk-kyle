@@ -51,8 +51,8 @@ const starGenerator: SceneGenerator = ({scene}) => {
 				star.scale.setZ(speed * 4);
 
 				let opacity = 0;
-				if (star.position.z > -25) opacity = sineSmooth(star.position.z, 0, -50, 1, 0);
-				else if (star.position.z < -325) opacity = sineSmooth(star.position.z, -300, -350, 1, 0);
+				if (star.position.z > -50) opacity = sineSmooth(star.position.z, 0, -100, 1, 0);
+				else if (star.position.z < -300) opacity = sineSmooth(star.position.z, -250, -350, 1, 0);
 				else opacity = 1;
 				star.material.uniforms.opacity.value = opacity;
 				
