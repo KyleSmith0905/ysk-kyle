@@ -31,10 +31,10 @@ const Background: FunctionComponent<{
 		const scene = new Scene();
 
 		// Saves and updates screen size.
-		let width = Math.min(Math.max(window.innerWidth, window.innerHeight), 2000);
+		let width = Math.max(window.innerWidth, window.innerHeight);
 		let height = width;
 		const screenResizeTracker = () => {
-			width = Math.min(Math.max(window.innerWidth, window.innerHeight), 2000);
+			width = Math.max(window.innerWidth, window.innerHeight);
 			height = width;
 			renderer.setSize(width, height);
 			renderer.setViewport((width - window.innerWidth) / -2, (height - window.innerHeight) / 2, width, height);
