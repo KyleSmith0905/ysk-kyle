@@ -108,7 +108,7 @@ const Background: FunctionComponent<{
 			const animationTime = startTimestamp - endTimestamp;
 			lastFiveAnimationTimes.push(animationTime);
 			lastFiveAnimationTimes.shift();
-			if (lastFiveAnimationTimes.every((time) => time < -30)) {
+			if (lastFiveAnimationTimes.every((time) => time < -20)) {
 				setAutoGraphics('Low');
 			}
 
