@@ -1,11 +1,12 @@
 import { Dispatch, FunctionComponent, SetStateAction, useEffect, useRef } from 'react';
-import { WebGLRenderer, PerspectiveCamera, Scene, Color } from 'three';
+import { WebGLRenderer, PerspectiveCamera, Scene, Color, sRGBEncoding, Clock } from 'three';
 import { ambianceGenerator } from './sceneAmbience';
 import { starGenerator } from './sceneStars';
 import { cloudGenerator } from './sceneClouds';
 import { SceneGenerator } from './utility';
 import { GraphicsLevels } from '../../lib/graphicsLevel';
 import { ColorModes, COLOR_MODES } from '../../lib/colorMode';
+import WebGl from 'three/examples/jsm/capabilities/WebGL';
 
 const Background: FunctionComponent<{
 	setAutoGraphics: Dispatch<SetStateAction<GraphicsLevels | 'Assume-High'>>,
@@ -20,6 +21,9 @@ const Background: FunctionComponent<{
 
 	useEffect(() => {
 		if (!backgroundRef.current) return;
+		if (!WebGl.isWebGLAvailable()) {
+			return setAutoGraphics('Low');
+		}
 		let componentDetached = false;
 		
 		const camera = new PerspectiveCamera(75, 1, 5, 800);
@@ -28,6 +32,8 @@ const Background: FunctionComponent<{
 			alpha: false,
 			antialias: false,
 		});
+		renderer.outputEncoding = sRGBEncoding;
+		renderer.autoClear = false;
 		const scene = new Scene();
 
 		// Saves and updates screen size.
@@ -64,17 +70,17 @@ const Background: FunctionComponent<{
 		const layerResult = Object.values(sceneGenerators).map(layer => layer({scene, width, height}));
 		layerResult.forEach((e) => e.initial({colorMode}));
 		
-		camera.position.z = 5;
-		
-		renderer.autoClear = false;
-		
-		const lastFiveAnimationTimes = [0, 0, 0, 0, 0];
+		camera.position.z = 5;		
+
+		const clock = new Clock();
+		const lastFiveAnimationTimes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 		let startingSpeed = 25;
 
+		// Render animation loop.
 		const render = () => {
 			if (componentDetached) return;
-			const startTimestamp = Date.now();
+			clock.start();
 
 			// Sets the speed of the current frame.
 			startingSpeed = startingSpeed / 1.01;
@@ -104,11 +110,10 @@ const Background: FunctionComponent<{
 			renderer.render(scene, camera);
 
 			// Determine if the scene is slow on the user's device.
-			const endTimestamp = Date.now();
-			const animationTime = startTimestamp - endTimestamp;
-			lastFiveAnimationTimes.push(animationTime);
+			clock.stop();
+			lastFiveAnimationTimes.push(clock.getElapsedTime());
 			lastFiveAnimationTimes.shift();
-			if (lastFiveAnimationTimes.every((time) => time < -20)) {
+			if (lastFiveAnimationTimes.every((time) => time > 0.03)) {
 				setAutoGraphics('Low');
 			}
 
