@@ -3,7 +3,7 @@ import { randomPointInTorus, SceneGenerator, sineSmooth } from './utility';
 
 const getCloudColor = (primaryColor: Color) => {
 	const cloudColor = new Color(0xffa500);
-	cloudColor.setHSL(MathUtils.randFloat(0.05, 0.15), MathUtils.randFloat(0.8, 1), MathUtils.randFloat(0.45, 0.55));
+	cloudColor.setHSL(MathUtils.randFloat(0.04, 0.15), MathUtils.randFloat(0.8, 1), MathUtils.randFloat(0.45, 0.55));
 	cloudColor.lerp(primaryColor, 0.4);
 	return cloudColor;
 };
