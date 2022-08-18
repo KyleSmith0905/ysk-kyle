@@ -73,14 +73,16 @@ const Background: FunctionComponent<{
 		camera.position.z = 5;		
 
 		const clock = new Clock();
-		const lastFiveAnimationTimes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		const lastAnimationTimes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 		let startingSpeed = 25;
+		let frameNumber = 0;
 
 		// Render animation loop.
 		const render = () => {
 			if (componentDetached) return;
-			clock.start();
+
+			frameNumber++;
 
 			// Sets the speed of the current frame.
 			startingSpeed = startingSpeed / 1.01;
@@ -110,11 +112,17 @@ const Background: FunctionComponent<{
 			renderer.render(scene, camera);
 
 			// Determine if the scene is slow on the user's device.
-			clock.stop();
-			lastFiveAnimationTimes.push(clock.getElapsedTime());
-			lastFiveAnimationTimes.shift();
-			if (lastFiveAnimationTimes.every((time) => time > 0.03)) {
-				setAutoGraphics('Low');
+			if (frameNumber < 100) {
+				console.log('frame number');
+				clock.stop();
+				lastAnimationTimes.push(clock.getElapsedTime());
+				lastAnimationTimes.shift();
+				const minimumSpeed = Math.min(...lastAnimationTimes);
+				const averageSpeed = lastAnimationTimes.reduce((a, b) => a + b) / lastAnimationTimes.length;
+				if (minimumSpeed > 0.04 || averageSpeed > 0.1) {
+					setAutoGraphics('Low');
+				}
+				if (frameNumber < 99) clock.start();
 			}
 
 			requestAnimationFrame(render);
