@@ -10,22 +10,35 @@ import WebGl from 'three/examples/jsm/capabilities/WebGL';
 
 const Background: FunctionComponent<{
 	setAutoGraphics: Dispatch<SetStateAction<GraphicsLevels | 'Assume-High'>>,
+	bubbleScene: string,
 	colorTheme: ColorModes,
-}> = ({setAutoGraphics, colorTheme}) => {
+}> = ({setAutoGraphics, colorTheme, bubbleScene}) => {
 	const backgroundRef = useRef<HTMLCanvasElement>(null);
 	const colorThemeRef = useRef<string>();
+	const startingSpeedRef = useRef(1);
 
 	useEffect(() => {
 		colorThemeRef.current = colorTheme;
 	}, [colorTheme]);
+	
+	useEffect(() => {
+		let frameNumber = 0;
+		const speedUp = () => {
+			frameNumber++;
+			startingSpeedRef.current += 0.3;
+			if (frameNumber < 25) requestAnimationFrame(speedUp);
+		};
+		requestAnimationFrame(speedUp);
+	}, [bubbleScene]);
 
 	useEffect(() => {
 		if (!backgroundRef.current) return;
-		if (!WebGl.isWebGLAvailable()) {
+		else if (!WebGl.isWebGLAvailable()) {
 			return setAutoGraphics('Low');
 		}
 		let componentDetached = false;
 		
+		// Creates the scene and camera.
 		const camera = new PerspectiveCamera(75, 1, 5, 800);
 		const renderer = new WebGLRenderer({
 			canvas: backgroundRef.current,
@@ -57,7 +70,7 @@ const Background: FunctionComponent<{
 		};
 		document.addEventListener('mousemove', mouseMovementTracker);
 
-		let colorMode = COLOR_MODES.find(e => e.name === colorTheme) ?? COLOR_MODES[0];
+		let colorMode = COLOR_MODES.find(e => e.name === colorThemeRef.current) ?? COLOR_MODES[0];
 		scene.background = new Color(colorMode?.secondary);
 
 		const sceneGenerators: {[key: string]: SceneGenerator} = {
@@ -75,7 +88,6 @@ const Background: FunctionComponent<{
 		const clock = new Clock();
 		const lastAnimationTimes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-		let startingSpeed = 25;
 		let frameNumber = 0;
 
 		// Render animation loop.
@@ -85,8 +97,8 @@ const Background: FunctionComponent<{
 			frameNumber++;
 
 			// Sets the speed of the current frame.
-			startingSpeed = startingSpeed / 1.01;
-			const speed = 1 + startingSpeed;
+			startingSpeedRef.current = startingSpeedRef.current / 1.01;
+			const speed = 1 + startingSpeedRef.current;
 			
 			renderer.clear();
 
@@ -113,7 +125,6 @@ const Background: FunctionComponent<{
 
 			// Determine if the scene is slow on the user's device.
 			if (frameNumber < 100) {
-				console.log('frame number');
 				clock.stop();
 				lastAnimationTimes.push(clock.getElapsedTime());
 				lastAnimationTimes.shift();

@@ -63,8 +63,8 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	{
 		id: 'gitHub',
 		name: 'GitHub',
-		summary: 'My github name is KyleSmith0905, check out my repositories https://github.com/KyleSmith0905.',
-		link: 'https://www.linkedin.com/in/KyleSmith0905/',
+		summary: 'My github name is KyleSmith0905, check out my repositories.',
+		link:  'https://github.com/KyleSmith0905',
 		connection: 'social',
 		radius: 84,
 		size: 'small',

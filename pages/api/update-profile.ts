@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import createIdenticon, { AdditionalOptions } from 'cyber-circle-identicon';
+import { createIdenticon, AdditionalOptions } from 'cyber-circle-identicon';
 import crypto from 'crypto';
 import setDiscord from '../../lib/updateProfile/discord';
 import setTwitter from '../../lib/updateProfile/twitter';
@@ -15,7 +15,6 @@ const UpdateProfile = async (req: NextApiRequest, res: NextApiResponse) => {
 		return;
 	}
 
-	
 	const { authorization } = req.headers;
 	
 	if (authorization !== 'Bearer '+ process.env.API_SECRET_KEY) {

@@ -1,17 +1,20 @@
-import { Dispatch, FunctionComponent, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Dispatch, FunctionComponent, MouseEventHandler, SetStateAction, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { IBubble } from '../lib/bubbleData/_shared';
 import { driftAround, moveToPosition, spawnBubble, setRandomPosition} from '../lib/bubblePhysics';
 import { IsArrayNaN, IsArraysEqual, SetBubbleTransform } from '../lib/utils';
+import structuredClone from '@ungap/structured-clone';
 
 interface BubbleProps {
 	bubble: IBubble,
 	bubbles: IBubble[],
 	setBubbles: Dispatch<SetStateAction<IBubble[]>>,
+	bubbleScene: string
+	setBubbleScene: Dispatch<SetStateAction<string>>
 	isUserBot: boolean,
 }
 
-const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, isUserBot}) => {
+const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, setBubbleScene, isUserBot}) => {
 
 	const [hidden, setHidden] = useState(!isUserBot);
 	const bubbleElement = useRef(null);
@@ -32,7 +35,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, is
 			setHidden(false);
 			SetBubbleTransform(bubble, bubbleElement.current);
 		};
-
+		
 		const performPhysics = () => {
 			const bubbleElement = document.getElementById('Bubble' + bubble.id);
 			const oldBubbleDeployPosition = bubble.deployPosition;
@@ -69,6 +72,18 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, is
 	else if (bubble.size === 'large') sizeClass = 'BubbleLarge';
 	else sizeClass = 'BubbleMedium';
 
+	// Updates the route and content like a traditional page transition.
+	const updateScene: MouseEventHandler<HTMLElement> = async (event) => {
+		if (!bubble.link || isExternalSite) return;
+		event.preventDefault();
+
+		const bubbleDataImport = await import('../lib/bubbleData/' + bubble.link);
+		const bubbles = bubbleDataImport.default;
+		history.pushState({}, '', `/${bubble.link}`);
+		if (bubble.link) setBubbleScene(bubble.link);
+		setBubbles(structuredClone(bubbles.slice().reverse()));
+	};
+
 	if (bubble.summary === undefined) return (
 		<BubbleTag 
 			id={'Bubble' + bubble.id}
@@ -77,6 +92,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, is
 			href={bubble.link}
 			rel={isExternalSite ? 'nofollow noopener' : ''}
 			target={isExternalSite ? '_blank' : '_self'}
+			onClick={updateScene}
 			tabIndex={0}
 			style={{
 				position: 'absolute',
@@ -104,6 +120,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, is
 			href={bubble.link}
 			rel={isExternalSite ? 'nofollow noopener' : ''}
 			target={isExternalSite ? '_blank' : '_self'}
+			onClick={isExternalSite ? undefined : updateScene}
 			tabIndex={0}
 			style={{
 				position: 'absolute',

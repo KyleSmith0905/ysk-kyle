@@ -18,6 +18,7 @@ import { ColorModes, COLOR_MODES } from '../lib/colorMode';
 import { GraphicsLevels } from '../lib/graphicsLevel';
 import HomeButton from '../components/HomeButton';
 import { welcomeMessage } from '../lib/consoleMessages';
+import structuredClone from '@ungap/structured-clone';
 
 interface BubblePageProps {
   slug: string;
@@ -32,9 +33,11 @@ const BubblePage:
     slug, cookies, bubbles: localBubble = [], isUserBot = false
 }) => {
   const slugFormatted = slug.split('-').map((s: string) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+
   
   const reverseBubbles = localBubble.slice().reverse();
-  const [bubbles, setBubbles] = useState<IBubble[]>(reverseBubbles);
+  const [bubbleScene, setBubbleScene] = useState<string>(slug);
+  const [bubbles, setBubbles] = useState<IBubble[]>(structuredClone(reverseBubbles));
   const [travelMode, setTravelMode] = useState(cookies?.travelMode ?? 'Browser');
   const [colorTheme, setColorTheme] = useState<ColorModes>(cookies?.colorTheme ?? 'Dark');
   const [graphics, setGraphics] = useState<GraphicsLevels>(cookies?.graphics ?? 'Auto');
@@ -74,7 +77,7 @@ const BubblePage:
         <meta name='theme-color' content={COLOR_MODES.find(e => e.name === colorTheme)?.primary} />
       </Head>
       {isGraphics('High') && (
-        <Background setAutoGraphics={setAutoGraphics} colorTheme={colorTheme}/>
+        <Background setAutoGraphics={setAutoGraphics} colorTheme={colorTheme} bubbleScene={bubbleScene}/>
       )}
       {isGraphics('Low') && (<div id='Background'>
         <div className='fill'/>
@@ -93,13 +96,15 @@ const BubblePage:
         {isGraphics('Low') && <BackgroundConnections />}
       </div>
       <main id='MainContent'>
-        {bubbles.map((bubble: IBubble, index: number) => (
+        {bubbles.map((bubble: IBubble) => (
           <Bubble
+            key={bubble.id}
+            setBubbleScene={setBubbleScene}
             setBubbles={setBubbles}
+            bubbleScene={bubbleScene}
             bubbles={bubbles}
             bubble={bubble}
             isUserBot={isUserBot}
-            key={index}
           />
         ))}
       </main>
@@ -115,7 +120,7 @@ const BubblePage:
         setGraphics={setGraphics}
         graphics={graphics}
       />
-      <HomeButton/>
+      <HomeButton setBubbles={setBubbles} bubbleScene={bubbleScene} setBubbleScene={setBubbleScene}/>
     </>
   );
 };
