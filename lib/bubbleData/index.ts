@@ -58,16 +58,6 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		size: 'small',
 	},
 	{
-		id: 'cyberCircleIdenticon',
-		name: 'Cyber Circle Identicon',
-		summary: 'Randomly generated avatars from usernames.',
-		connection: 'scriptDev',
-		link: 'cyber-circle-identicon',
-		image: 'cyber-circle-identicon',
-		radius: 83,
-		size: 'small',
-	},
-	{
 		id: 'professional',
 		name: 'Professional Experience',
 		summary: 'Projects worked on as part of formal work experience.',
