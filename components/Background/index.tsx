@@ -59,6 +59,8 @@ const Background: FunctionComponent<{
 			renderer.setViewport((width - window.innerWidth) / -2, (height - window.innerHeight) / 2, width, height);
 		};
 		window.addEventListener('resize', screenResizeTracker);
+		window.addEventListener('gesturechange', screenResizeTracker);
+		window.addEventListener('gestureend', screenResizeTracker);
 		renderer.setSize(width, height);
 		renderer.setViewport((width - window.innerWidth) / -2, (height - window.innerHeight) / 2, width, height);
 
@@ -143,6 +145,8 @@ const Background: FunctionComponent<{
 		return () => {
 			componentDetached = true;
 			document.removeEventListener('mousemove', mouseMovementTracker);
+			window.removeEventListener('gesturechange', screenResizeTracker);
+			window.removeEventListener('gestureend', screenResizeTracker);
 			window.removeEventListener('resize', screenResizeTracker);
 		};
 	}, [setAutoGraphics]);
