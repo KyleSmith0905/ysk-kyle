@@ -68,7 +68,6 @@ const Settings: FunctionComponent<{
 					const newGraphics = graphicsLevels[(graphicsLevels.indexOf(graphics) + 1) % graphicsLevels.length];
 					setGraphics(newGraphics);
 					setCookie('graphics', newGraphics);
-					console.log(newGraphics);
 				}}>
 					Graphics Level: {graphics}
 				</button>
