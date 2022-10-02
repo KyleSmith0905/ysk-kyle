@@ -114,4 +114,4 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	},
 ];
 
-export default PadBubblePositions(bubbleData);
+export default PadBubblePositions('personal-projects', bubbleData);

@@ -109,4 +109,4 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	},
 ];
 
-export default PadBubblePositions(bubbleData);
+export default PadBubblePositions('sorting-algorithm-visualizer', bubbleData);

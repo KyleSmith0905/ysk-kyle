@@ -27,13 +27,16 @@ const SetValuesElseNaN = (value: [number, number] | undefined): [number, number]
 	}
 };
 
-export const PadBubblePositions = (bubbles: IBubbleWithoutPosition[]): IBubble[] => {
+export const PadBubblePositions = (originId: string, bubbles: IBubbleWithoutPosition[]): IBubble[] => {
 	const output: IBubble[] = bubbles.map(bubble => {
 		const newProperties = {
 			position: SetValuesElseNaN(bubble.position),
 			pivotPosition: SetValuesElseNaN(bubble.pivotPosition),
 			deployPosition: SetValuesElseNaN(bubble.deployPosition),
+			id: `${originId}_${bubble.id}`,
 		};
+		if (bubble.connection !== '.') bubble.connection = `${originId}_${bubble.connection}`;
+
 		if (bubble.size === 'small') bubble.radius = bubble.radius * 0.9;
 		else if (bubble.size === 'large') bubble.radius = bubble.radius * 1.11;
 		return Object.assign(bubble, newProperties);

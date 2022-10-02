@@ -17,7 +17,7 @@ interface BubbleProps {
 const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, setBubbleScene, isUserBot}) => {
 
 	const [hidden, setHidden] = useState(!isUserBot);
-	const bubbleElement = useRef(null);
+	const bubbleElementRef = useRef(null);
 
 	useEffect(() => {
 		const loadTime = Date.now();
@@ -33,11 +33,11 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, se
 		
 		const showElement = () => {
 			setHidden(false);
-			SetBubbleTransform(bubble, bubbleElement.current);
+			SetBubbleTransform(bubble, bubbleElementRef.current);
 		};
 		
 		const performPhysics = () => {
-			const bubbleElement = document.getElementById('Bubble' + bubble.id);
+			const bubbleElement = document.getElementById(`Bubble_${bubble.id}`);
 			const oldBubbleDeployPosition = bubble.deployPosition;
 
 			if (IsArrayNaN(bubble.position)) {
@@ -86,8 +86,8 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, se
 
 	if (bubble.summary === undefined) return (
 		<BubbleTag 
-			id={'Bubble' + bubble.id}
-			ref={bubbleElement}
+			id={`Bubble_${bubble.id}`}
+			ref={bubbleElementRef}
 			className={'Bubble ImageBubble ' + sizeClass + (hidden ? ' Hidden' : '')}
 			href={bubble.link}
 			rel={isExternalSite ? 'nofollow noopener' : ''}
@@ -114,8 +114,8 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, se
 	);
 	else return (
 		<BubbleTag
-			id={'Bubble' + bubble.id}
-			ref={bubbleElement}
+			id={`Bubble_${bubble.id}`}
+			ref={bubbleElementRef}
 			className={'Bubble ' + sizeClass + (hidden ? ' Hidden' : '')}
 			href={bubble.link}
 			rel={isExternalSite ? 'nofollow noopener' : ''}

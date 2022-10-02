@@ -85,4 +85,4 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	},
 ];
 
-export default PadBubblePositions(bubbleData);
+export default PadBubblePositions('cursed-among-us', bubbleData);

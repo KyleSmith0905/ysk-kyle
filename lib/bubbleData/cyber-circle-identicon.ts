@@ -94,4 +94,4 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	},
 ];
 
-export default PadBubblePositions(bubbleData);
+export default PadBubblePositions('cyber-circle-identicon', bubbleData);

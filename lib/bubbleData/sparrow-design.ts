@@ -85,4 +85,4 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	},
 ];
 
-export default PadBubblePositions(bubbleData);
+export default PadBubblePositions('sparrow-design', bubbleData);
