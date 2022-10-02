@@ -19,7 +19,7 @@ const HomeButton: FunctionComponent<{
 		setBubbles(structuredClone(bubbles.slice().reverse()));
 	};
 
-	if (bubbleScene === '/') return null;
+	if (bubbleScene === 'index') return null;
 
 	return (
 		<nav id='HomeButton'>
