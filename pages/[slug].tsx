@@ -43,7 +43,7 @@ const BubblePage:
   const [graphics, setGraphics] = useState<GraphicsLevels>(cookies?.graphics ?? 'Auto');
   const [autoGraphics, setAutoGraphics] = useState<GraphicsLevels | 'Assume-High'>('High');
   
-  useEffect(() =>{
+  useEffect(() => {
     scrollTo(1000 - (window.innerWidth / 2), 1000 - (window.innerHeight / 2));
     console.log(welcomeMessage());
   }, []);
