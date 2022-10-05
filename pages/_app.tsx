@@ -1,16 +1,9 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { useEffect } from 'react';
 import { COLOR_MODES } from '../lib/colorMode';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-
-	useEffect(() => {
-    if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
-      navigator.serviceWorker.register('/service-worker.js');
-    }
-  }, []);
 
   const cookiesColorMode = COLOR_MODES.find(e => e.name === (pageProps.cookies?.colorTheme ?? 'Dark'));
   
