@@ -57,7 +57,7 @@ const cloudGenerator: SceneGenerator = ({scene}) => {
 				const planeMesh = new Mesh(planeGeometry, cloudMaterial);
 				const position = randomPointInTorus(100, 220);
 				planeMesh.position.set(position.x, position.y, MathUtils.randFloat(-250, -900));
-				planeMesh.rotateZ(position.angle);
+				planeMesh.rotation.set(0, 0, position.angle);
 				scene.add(planeMesh);
 				meshes.push(planeMesh);
 			}
@@ -69,7 +69,7 @@ const cloudGenerator: SceneGenerator = ({scene}) => {
 				if (cloud.position.z > -150) {
 					const position = randomPointInTorus(100, 220);
 					cloud.position.set(position.x, position.y, MathUtils.randFloat(-800, -1000));
-					cloud.rotateZ(position.angle);
+					cloud.rotation.set(0, 0, position.angle);
 				}
 			});
 		},
