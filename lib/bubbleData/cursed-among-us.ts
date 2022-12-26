@@ -23,7 +23,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	{
 		id: 'youtube',
 		name: 'As Seen On Youtube',
-		summary: 'The mod was designed to be a YouTuber\'s goldmine.',
+		summary: 'The mod has gained attention from many famous YouTubers.',
 		connection: 'about',
 		radius: 90,
 		size: 'medium',

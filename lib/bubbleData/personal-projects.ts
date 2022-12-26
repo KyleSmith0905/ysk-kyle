@@ -15,11 +15,11 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	{
 		id: 'rtlChallenges',
 		name: 'RTL Challenges',
-		summary: 'A website for posting challenges on video games.',
+		summary: 'My first self-guided web design project.',
 		link: 'rtl-challenges',
 		image: 'rtl-challenges',
 		connection: 'projects',
-		radius: 85,
+		radius: 84,
 		size: 'small',
 	},
 	{

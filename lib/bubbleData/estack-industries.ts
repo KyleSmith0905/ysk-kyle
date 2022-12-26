@@ -70,7 +70,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	{
 		id: 'background',
 		name: 'Nav Background',
-		summary: 'After noticing no page had the background design from figma, I built a component that generated the background. Over time, the component grew to acquire more features.',
+		summary: 'After noticing no page had the background design from figma, I built a component that generated the background. Over time, the component grew to acquire many features.',
 		connection: 'accomplishments',
 		radius: 118,
 		size: 'small',
@@ -78,7 +78,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	{
 		id: 'accountPage',
 		name: 'Account Page',
-		summary: 'I was assigned to build an account page, this featured a working message box, statistics dashboard, and many other functionalities.',
+		summary: 'I was assigned to build an account page, this featured a working message box, the statistics dashboard, and many other functionalities.',
 		connection: 'accomplishments',
 		radius: 110,
 		size: 'small',

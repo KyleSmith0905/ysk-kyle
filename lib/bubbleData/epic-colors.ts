@@ -21,6 +21,16 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		radius: 100,
 	},
 	{
+		id: 'devsUs',
+		name: 'Devs Us',
+		summary: 'This was developed by the open-source developer community, Devs Us.',
+		link: 'devs-us',
+		image: 'devs-us',
+		connection: 'about',
+		radius: 91,
+		size: 'medium',
+	},
+	{
 		id: 'development',
 		name: 'Development Info',
 		summary: 'The mod was built on Reactor, an Among Us modding API. Reactor was built on BepInEx, a Unity game patcher. BepInEx was built on Harmony, a C# patcher.',
@@ -56,26 +66,10 @@ const bubbleData: IBubbleWithoutPosition[] = [
 	{
 		id: 'animated',
 		name: 'Animated Colors',
-		summary: 'To make Epic Colors stand out, we introduced animated colors.',
+		summary: 'To make Epic Colors stand out, we introduced animated colors that provides a lot more personality.',
 		connection: 'contribution',
-		radius: 91,
+		radius: 105,
 		size: 'medium',
-	},
-	{
-		id: 'hueAnimated',
-		name: 'Hue',
-		summary: 'Gradually change through colors of the rainbow over a set period of time.',
-		connection: 'animated',
-		radius: 88,
-		size: 'small',
-	},
-	{
-		id: 'refreshAnimated',
-		name: 'Refresh',
-		summary: 'Instantly swap to another color every set period of time.',
-		connection: 'animated',
-		radius: 83,
-		size: 'small',
 	},
 ];
 
