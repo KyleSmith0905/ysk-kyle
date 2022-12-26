@@ -43,6 +43,16 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		size: 'small',
 	},
 	{
+		id: 'alienEvidence',
+		name: 'Alien Evidence',
+		summary: 'A yellow-press publication.',
+		link: 'alien-evidence',
+		image: 'alien-evidence',
+		connection: 'projects',
+		radius: 87,
+		size: 'small',
+	},
+	{
 		id: 'devsUs',
 		name: 'Devs Us',
 		summary: 'An open source developer community.',
