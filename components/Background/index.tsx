@@ -112,12 +112,12 @@ const Background: FunctionComponent<{
 			}
 
 			// Controls interactivity with the background.
-			const screenX = document.documentElement.scrollLeft + (window.innerWidth / 2) - 1000;
-			const screenY = document.documentElement.scrollTop + (window.innerHeight / 2) - 1000;
+			const screenX = document.documentElement.scrollLeft * 0.1 + (window.innerWidth / 10) - 200;
+			const screenY = document.documentElement.scrollTop * 0.1 + (window.innerHeight / 10) - 200;
 			camera.position.x = screenX * 0.01;
 			camera.position.y = screenY * -0.01;
-			const cursorX = mousePosition.x - (window.innerWidth / 2);
-			const cursorY = mousePosition.y - (window.innerHeight / 2);
+			const cursorX = mousePosition.x * 0.5 - (window.innerWidth / 4);
+			const cursorY = mousePosition.y * 0.5 - (window.innerHeight / 4);
 			camera.rotation.y = cursorX * -0.00001;
 			camera.rotation.x = cursorY * -0.00001;
 
