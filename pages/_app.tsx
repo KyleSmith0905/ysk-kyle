@@ -2,10 +2,12 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { COLOR_MODES } from '../lib/colorMode';
+import { Cookies } from '../lib/cookies';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
 
-  const cookiesColorMode = COLOR_MODES.find(e => e.name === (pageProps.cookies?.colorTheme ?? 'Dark'));
+  const cookies = pageProps as Cookies;
+  const cookiesColorMode = COLOR_MODES.find(e => e.name === (cookies.colorTheme ?? 'Dark'));
   
   return (
     <>
