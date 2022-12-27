@@ -11,8 +11,9 @@ import WebGl from 'three/examples/jsm/capabilities/WebGL';
 const Background: FunctionComponent<{
 	setAutoGraphics: Dispatch<SetStateAction<GraphicsLevels | 'Assume-High'>>,
 	bubbleScene: string,
+	bubbleSceneReset: string,
 	colorTheme: ColorModes,
-}> = ({setAutoGraphics, colorTheme, bubbleScene}) => {
+}> = ({setAutoGraphics, colorTheme, bubbleSceneReset, bubbleScene}) => {
 	const backgroundRef = useRef<HTMLCanvasElement>(null);
 	const colorThemeRef = useRef<string>();
 	const startingSpeedRef = useRef(1);
@@ -21,15 +22,18 @@ const Background: FunctionComponent<{
 		colorThemeRef.current = colorTheme;
 	}, [colorTheme]);
 	
+	// Boosts after every transition
 	useEffect(() => {
-		let frameNumber = 0;
+		let animationFrame = 0;
 		const speedUp = () => {
-			frameNumber++;
+			if (bubbleSceneReset === bubbleScene) return;
 			startingSpeedRef.current += 0.3;
-			if (frameNumber < 25) requestAnimationFrame(speedUp);
+			animationFrame = requestAnimationFrame(speedUp);
 		};
-		requestAnimationFrame(speedUp);
-	}, [bubbleScene]);
+		animationFrame = requestAnimationFrame(speedUp);
+
+		return () => cancelAnimationFrame(animationFrame);
+	}, [bubbleSceneReset, bubbleScene]);
 
 	useEffect(() => {
 		if (!backgroundRef.current) return;

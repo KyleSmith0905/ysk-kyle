@@ -2,19 +2,30 @@ import { IBubble } from './bubbleData/_shared';
 
 /**
  * Checks if a number is between two values
- * @param value - The number to check.
- * @param min - The minimum value.
- * @param max - The maximum value.
- * @return Returns true if value is between min and max.
+ * @param value - The number to check
+ * @param min - The minimum value
+ * @param max - The maximum value
+ * @return Returns true if value is between min and max
  */
 const IsNumberBetween = (value: number, min: number, max: number): boolean => {
 	return value < max && value > min;
 };
 
 /**
- * Checks all numbers in array to see if any are NaN.
- * @param coordinates - An array of numbers.
- * @return Returns true if any value in array is NaN.
+ * Clamps a number between two values. If the number is outside of bounds of two numbers, it will lock it to one ends
+ * @param value - The number to clamp
+ * @param min - The minimum value
+ * @param max - The maximum value
+ * @returns A number in between the minimum and maximum value.
+ */
+const clamp = (value: number, min: number, max: number): number => {
+	return Math.min(Math.max(value, min), max);
+};
+
+/**
+ * Checks all numbers in array to see if any are NaN
+ * @param coordinates - An array of numbers
+ * @return Returns true if any value in array is NaN
  */
 const IsArrayNaN = (coordinates: number[]): boolean => {
 	return coordinates.some(coordinate => {
@@ -23,10 +34,10 @@ const IsArrayNaN = (coordinates: number[]): boolean => {
 };
 
 /**
- * Compares two arrays of any data type.
- * @param array1 - The first array to compare.
- * @param array2 - The second array to compare.
- * @return Returns true if arrays are equal.
+ * Compares two arrays of any data type
+ * @param array1 - The first array to compare
+ * @param array2 - The second array to compare
+ * @return Returns true if arrays are equal
  */
 const IsArraysEqual = <arrayType>(array1: arrayType[] | undefined, array2: arrayType[] | undefined): boolean => {
 	if (
@@ -47,20 +58,20 @@ const IsArraysEqual = <arrayType>(array1: arrayType[] | undefined, array2: array
 };
 
 /**
- * Calculates the distance between two points (one from the center, one at (x, y)) using pythagorean theorem.
- * @param x - The x coordinate.
- * @param y - The y coordinate.
- * @return Returns the distance between two points.
+ * Calculates the distance between two points (one from the center, one at (x, y)) using pythagorean theorem
+ * @param x - The x coordinate
+ * @param y - The y coordinate
+ * @return Returns the distance between two points
  */
 const Pythagorean = (x: number, y: number): number => {
 	return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 };
 
 /**
- * Compares a bubble with all other bubbles to see if it may overlap.
- * @param bubble - The coordinates to check.
- * @param bubbles - The array of coordinates to check against.
- * @return Returns indexes of bubbles that overlap.
+ * Compares a bubble with all other bubbles to see if it may overlap
+ * @param bubble - The coordinates to check
+ * @param bubbles - The array of coordinates to check against
+ * @return Returns indexes of bubbles that overlap
  */
 const CoordinateCollisions = (bubble: [number, number, number], bubbles: [number, number, number][]): number[] => {
 	const overlapping = [];
@@ -76,10 +87,10 @@ const CoordinateCollisions = (bubble: [number, number, number], bubbles: [number
 };
 
 /**
- * Compares a bubble with all other bubbles to see if it may overlap.
- * @param bubble - The coordinates and the radiusto check.
- * @param bubbles - The array of coordinates and radius to check against.
- * @return Returns true if bubbles collide.
+ * Compares a bubble with all other bubbles to see if it may overlap
+ * @param bubble - The coordinates and the radiusto check
+ * @param bubbles - The array of coordinates and radius to check against
+ * @return Returns true if bubbles collide
 */
 const IsCollideWithBubbles = (bubble: [number, number, number], bubbles: [number, number, number][]): boolean => {
 	return CoordinateCollisions(bubble, bubbles).length > 0;
@@ -95,8 +106,8 @@ const UserAgentIsBot = (userAgent: string): boolean => {
 };
 
 /**
- * Detects if the user is a self-identified robot, crawler, or anything else.
- * @returns Whether the user is a userbot.
+ * Detects if the user is a self-identified robot, crawler, or anything else
+ * @returns Whether the user is a userbot
  */
 const IsUserBot = (userAgent?: string): boolean => {
 	if (userAgent) {
@@ -122,6 +133,7 @@ const objectToQueryString = (obj: {[key: string]: string | undefined}): string =
 
 export {
 	IsNumberBetween,
+	clamp,
 	IsArrayNaN,
 	IsArraysEqual,
 	Pythagorean,

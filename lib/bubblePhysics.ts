@@ -1,6 +1,6 @@
 import { IBubble } from './bubbleData/_shared';
 import { Noise2D } from './noiseGenerators';
-import { IsArrayNaN, Pythagorean, IsCollideWithBubbles, IsNumberBetween } from './utils';
+import { IsArrayNaN, Pythagorean, IsCollideWithBubbles, IsNumberBetween, clamp } from './utils';
 
 /**
  * Slightly moves position around a bubble's pivot position to simulate slight fluid motion.
@@ -77,6 +77,7 @@ const moveToPosition = (bubble: IBubble, bubbles: IBubble[]): [number, number] =
 	
 	if (orbitBubble === undefined) return bubble.position;
 
+	// Get distance left to move to pivot position
 	const relativeDeployPosition = [
 		bubble.deployPosition[0] - orbitBubble.pivotPosition[0],
 		bubble.deployPosition[1] - orbitBubble.pivotPosition[1],
@@ -86,9 +87,11 @@ const moveToPosition = (bubble: IBubble, bubbles: IBubble[]): [number, number] =
 		bubble.pivotPosition[1] - orbitBubble.pivotPosition[1],
 	];
 
+	// Get angle of bubbles
 	let deployAngle = Math.atan2(relativeDeployPosition[1], relativeDeployPosition[0]);
 	let pivotAngle = Math.atan2(relativePivotPosition[1], relativePivotPosition[0]);
 
+	// Normalize the angle so it's positive
 	if (pivotAngle > Math.PI / 2 && deployAngle < -Math.PI / 2) {
 		deployAngle += Math.PI * 2;
 	}
@@ -96,12 +99,15 @@ const moveToPosition = (bubble: IBubble, bubbles: IBubble[]): [number, number] =
 		pivotAngle += Math.PI * 2;
 	}
 
+	// Get distance of bubbles
 	const deployDistance = Pythagorean(relativeDeployPosition[0], relativeDeployPosition[1]);
 	const pivotDistance = Pythagorean(relativePivotPosition[0], relativePivotPosition[1]);
 
+	// Get difference between polar coordinates
 	const differenceAngle = deployAngle - pivotAngle;
 	const differenceDistance = deployDistance - pivotDistance;
 
+	// Moves bubble around the pivot position of it's orbital
 	bubble.pivotPosition[0] = (
 		orbitBubble.pivotPosition[0]
 		+ Math.cos(pivotAngle + (differenceAngle * 0.013))
@@ -115,12 +121,31 @@ const moveToPosition = (bubble: IBubble, bubbles: IBubble[]): [number, number] =
 
 	bubble.position = bubble.pivotPosition;
 
+	// If close to ending, we could just end it
 	if (
 		IsNumberBetween(differenceAngle, -0.0005, 0.0005)
 		&& IsNumberBetween(differenceDistance, -0.001, 0.001)
 	) {
 		bubble.deployPosition = bubble.pivotPosition;
 	}
+
+	return bubble.position;
+};
+
+const retreatToCenter = (bubble: IBubble, bubbles: IBubble[], progress: number): [number, number] => {
+	const orbitBubble = bubbles.find(e => e.id === bubble.connection);
+	if (orbitBubble === undefined) return bubble.position;
+
+	progress = clamp(progress, 0, 1);
+
+	bubble.position[0] = (
+		(orbitBubble.position[0] * progress)
+		+ (bubble.pivotPosition[0] * (1 - progress))
+	);
+	bubble.position[1] = (
+		(orbitBubble.position[1] * progress)
+		+ (bubble.pivotPosition[1] * (1 - progress))
+	);
 
 	return bubble.position;
 };
@@ -140,4 +165,4 @@ const setRandomPosition = (bubble: IBubble): [number, number] => {
 	return bubble.position;
 };
 
-export {driftAround, spawnBubble, moveToPosition, setRandomPosition};
+export {driftAround, spawnBubble, moveToPosition, retreatToCenter, setRandomPosition};

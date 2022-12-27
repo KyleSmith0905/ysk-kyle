@@ -1,7 +1,7 @@
 import { readdirSync } from 'fs';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import { FunctionComponent, useCallback, useEffect, useState } from 'react';
+import { FunctionComponent, useCallback, useEffect, useRef, useState } from 'react';
 import Connections from '../components/Connections';
 import Bubble from '../components/Bubble';
 import BrowserMovement from '../components/MovementControl/Browser';
@@ -37,6 +37,7 @@ const BubblePage:
   
   const reverseBubbles = localBubble.slice().reverse();
   const [bubbleScene, setBubbleScene] = useState<string>(slug);
+  const [bubbleSceneReset, setBubbleSceneReset] = useState<string>(slug);
   const [bubbles, setBubbles] = useState<IBubble[]>(structuredClone(reverseBubbles));
   const [travelMode, setTravelMode] = useState(cookies?.travelMode ?? 'Browser');
   const [colorTheme, setColorTheme] = useState<ColorModes>(cookies?.colorTheme ?? 'Dark');
@@ -44,10 +45,13 @@ const BubblePage:
   const [autoGraphics, setAutoGraphics] = useState<GraphicsLevels | 'Assume-High'>('High');
   
   useEffect(() => {
+    // Center screen to origin.
     scrollTo(1000 - (window.innerWidth / 2), 1000 - (window.innerHeight / 2));
+    // Display a message in chat.
     console.log(welcomeMessage());
   }, []);
 
+  // Uses cookie values to save settings.
   useEffect(() => {
     if (cookies && Object.keys(cookies).length === 0) {
       const travelMode = getCookie('travelMode');
@@ -60,6 +64,25 @@ const BubblePage:
       if (root && colorTheme) root.className = colorTheme;
     }
   }, [cookies]);
+
+  // When navigating site, wait a second after transition so animation can occur.
+  const bubbleResetTimeout = useRef<ReturnType<typeof setTimeout>>();
+  useEffect(() => {
+    if (!bubbleSceneReset || bubbleSceneReset === bubbleScene) return;
+
+    const timeout = setTimeout(async () => {
+      const bubbleDataImport = await import('../lib/bubbleData/' + bubbleSceneReset);
+      const bubbles = bubbleDataImport.default;
+
+      if (bubbleSceneReset === 'index') history.pushState({}, '', '/');
+      else history.pushState({}, '', `/${bubbleSceneReset}`);
+      
+      setBubbleScene(bubbleSceneReset);
+      setBubbles(structuredClone(bubbles.slice().reverse()));
+    }, 1000);
+
+    bubbleResetTimeout.current = timeout;
+  }, [bubbleSceneReset, bubbleScene]);
 
   // Compares the user's graphics settings to a parameter.
   const isGraphics = useCallback((compareGraphics: GraphicsLevels) => {
@@ -77,7 +100,7 @@ const BubblePage:
         <meta name='theme-color' content={COLOR_MODES.find(e => e.name === colorTheme)?.primary} />
       </Head>
       {isGraphics('High') && (
-        <Background setAutoGraphics={setAutoGraphics} colorTheme={colorTheme} bubbleScene={bubbleScene}/>
+        <Background setAutoGraphics={setAutoGraphics} colorTheme={colorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset}/>
       )}
       {isGraphics('Low') && (<div id='Background'>
         <div className='fill'/>
@@ -99,8 +122,10 @@ const BubblePage:
         {bubbles.map((bubble: IBubble) => (
           <Bubble
             key={bubble.id}
+            setBubbleSceneReset={setBubbleSceneReset}
             setBubbleScene={setBubbleScene}
             setBubbles={setBubbles}
+            bubbleSceneReset={bubbleSceneReset}
             bubbleScene={bubbleScene}
             bubbles={bubbles}
             bubble={bubble}
@@ -120,7 +145,7 @@ const BubblePage:
         setGraphics={setGraphics}
         graphics={graphics}
       />
-      <HomeButton setBubbles={setBubbles} bubbleScene={bubbleScene} setBubbleScene={setBubbleScene}/>
+      <HomeButton bubbleScene={bubbleScene} setBubbleSceneReset={setBubbleSceneReset}/>
     </>
   );
 };

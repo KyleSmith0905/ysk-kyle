@@ -1,22 +1,14 @@
 import { Dispatch, FunctionComponent, MouseEventHandler, SetStateAction } from 'react';
-import { IBubble } from '../lib/bubbleData/_shared';
-import structuredClone from '@ungap/structured-clone';
 
 const HomeButton: FunctionComponent<{
 	bubbleScene: string;
-	setBubbleScene: Dispatch<SetStateAction<string>>,
-	setBubbles: Dispatch<SetStateAction<IBubble[]>>
-}> = ({bubbleScene, setBubbleScene, setBubbles}) => {
+	setBubbleSceneReset: Dispatch<SetStateAction<string>>,
+}> = ({bubbleScene, setBubbleSceneReset}) => {
 
 	// Updates the route and content like a traditional page transition.
 	const updateScene: MouseEventHandler<HTMLElement> = async (event) => {
 		event.preventDefault();
-
-		const bubbleDataImport = await import('../lib/bubbleData/index');
-		const bubbles = bubbleDataImport.default;
-		history.pushState({}, '', '/');
-		setBubbleScene('index');
-		setBubbles(structuredClone(bubbles.slice().reverse()));
+		setBubbleSceneReset('index');
 	};
 
 	if (bubbleScene === 'index') return null;

@@ -1,33 +1,33 @@
 import { Dispatch, FunctionComponent, MouseEventHandler, SetStateAction, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { IBubble } from '../lib/bubbleData/_shared';
-import { driftAround, moveToPosition, spawnBubble, setRandomPosition} from '../lib/bubblePhysics';
+import { driftAround, moveToPosition, spawnBubble, setRandomPosition, retreatToCenter} from '../lib/bubblePhysics';
 import { IsArrayNaN, IsArraysEqual, SetBubbleTransform } from '../lib/utils';
-import structuredClone from '@ungap/structured-clone';
 
 interface BubbleProps {
 	bubble: IBubble,
 	bubbles: IBubble[],
 	setBubbles: Dispatch<SetStateAction<IBubble[]>>,
-	bubbleScene: string
-	setBubbleScene: Dispatch<SetStateAction<string>>
+	bubbleScene: string,
+	setBubbleScene: Dispatch<SetStateAction<string>>,
+	bubbleSceneReset: string,
+	setBubbleSceneReset: Dispatch<SetStateAction<string>>,
 	isUserBot: boolean,
 }
 
-const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, setBubbleScene, isUserBot}) => {
+const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, bubbleSceneReset, setBubbleSceneReset, setBubbles, isUserBot}) => {
 
-	const [hidden, setHidden] = useState(!isUserBot);
+	const [hidden, setHidden] = useState(!isUserBot && !bubble.position);
 	const bubbleElementRef = useRef(null);
 
 	useEffect(() => {
 		const loadTime = Date.now();
 		
-		let requestId = 0;
+		let requestId: number;
 
 		if (isUserBot) {
-			const bubbleElement = document.getElementById('Bubble' + bubble.id);
 			setRandomPosition(bubble);
-			SetBubbleTransform(bubble, bubbleElement);
+			SetBubbleTransform(bubble, bubbleElementRef.current);
 			return;
 		}
 		
@@ -40,20 +40,25 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, se
 			const bubbleElement = document.getElementById(`Bubble_${bubble.id}`);
 			const oldBubbleDeployPosition = bubble.deployPosition;
 
+			// Attempts to spawn bubble
 			if (IsArrayNaN(bubble.position)) {
 				spawnBubble(bubble, bubbles, Date.now() - loadTime);
 				SetBubbleTransform(bubble, bubbleElement);
 				if (IsArrayNaN(bubble.position) === false) showElement();
 			}
+			// Drift the bubble around, also move to deploy position if not there
 			else {
 				if (!IsArraysEqual(bubble.pivotPosition, bubble.deployPosition)) moveToPosition(bubble, bubbles);
 				driftAround(bubble, bubbles);
 			}
-			
+			// Updates the bubble's position
 			if (bubbleElement) {
 				SetBubbleTransform(bubble, bubbleElement);
 				if (IsArraysEqual(oldBubbleDeployPosition, bubble.deployPosition)) setBubbles(bubbles);
 			}
+
+			// Exit condition for leaving the page
+			if (bubbleScene !== bubbleSceneReset) return;
 
 			requestId = requestAnimationFrame(performPhysics);
 		};
@@ -62,7 +67,28 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, se
 		requestId = requestAnimationFrame(performPhysics);
 		
 		return () => cancelAnimationFrame(requestId);
-	}, [isUserBot, bubble, bubbles, setBubbles]);
+	}, [isUserBot, bubble, bubbles, setBubbles, bubbleScene, bubbleSceneReset]);
+
+	// Exit animation
+	useEffect(() => {
+		if (bubbleSceneReset === bubbleScene) return;
+
+		const beginTime = Date.now();
+		
+		const performPhysics = () => {
+			const bubbleElement = document.getElementById(`Bubble_${bubble.id}`);
+			if (!bubbleElement) return;
+			
+			// Moves bubbles to center over a 1 second period
+			const currentTime = Date.now();
+			retreatToCenter(bubble, bubbles, (currentTime - beginTime) * 0.001);
+
+			SetBubbleTransform(bubble, bubbleElement);
+			requestAnimationFrame(performPhysics);
+		};
+		requestAnimationFrame(performPhysics);
+
+	}, [bubbleSceneReset, bubbleScene, bubble, bubbles]);
 
 	const BubbleTag = bubble.link === undefined ? 'div' : 'a';
 	const isExternalSite = Boolean(bubble.link?.match(/^https?:\/\//));
@@ -76,19 +102,14 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, se
 	const updateScene: MouseEventHandler<HTMLElement> = async (event) => {
 		if (!bubble.link || isExternalSite) return;
 		event.preventDefault();
-
-		const bubbleDataImport = await import('../lib/bubbleData/' + bubble.link);
-		const bubbles = bubbleDataImport.default;
-		history.pushState({}, '', `/${bubble.link}`);
-		if (bubble.link) setBubbleScene(bubble.link);
-		setBubbles(structuredClone(bubbles.slice().reverse()));
+		setBubbleSceneReset(bubble.link);
 	};
 
 	if (bubble.summary === undefined) return (
 		<BubbleTag 
 			id={`Bubble_${bubble.id}`}
 			ref={bubbleElementRef}
-			className={'Bubble ImageBubble ' + sizeClass + (hidden ? ' Hidden' : '')}
+			className={`Bubble ${sizeClass} ${hidden ? ' Hidden' : ''}`}
 			href={bubble.link}
 			rel={isExternalSite ? 'nofollow noopener' : ''}
 			target={isExternalSite ? '_blank' : '_self'}
@@ -116,7 +137,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, setBubbles, se
 		<BubbleTag
 			id={`Bubble_${bubble.id}`}
 			ref={bubbleElementRef}
-			className={'Bubble ' + sizeClass + (hidden ? ' Hidden' : '')}
+			className={`Bubble ${sizeClass} ${hidden ? ' Hidden' : ''}`}
 			href={bubble.link}
 			rel={isExternalSite ? 'nofollow noopener' : ''}
 			target={isExternalSite ? '_blank' : '_self'}
