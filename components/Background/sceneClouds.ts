@@ -13,7 +13,7 @@ const cloudGenerator: SceneGenerator = ({scene}) => {
 
 	return {
 		initial: async ({colorMode}) => {
-			const planeGeometry = new PlaneBufferGeometry(10, 20, 1, 1);
+			const planeGeometry = new PlaneBufferGeometry(11, 22, 1, 1);
 
 			const image = new Image();
 			image.src = 'noise-maps/noise-3.webp';
@@ -21,7 +21,7 @@ const cloudGenerator: SceneGenerator = ({scene}) => {
 			
 			const colorModeBlend = new Color(colorMode.primary);
 
-			for (let i = 0; i < 50; i++) {
+			for (let i = 0; i < 40; i++) {
 				const cloudColor = getCloudColor(colorModeBlend);
 
 				// Generates an orange cloud texture by cropping part a noise map.
@@ -56,7 +56,7 @@ const cloudGenerator: SceneGenerator = ({scene}) => {
 				});
 				const planeMesh = new Mesh(planeGeometry, cloudMaterial);
 				const position = randomPointInTorus(8, 14);
-				planeMesh.position.set(position.x, position.y, MathUtils.randFloat(-15, -85));
+				planeMesh.position.set(position.x, position.y, MathUtils.randFloat(-15, -80));
 				planeMesh.rotation.set(0, 0, position.angle);
 				scene.add(planeMesh);
 				meshes.push(planeMesh);
@@ -65,10 +65,10 @@ const cloudGenerator: SceneGenerator = ({scene}) => {
 		loop: ({speed}) => {
 			meshes.forEach((cloud) => {
 				cloud.translateZ(0.02 * speed);
-				cloud.material.opacity = sineSmooth(cloud.position.z, -75, -5, 1, 0);
-				if (cloud.position.z > -5) {
+				cloud.material.opacity = sineSmooth(cloud.position.z, -75, -10, 0.9, 0);
+				if (cloud.position.z > -10) {
 					const position = randomPointInTorus(8, 14);
-					cloud.position.set(position.x, position.y, MathUtils.randFloat(-75, -85));
+					cloud.position.set(position.x, position.y, MathUtils.randFloat(-75, -80));
 					cloud.rotation.set(0, 0, position.angle);
 				}
 			});
