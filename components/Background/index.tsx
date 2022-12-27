@@ -39,7 +39,7 @@ const Background: FunctionComponent<{
 		let componentDetached = false;
 		
 		// Creates the scene and camera.
-		const camera = new PerspectiveCamera(75, 1, 5, 800);
+		const camera = new PerspectiveCamera(50, 1, 5, 205);
 		const renderer = new WebGLRenderer({
 			canvas: backgroundRef.current,
 			alpha: false,

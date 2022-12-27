@@ -13,7 +13,7 @@ const cloudGenerator: SceneGenerator = ({scene}) => {
 
 	return {
 		initial: async ({colorMode}) => {
-			const planeGeometry = new PlaneBufferGeometry(120, 240, 1, 1);
+			const planeGeometry = new PlaneBufferGeometry(10, 20, 1, 1);
 
 			const image = new Image();
 			image.src = 'noise-maps/noise-3.webp';
@@ -55,8 +55,8 @@ const cloudGenerator: SceneGenerator = ({scene}) => {
 					alphaTest: 0.02,
 				});
 				const planeMesh = new Mesh(planeGeometry, cloudMaterial);
-				const position = randomPointInTorus(100, 220);
-				planeMesh.position.set(position.x, position.y, MathUtils.randFloat(-250, -900));
+				const position = randomPointInTorus(8, 14);
+				planeMesh.position.set(position.x, position.y, MathUtils.randFloat(-15, -85));
 				planeMesh.rotation.set(0, 0, position.angle);
 				scene.add(planeMesh);
 				meshes.push(planeMesh);
@@ -64,11 +64,11 @@ const cloudGenerator: SceneGenerator = ({scene}) => {
 		},
 		loop: ({speed}) => {
 			meshes.forEach((cloud) => {
-				cloud.translateZ(0.1 * speed);
-				cloud.material.opacity = sineSmooth(cloud.position.z, -150, -800, 1, 0);
-				if (cloud.position.z > -150) {
-					const position = randomPointInTorus(100, 220);
-					cloud.position.set(position.x, position.y, MathUtils.randFloat(-800, -1000));
+				cloud.translateZ(0.02 * speed);
+				cloud.material.opacity = sineSmooth(cloud.position.z, -75, -5, 1, 0);
+				if (cloud.position.z > -5) {
+					const position = randomPointInTorus(8, 14);
+					cloud.position.set(position.x, position.y, MathUtils.randFloat(-75, -85));
 					cloud.rotation.set(0, 0, position.angle);
 				}
 			});

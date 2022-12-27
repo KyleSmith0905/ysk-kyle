@@ -13,7 +13,7 @@ const ambianceGenerator: SceneGenerator = ({scene}) => {
 
 	return {
 		initial: async ({colorMode}) => {
-			const planeGeometry = new PlaneBufferGeometry(900, 900, 1, 1);
+			const planeGeometry = new PlaneBufferGeometry(200, 200, 1, 1);
 			const colorModeBlend = new Color(colorMode.primary);
 
 			const image = new Image();
@@ -52,7 +52,7 @@ const ambianceGenerator: SceneGenerator = ({scene}) => {
 					alphaTest: 0.01,
 				});
 				const planeMesh = new Mesh(planeGeometry, cloudMaterial);
-				planeMesh.position.set(MathUtils.randFloatSpread(50), MathUtils.randFloatSpread(50), MathUtils.randFloat(-100, -400));
+				planeMesh.position.set(MathUtils.randFloatSpread(5), MathUtils.randFloatSpread(5), MathUtils.randFloat(-10, -70));
 				planeMesh.rotateZ(MathUtils.randFloat(0, 360));
 				scene.add(planeMesh);
 				cloudsMesh.push(planeMesh);
@@ -60,10 +60,12 @@ const ambianceGenerator: SceneGenerator = ({scene}) => {
 		},
 		loop: ({speed}) => {
 			cloudsMesh.forEach((cloud) => {
-				cloud.translateZ(0.1 * speed);
-				cloud.material.opacity = sineSmooth(cloud.position.z, 0, -300, 0.2, 0);
+				cloud.translateZ(0.02 * speed);
+
+				cloud.material.opacity = sineSmooth(cloud.position.z, -60, 0, 0.2, 0);
+
 				if (cloud.position.z > 0) {
-					cloud.position.set(MathUtils.randFloatSpread(50), MathUtils.randFloatSpread(50), MathUtils.randFloat(-300, -350));
+					cloud.position.set(MathUtils.randFloatSpread(50), MathUtils.randFloatSpread(50), MathUtils.randFloat(-60, -90));
 					cloud.rotateZ(MathUtils.randFloat(0, 360));
 				}
 			});

@@ -6,8 +6,8 @@ const starGenerator: SceneGenerator = ({scene}) => {
 	
 	return {
 		initial: ({colorMode}) => {
-			for (let i = 0; i < 300; i++) {
-				const geometry = new SphereBufferGeometry(MathUtils.randFloat(0.15, 0.3), 6, 4);
+			for (let i = 0; i < 250; i++) {
+				const geometry = new SphereBufferGeometry(MathUtils.randFloat(0.05, 0.08), 6, 4);
 				geometry.computeBoundingBox();
 				const material = new ShaderMaterial({
 					uniforms: {
@@ -39,26 +39,26 @@ const starGenerator: SceneGenerator = ({scene}) => {
 					`
 				});
 				const sphere = new Mesh(geometry, material);
-				const position = randomPointInTorus(40, 200);
-				sphere.position.set(position.x, position.y, MathUtils.randFloat(-100, -550));
+				const position = randomPointInTorus(17, 55);
+				sphere.position.set(position.x, position.y, MathUtils.randFloat(-20, -220));
 				scene.add(sphere);
 				starsMesh.push(sphere);
 			}
 		},
 		loop: ({speed}) => {
 			starsMesh.forEach((star) => {
-				star.translateZ(0.1 * speed);
-				star.scale.setZ(speed * 4);
+				star.translateZ(0.02 * speed);
+				star.scale.setZ(speed * 2);
 
 				let opacity = 0;
-				if (star.position.z > -50) opacity = sineSmooth(star.position.z, 0, -100, 1, 0);
-				else if (star.position.z < -300) opacity = sineSmooth(star.position.z, -250, -350, 1, 0);
+				if (star.position.z > -20) opacity = sineSmooth(star.position.z, -40, 0, 1, 0);
+				else if (star.position.z < -180) opacity = sineSmooth(star.position.z, -160, -200, 1, 0);
 				else opacity = 1;
 				star.material.uniforms.opacity.value = opacity;
 				
 				if (star.position.z > 0) {
-					const position = randomPointInTorus(40, 250);
-					star.position.set(position.x, position.y,  MathUtils.randFloat(-350, -500));
+					const position = randomPointInTorus(17, 55);
+					star.position.set(position.x, position.y,  MathUtils.randFloat(-200, -205));
 				}
 			});
 		},
