@@ -2,11 +2,15 @@ import { Dispatch, FunctionComponent, MouseEventHandler, SetStateAction } from '
 
 const HomeButton: FunctionComponent<{
 	bubbleScene: string;
+	bubbleSceneReset: string;
 	setBubbleSceneReset: Dispatch<SetStateAction<string>>,
-}> = ({bubbleScene, setBubbleSceneReset}) => {
+}> = ({bubbleScene, bubbleSceneReset, setBubbleSceneReset}) => {
 
-	// Updates the route and content like a traditional page transition.
+	// Updates the route and content like a traditional page transition
 	const updateScene: MouseEventHandler<HTMLElement> = async (event) => {
+		// Ensure user cannot press home button during transition
+		if (bubbleSceneReset !== bubbleScene) return;
+		
 		event.preventDefault();
 		setBubbleSceneReset('index');
 	};

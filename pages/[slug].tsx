@@ -66,9 +66,9 @@ const BubblePage:
   }, [cookies]);
 
   // When navigating site, wait a second after transition so animation can occur.
-  const bubbleResetTimeout = useRef<ReturnType<typeof setTimeout>>();
+  const bubbleResetTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
-    if (!bubbleSceneReset || bubbleSceneReset === bubbleScene) return;
+    if (!bubbleSceneReset || bubbleSceneReset === bubbleScene || bubbleResetTimeout.current) return;
 
     const timeout = setTimeout(async () => {
       const bubbleDataImport = await import('../lib/bubbleData/' + bubbleSceneReset);
@@ -79,6 +79,7 @@ const BubblePage:
       
       setBubbleScene(bubbleSceneReset);
       setBubbles(structuredClone(bubbles.slice().reverse()));
+      bubbleResetTimeout.current = null;
     }, 1000);
 
     bubbleResetTimeout.current = timeout;
@@ -145,7 +146,7 @@ const BubblePage:
         setGraphics={setGraphics}
         graphics={graphics}
       />
-      <HomeButton bubbleScene={bubbleScene} setBubbleSceneReset={setBubbleSceneReset}/>
+      <HomeButton bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} setBubbleSceneReset={setBubbleSceneReset}/>
     </>
   );
 };

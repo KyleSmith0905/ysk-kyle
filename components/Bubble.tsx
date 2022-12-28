@@ -17,7 +17,7 @@ interface BubbleProps {
 
 const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, bubbleSceneReset, setBubbleSceneReset, setBubbles, isUserBot}) => {
 
-	const [hidden, setHidden] = useState(!isUserBot && !bubble.position);
+	const [hidden, setHidden] = useState(!isUserBot && IsArrayNaN(bubble.position));
 	const bubbleElementRef = useRef(null);
 
 	useEffect(() => {
@@ -44,7 +44,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 			if (IsArrayNaN(bubble.position)) {
 				spawnBubble(bubble, bubbles, Date.now() - loadTime);
 				SetBubbleTransform(bubble, bubbleElement);
-				if (IsArrayNaN(bubble.position) === false) showElement();
+				if (!IsArrayNaN(bubble.position)) showElement();
 			}
 			// Drift the bubble around, also move to deploy position if not there
 			else {
@@ -70,8 +70,10 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 	}, [isUserBot, bubble, bubbles, setBubbles, bubbleScene, bubbleSceneReset]);
 
 	// Exit animation
+	const isInAnimation = useRef(false);
 	useEffect(() => {
-		if (bubbleSceneReset === bubbleScene) return;
+		if (bubbleSceneReset === bubbleScene || isInAnimation.current) return;
+		isInAnimation.current = true;
 
 		const beginTime = Date.now();
 		
@@ -102,7 +104,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 	const updateScene: MouseEventHandler<HTMLElement> = async (event) => {
 		if (!bubble.link || isExternalSite) return;
 		event.preventDefault();
-		setBubbleSceneReset(bubble.link);
+		if (!isInAnimation.current) setBubbleSceneReset(bubble.link);
 	};
 
 	if (bubble.summary === undefined) return (
