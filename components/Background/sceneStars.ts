@@ -40,7 +40,7 @@ const starGenerator: SceneGenerator = ({scene}) => {
 				});
 				const sphere = new Mesh(geometry, material);
 				const position = randomPointInTorus(17, 55);
-				sphere.position.set(position.x, position.y, MathUtils.randFloat(-20, -220));
+				sphere.position.set(position.x, position.y, MathUtils.randFloat(0, -200));
 				scene.add(sphere);
 				starsMesh.push(sphere);
 			}
@@ -56,9 +56,14 @@ const starGenerator: SceneGenerator = ({scene}) => {
 				else opacity = 1;
 				star.material.uniforms.opacity.value = opacity;
 				
-				if (star.position.z > 0) {
+				// Loops stars around to make it feel infinite.
+				if (star.position.z > -10) {
 					const position = randomPointInTorus(17, 55);
-					star.position.set(position.x, position.y,  MathUtils.randFloat(-200, -205));
+					star.position.set(position.x, position.y,  MathUtils.randFloat(-210, -200));
+				}
+				else if (star.position.z < -210) {
+					const position = randomPointInTorus(17, 55);
+					star.position.set(position.x, position.y,  MathUtils.randFloat(0, -10));
 				}
 			});
 		},

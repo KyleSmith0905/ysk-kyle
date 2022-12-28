@@ -16,7 +16,7 @@ const Background: FunctionComponent<{
 }> = ({setAutoGraphics, colorTheme, bubbleSceneReset, bubbleScene}) => {
 	const backgroundRef = useRef<HTMLCanvasElement>(null);
 	const colorThemeRef = useRef<string>();
-	const startingSpeedRef = useRef(1);
+	const startingSpeedRef = useRef(15);
 
 	useEffect(() => {
 		colorThemeRef.current = colorTheme;
@@ -27,7 +27,13 @@ const Background: FunctionComponent<{
 		let animationFrame = 0;
 		const speedUp = () => {
 			if (bubbleSceneReset === bubbleScene) return;
-			startingSpeedRef.current += 0.3;
+			if (bubbleSceneReset === 'index') {
+				// If going back to home page, make it look like you're going back
+				startingSpeedRef.current -= 0.3;
+			}
+			else {
+				startingSpeedRef.current += 0.3;
+			}
 			animationFrame = requestAnimationFrame(speedUp);
 		};
 		animationFrame = requestAnimationFrame(speedUp);
@@ -43,7 +49,7 @@ const Background: FunctionComponent<{
 		let componentDetached = false;
 		
 		// Creates the scene and camera.
-		const camera = new PerspectiveCamera(50, 1, 5, 205);
+		const camera = new PerspectiveCamera(50, 1, 5, 210);
 		const renderer = new WebGLRenderer({
 			canvas: backgroundRef.current,
 			alpha: false,

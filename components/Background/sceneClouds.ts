@@ -56,7 +56,7 @@ const cloudGenerator: SceneGenerator = ({scene}) => {
 				});
 				const planeMesh = new Mesh(planeGeometry, cloudMaterial);
 				const position = randomPointInTorus(8, 14);
-				planeMesh.position.set(position.x, position.y, MathUtils.randFloat(-15, -80));
+				planeMesh.position.set(position.x, position.y, MathUtils.randFloat(-10, -75));
 				planeMesh.rotation.set(0, 0, position.angle);
 				scene.add(planeMesh);
 				meshes.push(planeMesh);
@@ -66,9 +66,16 @@ const cloudGenerator: SceneGenerator = ({scene}) => {
 			meshes.forEach((cloud) => {
 				cloud.translateZ(0.02 * speed);
 				cloud.material.opacity = sineSmooth(cloud.position.z, -75, -10, 0.9, 0);
-				if (cloud.position.z > -10) {
+
+				// Loops clouds around to make it feel infinite.
+				if (cloud.position.z > 0) {
 					const position = randomPointInTorus(8, 14);
-					cloud.position.set(position.x, position.y, MathUtils.randFloat(-75, -80));
+					cloud.position.set(position.x, position.y, MathUtils.randFloat(-75, -85));
+					cloud.rotation.set(0, 0, position.angle);
+				}
+				else if (cloud.position.z < -85) {
+					const position = randomPointInTorus(8, 14);
+					cloud.position.set(position.x, position.y, MathUtils.randFloat(-10, 0));
 					cloud.rotation.set(0, 0, position.angle);
 				}
 			});

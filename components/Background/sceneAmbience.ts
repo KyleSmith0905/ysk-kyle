@@ -52,7 +52,7 @@ const ambianceGenerator: SceneGenerator = ({scene}) => {
 					alphaTest: 0.01,
 				});
 				const planeMesh = new Mesh(planeGeometry, cloudMaterial);
-				planeMesh.position.set(MathUtils.randFloatSpread(5), MathUtils.randFloatSpread(5), MathUtils.randFloat(-10, -70));
+				planeMesh.position.set(MathUtils.randFloatSpread(5), MathUtils.randFloatSpread(5), MathUtils.randFloat(-60, 0));
 				planeMesh.rotateZ(MathUtils.randFloat(0, 360));
 				scene.add(planeMesh);
 				cloudsMesh.push(planeMesh);
@@ -64,8 +64,13 @@ const ambianceGenerator: SceneGenerator = ({scene}) => {
 
 				cloud.material.opacity = sineSmooth(cloud.position.z, -60, 0, 0.2, 0);
 
-				if (cloud.position.z > 0) {
-					cloud.position.set(MathUtils.randFloatSpread(50), MathUtils.randFloatSpread(50), MathUtils.randFloat(-60, -90));
+				// Loops clouds around to make it feel infinite.
+				if (cloud.position.z > 10) {
+					cloud.position.set(MathUtils.randFloatSpread(50), MathUtils.randFloatSpread(50), MathUtils.randFloat(-70, -60));
+					cloud.rotateZ(MathUtils.randFloat(0, 360));
+				}
+				else if (cloud.position.z < -70) {
+					cloud.position.set(MathUtils.randFloatSpread(50), MathUtils.randFloatSpread(50), MathUtils.randFloat(0, 10));
 					cloud.rotateZ(MathUtils.randFloat(0, 360));
 				}
 			});
