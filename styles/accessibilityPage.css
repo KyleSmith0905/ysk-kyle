@@ -28,7 +28,7 @@
   padding-bottom: 2rem;
 }
 
-.accessibilityPage :is(.bubbleContainer) {
+.accessibilityPage :is(main > *) {
   max-width: 60%;
   min-width: 60%;
 }
@@ -54,4 +54,19 @@
   width: 100%;
   margin-top: 0.3rem;
   margin-bottom: 0.3rem;
+}
+
+.accessibilityPage :is(.children) {
+  position: relative;
+  margin-left: 2rem;
+}
+
+.accessibilityPage :is(.connections) {
+  position: absolute;
+  margin-left: -2rem;
+  margin-top: 1rem;
+  width: 2rem;
+  height: calc(100% - 2rem);
+  border-left: var(--color-text) 0.1rem solid;
+  opacity: 0.2;
 }
