@@ -9,7 +9,7 @@ import { Cookies } from '../lib/cookies';
 const AccessibilityPage: FunctionComponent<{
   slug: string;
   bubbles: IBubble[];
-  setAccessibility: Dispatch<SetStateAction<"Accessibility" | "Visuals" | "Undetermined">>
+  setAccessibility: Dispatch<SetStateAction<'Accessibility' | 'Visuals' | 'Undetermined'>>
   cookies?: Cookies;
 }> = ({
   bubbles: localBubble = [], setAccessibility, cookies,
@@ -25,16 +25,16 @@ const AccessibilityPage: FunctionComponent<{
 
   // Reformats the bubble so they look like they're in the correct order.
   useEffect(() => {
-    const bubbleSortingPoints: Record<number, IBubble> = {};
-    const core = localBubble.find((e) => e.connection === '.');
+    // const bubbleSortingPoints: Record<number, IBubble> = {};
+    // const core = localBubble.find((e) => e.connection === '.');
 
-    // Any bubble that is small connect to a core should be first, then any medium ones.
-    for (const bubble of localBubble) {
-      const connection = localBubble.find((e) => e.id === bubble.connection)
-    }
+    // // Any bubble that is small connect to a core should be first, then any medium ones.
+    // for (const bubble of localBubble) {
+    //   const connection = localBubble.find((e) => e.id === bubble.connection)
+    // }
 
     setReformattedBubbles(localBubble);
-  }, [localBubble])
+  }, [localBubble]);
 
   return (
     <div className='accessibilityPage'>
@@ -79,7 +79,7 @@ const AccessibilityPage: FunctionComponent<{
         ))}
       </main>
     </div>
-  )
+  );
 };
 
 export default AccessibilityPage;

@@ -35,10 +35,8 @@ const BubblePage:
 
     // Uses cookie values to save settings.
     useEffect(() => {
-      console.log(cookies);
       if (cookies && Object.keys(cookies).length === 0) {
         const accessibilityCookie = getCookie('accessibility') as typeof accessibility;
-        console.log(accessibilityCookie)
         if (accessibilityCookie) setAccessibility(accessibilityCookie);
       }
     }, [cookies]);

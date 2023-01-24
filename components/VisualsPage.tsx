@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { Dispatch, FunctionComponent, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { IBubble } from '../lib/bubbleData/_shared';
 import { ColorModes, COLOR_MODES } from '../lib/colorMode';
-import { Cookies, getCookie } from '../lib/cookies';
+import { Cookies } from '../lib/cookies';
 import { GraphicsLevels } from '../lib/graphicsLevel';
 import Background from './Background';
 import BackgroundConnections from './BackgroundConnections';
@@ -19,7 +19,7 @@ const VisualsPage: FunctionComponent<{
   slug: string;
   bubbles: IBubble[];
   isUserBot: boolean;
-  setAccessibility: Dispatch<SetStateAction<"Accessibility" | "Visuals" | "Undetermined">>;
+  setAccessibility: Dispatch<SetStateAction<'Accessibility' | 'Visuals' | 'Undetermined'>>;
   cookies?: Cookies;
 }> = ({
   slug, bubbles: localBubble = [], isUserBot, setAccessibility, cookies,
@@ -35,19 +35,9 @@ const VisualsPage: FunctionComponent<{
 
     // Uses cookie values to save settings.
     useEffect(() => {
-      let cookieColorTheme = colorTheme;
-
-      if (cookies && Object.keys(cookies).length === 0) {
-        const travelMode = getCookie('travelMode');
-        if (travelMode) setTravelMode(travelMode);
-        const graphics = getCookie('graphics') as GraphicsLevels;
-        if (graphics) setGraphics(graphics);
-        cookieColorTheme = getCookie('colorTheme') as ColorModes;
-        if (colorTheme) setColorTheme(cookieColorTheme);
-      }
       const root = document.getElementById('ColorTheme');
-      if (root) root.className = cookieColorTheme;
-    }, [cookies]);
+      if (root) root.className = colorTheme;
+    }, [cookies, colorTheme]);
 
     // When navigating site, wait a second after transition so animation can occur.
     const bubbleResetTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -130,7 +120,7 @@ const VisualsPage: FunctionComponent<{
         />
         <HomeButton bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} setBubbleSceneReset={setBubbleSceneReset} />
       </>
-    )
+    );
   };
 
 export default VisualsPage;
