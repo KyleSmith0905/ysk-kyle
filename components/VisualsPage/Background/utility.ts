@@ -1,5 +1,5 @@
 import { MathUtils, Scene } from 'three';
-import { ColorMode } from '../../lib/colorMode';
+import { ColorMode } from '../../../lib/colorMode';
 
 type SceneGenerator = (
 	{scene, width, height}: {

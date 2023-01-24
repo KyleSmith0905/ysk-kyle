@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import { Dispatch, FunctionComponent, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
-import { IBubble } from '../lib/bubbleData/_shared';
-import { ColorModes, COLOR_MODES } from '../lib/colorMode';
-import { Cookies } from '../lib/cookies';
-import { GraphicsLevels } from '../lib/graphicsLevel';
+import { IBubble } from '../../lib/bubbleData/_shared';
+import { ColorModes, COLOR_MODES } from '../../lib/colorMode';
+import { Cookies } from '../../lib/cookies';
+import { GraphicsLevels } from '../../lib/graphicsLevel';
 import Background from './Background';
 import BackgroundConnections from './BackgroundConnections';
 import Bubble from './Bubble';

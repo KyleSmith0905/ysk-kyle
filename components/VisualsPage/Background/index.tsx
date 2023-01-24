@@ -4,8 +4,8 @@ import { ambianceGenerator } from './sceneAmbience';
 import { starGenerator } from './sceneStars';
 import { cloudGenerator } from './sceneClouds';
 import { SceneGenerator } from './utility';
-import { GraphicsLevels } from '../../lib/graphicsLevel';
-import { ColorModes, COLOR_MODES } from '../../lib/colorMode';
+import { GraphicsLevels } from '../../../lib/graphicsLevel';
+import { ColorModes, COLOR_MODES } from '../../../lib/colorMode';
 import WebGl from 'three/examples/jsm/capabilities/WebGL';
 
 const Background: FunctionComponent<{

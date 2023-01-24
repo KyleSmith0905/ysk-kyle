@@ -2,9 +2,9 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Dispatch, FunctionComponent, SetStateAction, useEffect, useState } from 'react';
-import { IBubble } from '../lib/bubbleData/_shared';
-import { COLOR_MODES } from '../lib/colorMode';
-import { Cookies } from '../lib/cookies';
+import { IBubble } from '../../lib/bubbleData/_shared';
+import { COLOR_MODES } from '../../lib/colorMode';
+import { Cookies } from '../../lib/cookies';
 
 interface RecursiveBubble {
   bubble: IBubble,
@@ -141,6 +141,7 @@ const AccessibilityPage: FunctionComponent<{
             <InfoBlock recursiveBubble={reformattedBubbles}/>
           )}
         </main>
+        <svg></svg>
       </div>
     );
   };

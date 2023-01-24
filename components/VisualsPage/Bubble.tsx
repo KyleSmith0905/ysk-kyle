@@ -1,8 +1,8 @@
 import { Dispatch, FunctionComponent, MouseEventHandler, SetStateAction, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { IBubble } from '../lib/bubbleData/_shared';
-import { driftAround, moveToPosition, spawnBubble, setRandomPosition, retreatToCenter} from '../lib/bubblePhysics';
-import { IsArrayNaN, IsArraysEqual, SetBubbleTransform } from '../lib/utils';
+import { IBubble } from '../../lib/bubbleData/_shared';
+import { driftAround, moveToPosition, spawnBubble, setRandomPosition, retreatToCenter} from '../../lib/bubblePhysics';
+import { IsArrayNaN, IsArraysEqual, SetBubbleTransform } from '../../lib/utils';
 
 interface BubbleProps {
 	bubble: IBubble,

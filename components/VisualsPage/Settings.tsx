@@ -1,7 +1,7 @@
 import { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
-import { ColorModes, COLOR_MODES } from '../lib/colorMode';
-import { setCookie } from '../lib/cookies';
-import { GraphicsLevels } from '../lib/graphicsLevel';
+import { ColorModes, COLOR_MODES } from '../../lib/colorMode';
+import { setCookie } from '../../lib/cookies';
+import { GraphicsLevels } from '../../lib/graphicsLevel';
 
 const Settings: FunctionComponent<{
 	setTravelMode: Dispatch<SetStateAction<string>>,

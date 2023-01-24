@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect, useState } from 'react';
-import { controlStickPhysics } from '../../lib/controlStick';
+import { controlStickPhysics } from '../../../lib/controlStick';
 
 const ControlStickMovement: FunctionComponent = () => {
 
