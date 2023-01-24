@@ -45,7 +45,7 @@ const VisualsPage: FunctionComponent<{
       if (!bubbleSceneReset || bubbleSceneReset === bubbleScene || bubbleResetTimeout.current) return;
 
       const timeout = setTimeout(async () => {
-        const bubbleDataImport = await import('../lib/bubbleData/' + bubbleSceneReset);
+        const bubbleDataImport = await import('../../lib/bubbleData/' + bubbleSceneReset);
         const bubbles = bubbleDataImport.default;
 
         if (bubbleSceneReset === 'index') history.pushState({}, '', '/');
