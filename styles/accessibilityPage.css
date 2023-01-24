@@ -29,8 +29,8 @@
 }
 
 .accessibilityPage :is(main > *) {
-  max-width: 60%;
-  min-width: 60%;
+  max-width: 40rem;
+  width: 90%;
 }
 
 .accessibilityPage :is(.bubbleContainer :is(h1, h2, h3, p, a)) {
