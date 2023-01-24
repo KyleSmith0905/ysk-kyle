@@ -10,10 +10,12 @@ const Settings: FunctionComponent<{
 	colorTheme: ColorModes,
 	setGraphics: Dispatch<SetStateAction<GraphicsLevels>>
 	graphics: GraphicsLevels,
+  setAccessibility: Dispatch<SetStateAction<"Accessibility" | "Visuals" | "Undetermined">>;
 }> = ({
 	setTravelMode, travelMode,
 	setColorTheme, colorTheme,
 	setGraphics, graphics,
+	setAccessibility,
 }) => {
 	const [settingsOpen, setSettingsOpen] = useState(true);
 
@@ -49,6 +51,9 @@ const Settings: FunctionComponent<{
 				</svg>
 			</button>
 			<div id='SettingsList' className={settingsOpen ? '': 'Hidden'}>
+				<button onClick={() => {setAccessibility('Accessibility')}}>
+					Accessibility: Visuals
+				</button>
 				<button onClick={() => {
 					const newTravelMode = travelModes[(travelModes.indexOf(travelMode) + 1) % travelModes.length];
 					setTravelMode(newTravelMode);

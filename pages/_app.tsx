@@ -1,4 +1,7 @@
 import '../styles/globals.css';
+import '../styles/utils.css';
+import '../styles/components.css';
+import '../styles/accessibilityPage.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { COLOR_MODES } from '../lib/colorMode';

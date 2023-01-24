@@ -5,6 +5,7 @@ interface Cookies {
 	colorTheme: ColorModes;
 	travelMode: string;
 	graphics: GraphicsLevels;
+	accessibility: 'Accessibility' | 'Visuals' | 'Undetermined';
 }
 
 const getCookie = (name: string) => {
