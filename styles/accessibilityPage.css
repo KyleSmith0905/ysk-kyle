@@ -2,16 +2,19 @@
   position: fixed;
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* Top header of the page */
 .accessibilityPage :is(header) {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   padding: 0.5rem;
   background-color: var(--color-secondary);
+  z-index: 10;
 }
 
 .accessibilityPage :is(header .logo) {
@@ -28,23 +31,44 @@
   padding-bottom: 2rem;
 }
 
-.accessibilityPage :is(main > *) {
+.accessibilityPage :is(main > .bubbleContainer) {
   max-width: 40rem;
   width: 90%;
 }
 
-.accessibilityPage :is(.bubbleContainer :is(h1, h2, h3, p, a)) {
+.accessibilityPage :is(.bubbleBlock) {
+  position: relative;
+  margin-top: 8px;
+  margin-left: 5px;
+  z-index: 10;
+}
+
+.accessibilityPage :is(.bubbleBlock)::before {
+  content: '';
+  position: absolute;
+  width: 3rem;
+  height: calc(100% - 10px);
+  margin-left: -11px;
+  margin-top: 20px;
+  border-left: var(--color-text) 3px solid;
+  border-bottom: var(--color-text) 3px solid;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.accessibilityPage :is(.bubbleBlock :is(h1, h2, h3, p, a)) {
   display: inline-block;
   margin: 0rem;
   text-align: left;
 }
 
-.accessibilityPage :is(.bubbleContainer :is(h1, h2, h3)) {
+.accessibilityPage :is(.bubbleBlock :is(h1, h2, h3)) {
   margin-top: 1.2rem;
   margin-bottom: 0.3rem;
 }
 
-.accessibilityPage :is(.bubbleContainer :is(a)) {
+.accessibilityPage :is(.bubbleBlock :is(a)) {
   margin-left: 1rem;
 }
 
@@ -52,8 +76,8 @@
   position: relative;
   height: 10rem;
   width: 100%;
-  margin-top: 0.3rem;
-  margin-bottom: 0.3rem;
+  margin-top: 0rem;
+  margin-bottom: 0.6rem;
 }
 
 .accessibilityPage :is(.children) {
@@ -63,10 +87,5 @@
 
 .accessibilityPage :is(.connections) {
   position: absolute;
-  margin-left: -2rem;
-  margin-top: 1rem;
-  width: 2rem;
-  height: calc(100% - 2rem);
-  border-left: var(--color-text) 0.1rem solid;
-  opacity: 0.2;
+  inset: 0rem;
 }
