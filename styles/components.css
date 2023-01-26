@@ -35,15 +35,19 @@
   gap: 1rem;
 }
 
-.button {
+.button, .smallButton {
   padding: 0.5rem 1rem;
   border: 1px solid var(--color-text);
   border-radius: 1.2rem;
   font-size: 1rem;
-  transition: background-color 1s ease, color 1s ease;
+  transition: background-color 0.6s ease, color 0.6s ease;
 }
 
-.button:hover {
+.smallButton {
+  padding: 0.2rem 0.8rem;
+}
+
+:is(.button, .smallButton):hover {
   color: var(--color-primary);
   background-color: var(--color-text);
 }

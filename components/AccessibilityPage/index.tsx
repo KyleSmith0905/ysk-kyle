@@ -96,7 +96,6 @@ const AccessibilityPage: FunctionComponent<{
           </>
         )}
       </main>
-      <svg></svg>
     </div>
   );
 };

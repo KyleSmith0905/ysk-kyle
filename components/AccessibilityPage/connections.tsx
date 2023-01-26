@@ -58,7 +58,7 @@ const Connections: FunctionComponent<{
           const bubbleRect = bubble?.getBoundingClientRect();
           
           if (bubbleRect) {
-            circles.push([bubbleRect.x - 25, bubbleRect.y + scrollOffset + 40]);
+            circles.push([bubbleRect.x - 25, bubbleRect.y + scrollOffset + 25]);
           }
         }
 
@@ -70,7 +70,7 @@ const Connections: FunctionComponent<{
           const lastBubbleRect = lastBubble?.getBoundingClientRect();
   
           if (firstBubbleRect && lastBubbleRect) {
-            mainLines.push([firstBubbleRect.x - 25, firstBubbleRect.y + scrollOffset + 3, lastBubbleRect.y + scrollOffset + 35]);
+            mainLines.push([firstBubbleRect.x - 25, firstBubbleRect.y + scrollOffset - 13, lastBubbleRect.y + scrollOffset + 20]);
           }
         }
 
@@ -81,7 +81,7 @@ const Connections: FunctionComponent<{
           const bubbleRect = bubble?.getBoundingClientRect();
           
           if (bubbleRect) {
-            curveInLines.push([bubbleRect.x - 25, bubbleRect.y + scrollOffset + 50]);
+            curveInLines.push([bubbleRect.x - 25, bubbleRect.y + scrollOffset + 35]);
           }
         }
       }

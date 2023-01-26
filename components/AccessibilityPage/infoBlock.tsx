@@ -20,12 +20,34 @@ const InfoBlock: FunctionComponent<{
     <div key={bubble.id} id={`Bubble_${slug}_${bubble.id}`} className='bubbleContainer'>
       {bubble.summary !== undefined && (
         <div className='bubbleBlock'>
-          {bubble.size === 'large' && <h1>{bubble.name}</h1>}
-          {(bubble.size === 'medium' || !bubble.size) && <h2>{bubble.name}</h2>}
-          {bubble.size === 'small' && <h3>{bubble.name}</h3>}
-          {bubble.link && <Link href={bubble.link}>[More Information]</Link>}
-          <br />
-          <p>{bubble.summary}</p>
+          {/* <div> */}
+            {bubble.size === 'large' && <h1>{bubble.name}</h1>}
+            {(bubble.size === 'medium' || !bubble.size) && <h2>{bubble.name}</h2>}
+            {bubble.size === 'small' && <h3>{bubble.name}</h3>}
+            {(bubble.link && bubble.link.startsWith('https://')) && (
+              <Link href={bubble.link}>
+                <a target='_blank' className='smallButton'>Navigate There</a>
+              </Link>
+            )}
+            {(bubble.link && !bubble.link.startsWith('https://')) && (
+              <Link href={bubble.link}>
+                <a className='smallButton'>More Details</a>
+              </Link>
+            )}
+            <br/>
+            <p>{bubble.summary}</p>
+          {/* </div> */}
+          {/* <div className='bubbleSideImage'>
+            <Image
+              src={'/images/' + bubble.image + '.png'}
+              alt={bubble.name}
+              quality={50}
+              priority={true}
+              height={160}
+              layout='fill'
+              objectFit='contain'
+            />
+          </div> */}
         </div>
       )}
       {bubble.summary === undefined && (

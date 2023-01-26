@@ -38,7 +38,7 @@
 
 .accessibilityPage :is(.bubbleBlock) {
   position: relative;
-  margin-top: 8px;
+  margin-top: 24px;
   margin-left: 5px;
   z-index: 10;
 }
@@ -47,7 +47,19 @@
   content: '';
   position: absolute;
   width: 3rem;
+  height: calc(100% - 9px);
+  margin-left: -11px;
+  margin-top: 22px;
+  background-color: var(--color-primary);
+  border-bottom-left-radius: 20px;
+}
+
+.accessibilityPage :is(.bubbleBlock)::after {
+  content: '';
+  position: absolute;
+  width: 3rem;
   height: calc(100% - 10px);
+  inset: 0rem;
   margin-left: -11px;
   margin-top: 20px;
   border-left: var(--color-text) 3px solid;
@@ -55,17 +67,32 @@
   border-bottom-left-radius: 20px;
   border-top-left-radius: 2px;
   border-bottom-right-radius: 2px;
+  opacity: 0.3;
 }
 
 .accessibilityPage :is(.bubbleBlock :is(h1, h2, h3, p, a)) {
+  position: relative;
   display: inline-block;
   margin: 0rem;
   text-align: left;
+  z-index: 10;  
 }
 
 .accessibilityPage :is(.bubbleBlock :is(h1, h2, h3)) {
-  margin-top: 1.2rem;
+  margin-top: 0rem;
   margin-bottom: 0.3rem;
+}
+
+.accessibilityPage :is(.bubbleBlock h1) {
+  font-size: 1.4rem;
+}
+
+.accessibilityPage :is(.bubbleBlock h2) {
+  font-size: 1.25rem;
+}
+
+.accessibilityPage :is(.bubbleBlock h3) {
+  font-size: 1.1rem;
 }
 
 .accessibilityPage :is(.bubbleBlock :is(a)) {
@@ -88,4 +115,5 @@
 .accessibilityPage :is(.connections) {
   position: absolute;
   inset: 0rem;
+  opacity: 0.3;
 }
