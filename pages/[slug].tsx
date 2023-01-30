@@ -24,7 +24,10 @@ const BubblePage:
 
     const slugFormatted = slug.split('-').map((s: string) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
 
-    const [accessibility, setAccessibility] = useState<'Accessibility' | 'Visuals' | 'Undetermined'>(cookies?.accessibility ?? 'Undetermined');
+    const [accessibility, setAccessibility] = useState<'Accessibility' | 'Visuals' | 'Undetermined'>(() => {
+      if (isUserBot) return 'Accessibility';
+      return cookies?.accessibility ?? 'Undetermined';
+    });
 
     useEffect(() => {
       // Center screen to origin.
@@ -80,7 +83,6 @@ const BubblePage:
             cookies={cookies}
             slug={slug}
             bubbles={localBubble}
-            isUserBot={isUserBot}
             setAccessibility={setAccessibility}
           />
         )}

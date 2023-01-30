@@ -110,22 +110,23 @@ const Background: FunctionComponent<{
 
 		let frameNumber = 0;
 
-		let startAnimationTime = performance.now();
-
 		// Render animation loop.
 		const render = () => {
 			if (componentDetached) return;
 
 			frameNumber++;
 
-			// Records the movement based off of elapsed time
-			const endAnimationTime = performance.now();
-			const elapsedTime = Math.min(endAnimationTime - startAnimationTime, 100);
-			startAnimationTime = performance.now();
+			clock.stop();
+			const elapsedTime = clock.getElapsedTime() * 1000;
+			lastAnimationTimes.push(elapsedTime);
+			lastAnimationTimes.shift();
+
+			const minimumSpeed = Math.min(...lastAnimationTimes);
+			const averageSpeed = lastAnimationTimes.reduce((a, b) => a + b) / lastAnimationTimes.length;
 
 			// Sets the speed of the current frame.
-			startingSpeedRef.current = startingSpeedRef.current / (1 + (elapsedTime / 1000));
-			const speed = (1 + startingSpeedRef.current) * (elapsedTime / 10);
+			startingSpeedRef.current = startingSpeedRef.current / (1 + (averageSpeed / 1000));
+			const speed = (1 + startingSpeedRef.current) * (averageSpeed / 10);
 			
 			renderer.clear();
 
@@ -152,12 +153,8 @@ const Background: FunctionComponent<{
 
 			// Determine if the scene is slow on the user's device.
 			if (frameNumber < 100) {
-				clock.stop();
-				lastAnimationTimes.push(clock.getElapsedTime());
-				lastAnimationTimes.shift();
-				const minimumSpeed = Math.min(...lastAnimationTimes);
-				const averageSpeed = lastAnimationTimes.reduce((a, b) => a + b) / lastAnimationTimes.length;
-				if (minimumSpeed > 0.04 || averageSpeed > 0.1) {
+				console.log(lastAnimationTimes, minimumSpeed, averageSpeed);
+				if (minimumSpeed > 40 || averageSpeed > 100) {
 					setAutoGraphics('Low');
 				}
 				if (frameNumber < 99) clock.start();

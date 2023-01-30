@@ -18,11 +18,10 @@ import Settings from './Settings';
 const VisualsPage: FunctionComponent<{
   slug: string;
   bubbles: IBubble[];
-  isUserBot: boolean;
   setAccessibility: Dispatch<SetStateAction<'Accessibility' | 'Visuals' | 'Undetermined'>>;
   cookies?: Cookies;
 }> = ({
-  slug, bubbles: localBubble = [], isUserBot, setAccessibility, cookies,
+  slug, bubbles: localBubble = [], setAccessibility, cookies,
 }) => {
     const reverseBubbles = localBubble.slice().reverse();
     const [bubbleScene, setBubbleScene] = useState<string>(slug);
@@ -101,7 +100,6 @@ const VisualsPage: FunctionComponent<{
               bubbleScene={bubbleScene}
               bubbles={bubbles}
               bubble={bubble}
-              isUserBot={isUserBot}
             />
           ))}
         </main>
