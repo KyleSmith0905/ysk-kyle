@@ -25,15 +25,23 @@ const Background: FunctionComponent<{
 	// Boosts after every transition
 	useEffect(() => {
 		let animationFrame = 0;
+		let startAnimationTime = performance.now();
+
 		const speedUp = () => {
+			// Records the movement based off of elapsed time
+			const endAnimationTime = performance.now();
+			const movement = (endAnimationTime - startAnimationTime) / 50;
+			startAnimationTime = performance.now();
+
 			if (bubbleSceneReset === bubbleScene) return;
 			if (bubbleSceneReset === 'index') {
 				// If going back to home page, make it look like you're going back
-				startingSpeedRef.current -= 0.3;
+				startingSpeedRef.current -= movement;
 			}
 			else {
-				startingSpeedRef.current += 0.3;
+				startingSpeedRef.current += movement;
 			}
+
 			animationFrame = requestAnimationFrame(speedUp);
 		};
 		animationFrame = requestAnimationFrame(speedUp);
@@ -102,15 +110,22 @@ const Background: FunctionComponent<{
 
 		let frameNumber = 0;
 
+		let startAnimationTime = performance.now();
+
 		// Render animation loop.
 		const render = () => {
 			if (componentDetached) return;
 
 			frameNumber++;
 
+			// Records the movement based off of elapsed time
+			const endAnimationTime = performance.now();
+			const elapsedTime = endAnimationTime - startAnimationTime;
+			startAnimationTime = performance.now();
+
 			// Sets the speed of the current frame.
-			startingSpeedRef.current = startingSpeedRef.current / 1.01;
-			const speed = 1 + startingSpeedRef.current;
+			startingSpeedRef.current = startingSpeedRef.current / (1 + (elapsedTime / 1000));
+			const speed = (1 + startingSpeedRef.current) * (elapsedTime / 10);
 			
 			renderer.clear();
 
