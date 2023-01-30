@@ -120,7 +120,7 @@ const Background: FunctionComponent<{
 
 			// Records the movement based off of elapsed time
 			const endAnimationTime = performance.now();
-			const elapsedTime = endAnimationTime - startAnimationTime;
+			const elapsedTime = Math.min(endAnimationTime - startAnimationTime, 100);
 			startAnimationTime = performance.now();
 
 			// Sets the speed of the current frame.
