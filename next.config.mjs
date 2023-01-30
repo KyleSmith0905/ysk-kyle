@@ -1,3 +1,5 @@
+import redirectData from './lib/redirects.js';
+
 /**
  * @type {import('next').NextConfig}
  */
@@ -5,7 +7,15 @@ const configSettings = {
 	trailingSlash: false,
 	reactStrictMode: true,
   compress: true,
-	headers() {
+	redirects: () => {
+		return redirectData.redirectMap.map((e) => ({
+			source: e.source,
+			destination: e.destination,
+			permanent: true,
+			basePath: false,
+		}));
+	},
+	headers: () => {
 		return [
 			{
 				source: '/(.*)',
