@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import { IBubble } from '../../lib/bubbleData/_shared';
-import Image from 'next/image';
 import { FunctionComponent } from 'react';
 import { Button } from '../Button';
+import Image from 'next/future/image';
+
 
 interface RecursiveBubble {
   bubble: IBubble,
@@ -21,7 +22,7 @@ const InfoBlock: FunctionComponent<{
     <div key={bubble.id} id={`Bubble_${slug}_${bubble.id}`} className='bubbleContainer'>
       {bubble.summary !== undefined && (
         <div className='bubbleBlock'>
-          {/* <div> */}
+          <div>
             {bubble.size === 'large' && <h1>{bubble.name}</h1>}
             {(bubble.size === 'medium' || !bubble.size) && <h2>{bubble.name}</h2>}
             {bubble.size === 'small' && <h3>{bubble.name}</h3>}
@@ -37,30 +38,30 @@ const InfoBlock: FunctionComponent<{
             )}
             <br/>
             <p>{bubble.summary}</p>
-          {/* </div> */}
-          {/* <div className='bubbleSideImage'>
-            <Image
-              src={'/images/' + bubble.image + '.png'}
-              alt={bubble.name}
-              quality={50}
-              priority={true}
-              height={160}
-              layout='fill'
-              objectFit='contain'
-            />
-          </div> */}
+          </div>
+          {bubble.image && (
+            <div className='imageContainer'>
+              <Image
+                src={`/images/${bubble.image}.png`}
+                alt=''
+                quality={50}
+                fill={true}
+                priority={true}
+                className='image'
+              />
+            </div>
+          )}
         </div>
       )}
       {bubble.summary === undefined && (
-        <div className='image'>
+        <div className='imageContainer' style={{top: '0rem'}}>
           <Image
-            src={'/images/' + bubble.image + '.png'}
+            src={`/images/${bubble.image}.png`}
             alt={bubble.name}
             quality={50}
+            fill={true}
             priority={true}
-            height={160}
-            layout='fill'
-            objectFit='contain'
+            className='image'
           />
         </div>
       )}
