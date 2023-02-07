@@ -153,7 +153,6 @@ const Background: FunctionComponent<{
 
 			// Determine if the scene is slow on the user's device.
 			if (frameNumber < 100) {
-				console.log(lastAnimationTimes, minimumSpeed, averageSpeed);
 				if (minimumSpeed > 40 || averageSpeed > 100) {
 					setAutoGraphics('Low');
 				}
