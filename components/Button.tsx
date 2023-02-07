@@ -1,4 +1,4 @@
-import { FunctionComponent, MouseEventHandler, ReactNode, useRef, useState } from 'react';
+import { FunctionComponent, MouseEventHandler, ReactNode, useState } from 'react';
 
 interface ButtonProps {
   children: ReactNode;
@@ -6,9 +6,11 @@ interface ButtonProps {
   size?: 'small';
 }
 
+/**
+ * A standard button component with directional hover effects.
+ */
 const Button: FunctionComponent<ButtonProps> = ({children, onClick, size}) => {
 
-  const buttonRef = useRef<HTMLButtonElement>(null);
   const [position, setPosition] = useState<[number, number]>([0, 0]);
   const [hover, setHover] = useState<boolean>(false);
 
@@ -42,7 +44,6 @@ const Button: FunctionComponent<ButtonProps> = ({children, onClick, size}) => {
   
   return (
     <button
-      ref={buttonRef}
       className={buttonClass.join(' ')}
       onClick={onClick}
       onMouseEnter={onEnter}
