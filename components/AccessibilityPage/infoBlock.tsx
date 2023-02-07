@@ -23,34 +23,35 @@ const InfoBlock: FunctionComponent<{
       {bubble.summary !== undefined && (
         <div className='bubbleBlock'>
           <div>
-            {bubble.size === 'large' && <h1>{bubble.name}</h1>}
-            {(bubble.size === 'medium' || !bubble.size) && <h2>{bubble.name}</h2>}
-            {bubble.size === 'small' && <h3>{bubble.name}</h3>}
-            {(bubble.link && bubble.link.startsWith('https://')) && (
-              <Link href={bubble.link}>
-                <Button size='small'>Navigate There</Button>
-              </Link>
-            )}
-            {(bubble.link && !bubble.link.startsWith('https://')) && (
-              <Link href={bubble.link}>
-                <Button size='small'>More Details</Button>
-              </Link>
-            )}
-            <br/>
+            <div className='bubbleHeader'>
+              {bubble.size === 'large' && <h1>{bubble.name}</h1>}
+              {(bubble.size === 'medium' || !bubble.size) && <h2>{bubble.name}</h2>}
+              {bubble.size === 'small' && <h3>{bubble.name}</h3>}
+              {(bubble.link && bubble.link.startsWith('https://')) && (
+                <Link href={bubble.link}>
+                  <Button size='small'>Navigate There</Button>
+                </Link>
+              )}
+              {(bubble.link && !bubble.link.startsWith('https://')) && (
+                <Link href={bubble.link}>
+                  <Button size='small'>More Details</Button>
+                </Link>
+              )}
+              {bubble.image && (
+                <div className='inlineImageContainer'>
+                  <Image
+                    src={`/images/${bubble.image}.png`}
+                    alt=''
+                    quality={50}
+                    fill={true}
+                    priority={true}
+                    className='inlineImage'
+                  />
+                </div>
+              )}
+            </div>
             <p>{bubble.summary}</p>
           </div>
-          {bubble.image && (
-            <div className='imageContainer'>
-              <Image
-                src={`/images/${bubble.image}.png`}
-                alt=''
-                quality={50}
-                fill={true}
-                priority={true}
-                className='image'
-              />
-            </div>
-          )}
         </div>
       )}
       {bubble.summary === undefined && (

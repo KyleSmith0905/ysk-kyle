@@ -70,18 +70,17 @@
   opacity: 0.3;
 }
 
+.bubbleHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .accessibilityPage :is(.bubbleBlock :is(h1, h2, h3, p, a)) {
   position: relative;
-  display: inline-block;
   margin: 0rem;
   text-align: left;
   z-index: 10;  
-}
-
-.accessibilityPage :is(.bubbleBlock :is(h1, h2, h3)) {
-  margin-top: 0rem;
-  margin-bottom: 0.3rem;
-  margin-right: 1rem;
 }
 
 .accessibilityPage :is(.bubbleBlock h1) {
@@ -98,6 +97,17 @@
 
 .accessibilityPage :is(.bubbleBlock :is(a)) {
   margin-left: 1rem;
+}
+
+.accessibilityPage :is(.inlineImageContainer) {
+  position: relative;
+  height: 2rem;
+}
+
+.accessibilityPage :is(.inlineImage) {
+  width: unset !important;
+  object-fit: contain;
+  border-radius: 0.4rem;
 }
 
 .accessibilityPage :is(.imageContainer) {
