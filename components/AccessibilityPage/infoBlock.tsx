@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { IBubble } from '../../lib/bubbleData/_shared';
 import Image from 'next/image';
 import { FunctionComponent } from 'react';
+import { Button } from '../Button';
 
 interface RecursiveBubble {
   bubble: IBubble,
@@ -26,12 +27,12 @@ const InfoBlock: FunctionComponent<{
             {bubble.size === 'small' && <h3>{bubble.name}</h3>}
             {(bubble.link && bubble.link.startsWith('https://')) && (
               <Link href={bubble.link}>
-                <a target='_blank' className='smallButton'>Navigate There</a>
+                <Button size='small'>Navigate There</Button>
               </Link>
             )}
             {(bubble.link && !bubble.link.startsWith('https://')) && (
               <Link href={bubble.link}>
-                <a className='smallButton'>More Details</a>
+                <Button size='small'>More Details</Button>
               </Link>
             )}
             <br/>

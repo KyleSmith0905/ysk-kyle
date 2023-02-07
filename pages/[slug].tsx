@@ -8,6 +8,7 @@ import { IsUserBot } from '../lib/utils';
 import VisualsPage from '../components/VisualsPage';
 import { welcomeMessage } from '../lib/consoleMessages';
 import AccessibilityPage from '../components/AccessibilityPage';
+import { Button } from '../components/Button';
 
 interface BubblePageProps {
   slug: string;
@@ -64,8 +65,8 @@ const BubblePage:
               <p>This page is highly animated and could be a problem to some people.</p>
               <p>Select whether you prefer an accessible or visual experience.</p>
               <div style={{ marginTop: '2rem' }} className='buttonRow'>
-                <button className='button' onClick={() => setAccessibility('Accessibility')}>Accessibility</button>
-                <button className='button' onClick={() => setAccessibility('Visuals')}>Visuals</button>
+                <Button onClick={() => setAccessibility('Accessibility')}>Accessibility</Button>
+                <Button onClick={() => setAccessibility('Visuals')}>Visuals</Button>
               </div>
             </div>
           </div>

@@ -4,6 +4,7 @@ import { Dispatch, FunctionComponent, SetStateAction, useEffect, useState } from
 import { IBubble } from '../../lib/bubbleData/_shared';
 import { COLOR_MODES } from '../../lib/colorMode';
 import { Cookies } from '../../lib/cookies';
+import { Button } from '../Button';
 import Connections from './connections';
 import InfoBlock, { RecursiveBubble } from './infoBlock';
 
@@ -83,9 +84,9 @@ const AccessibilityPage: FunctionComponent<{
         <p className='logo'>YSK Kyle</p>
         <div className='buttonRow'>
           <Link href='/'>
-            <button className='button'>Home Page</button>
+            <Button>Home Page</Button>
           </Link>
-          <button className='button' onClick={() => setAccessibility('Visuals')}>To Visual Page</button>
+          <Button onClick={() => setAccessibility('Visuals')}>To Visual Page</Button>
         </div>
       </header>
       <main>

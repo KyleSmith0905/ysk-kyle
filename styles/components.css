@@ -26,6 +26,7 @@
   background: linear-gradient(315deg, var(--color-text) -600%, var(--color-primary) 100%);
   color: var(--color-text);
   z-index: 100;
+  margin: 1rem;
 }
 
 /* Generic buttons and rows of buttons */
@@ -36,18 +37,24 @@
 }
 
 .button, .smallButton {
+  position: relative;
   padding: 0.5rem 1rem;
   border: 1px solid var(--color-text);
   border-radius: 1.2rem;
   font-size: 1rem;
   transition: background-color 0.6s ease, color 0.6s ease;
+  overflow: hidden;
 }
 
 .smallButton {
   padding: 0.2rem 0.8rem;
 }
 
-:is(.button, .smallButton):hover {
-  color: var(--color-primary);
+.buttonCursor {
+  position: absolute;
   background-color: var(--color-text);
+  width: 4rem;
+  height: 4rem;
+  filter: blur(3rem);
+  transition: opacity ease 1s;
 }
