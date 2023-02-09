@@ -10,7 +10,9 @@ import { Cookies } from '../lib/cookies';
 const MyApp = ({ Component, pageProps }: AppProps) => {
 
   const cookies = pageProps as Cookies;
-  const cookiesColorMode = COLOR_MODES.find(e => e.name === (cookies.colorTheme ?? 'Dark'));
+  let cookiesColorMode = COLOR_MODES.find(e => e.name === (cookies.colorTheme ?? 'Dark'));
+  // Accessibility mode only has light option available.
+  if (cookies.accessibility === 'Accessibility') cookiesColorMode = COLOR_MODES.find(e => e.name === 'Light');
   
   return (
     <>

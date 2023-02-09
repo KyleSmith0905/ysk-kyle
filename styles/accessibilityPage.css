@@ -39,11 +39,11 @@
 .accessibilityPage :is(.bubbleBlock) {
   position: relative;
   margin-top: 24px;
-  margin-left: 5px;
+  left: 5px;
   z-index: 10;
 }
 
-.accessibilityPage :is(.bubbleBlock)::before {
+.accessibilityPage :is(.ConnectionLines)::before {
   content: '';
   position: absolute;
   width: 3rem;
@@ -54,7 +54,7 @@
   border-bottom-left-radius: 20px;
 }
 
-.accessibilityPage :is(.bubbleBlock)::after {
+.accessibilityPage :is(.ConnectionLines)::after {
   content: '';
   position: absolute;
   width: 3rem;
@@ -113,9 +113,8 @@
 .accessibilityPage :is(.imageContainer) {
   position: relative;
   height: 7rem;
-  margin-left: 0.5rem;
+  left: 0.5rem;
   margin-top: 1rem;
-  bottom: 0.5rem;
 }
 
 .accessibilityPage :is(.image) {

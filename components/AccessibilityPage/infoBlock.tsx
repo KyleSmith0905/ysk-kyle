@@ -19,9 +19,9 @@ const InfoBlock: FunctionComponent<{
   const bubble = recursiveBubble.bubble;
 
   return (
-    <div key={bubble.id} id={`Bubble_${slug}_${bubble.id}`} className='bubbleContainer'>
+    <div key={bubble.id} className='bubbleContainer'>
       {bubble.summary !== undefined && (
-        <div className='bubbleBlock'>
+        <div className='bubbleBlock ConnectionLines' id={`Bubble_${slug}_${bubble.id}`}>
           <div>
             <div className='bubbleHeader'>
               {bubble.size === 'large' && <h1>{bubble.name}</h1>}
@@ -55,15 +55,17 @@ const InfoBlock: FunctionComponent<{
         </div>
       )}
       {bubble.summary === undefined && (
-        <div className='imageContainer' style={{top: '0rem'}}>
-          <Image
-            src={`/images/${bubble.image}.png`}
-            alt={bubble.name}
-            quality={50}
-            fill={true}
-            priority={true}
-            className='image'
-          />
+        <div className='bubbleBlock' id={`Bubble_${slug}_${bubble.id}`}>
+          <div className='imageContainer'>
+            <Image
+              src={`/images/${bubble.image}.png`}
+              alt={bubble.name}
+              quality={50}
+              fill={true}
+              priority={true}
+              className='image'
+            />
+          </div>
         </div>
       )}
       <div className='children'>

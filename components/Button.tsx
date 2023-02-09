@@ -41,7 +41,6 @@ const Button: FunctionComponent<ButtonProps> = ({children, onClick, size}) => {
   const buttonCursorClass = ['buttonCursor'];
   if (!hover) buttonCursorClass.push('transparent');
 
-  
   return (
     <button
       className={buttonClass.join(' ')}

@@ -58,7 +58,9 @@ const Connections: FunctionComponent<{
           const bubbleRect = bubble?.getBoundingClientRect();
           
           if (bubbleRect) {
-            circles.push([bubbleRect.x - 25, bubbleRect.y + scrollOffset + 25]);
+            const x = bubbleRect.x - 25;
+            const y = bubbleRect.y + scrollOffset + (bubbleRect.height / 2);
+            circles.push([x, y]);
           }
         }
 
@@ -70,7 +72,12 @@ const Connections: FunctionComponent<{
           const lastBubbleRect = lastBubble?.getBoundingClientRect();
   
           if (firstBubbleRect && lastBubbleRect) {
-            mainLines.push([firstBubbleRect.x - 25, firstBubbleRect.y + scrollOffset - 13, lastBubbleRect.y + scrollOffset + 20]);
+            const x = firstBubbleRect.x - 25;
+            const startY = firstBubbleRect.y + scrollOffset - 13;
+            // Consider the height of the final element to end at.
+            const endY = lastBubbleRect.y + scrollOffset + (lastBubbleRect.height / 2) - 5;
+
+            mainLines.push([x, startY, endY]);
           }
         }
 
@@ -81,7 +88,11 @@ const Connections: FunctionComponent<{
           const bubbleRect = bubble?.getBoundingClientRect();
           
           if (bubbleRect) {
-            curveInLines.push([bubbleRect.x - 25, bubbleRect.y + scrollOffset + 35]);
+            const x = bubbleRect.x - 25;
+            // Consider the height of the final element to end at.
+            const y = bubbleRect.y + scrollOffset + (bubbleRect.height / 2) + 10;
+
+            curveInLines.push([x, y]);
           }
         }
       }
