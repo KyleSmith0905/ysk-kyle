@@ -50,11 +50,18 @@
   padding: 0.2rem 0.8rem;
 }
 
+.circleBubbleCursorContainer {
+  position: absolute;
+  inset: 0rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
 .buttonCursor {
   position: absolute;
-  background-color: var(--color-text);
-  width: 4rem;
-  height: 4rem;
-  filter: blur(3rem);
+  background-color: var(--cursor-color, var(--color-text));
+  width: var(--cursor-size, 4rem);
+  height: var(--cursor-size, 4rem);
+  filter: blur(var(--cursor-blur, 3rem));
   transition: opacity ease 1s;
 }

@@ -155,6 +155,8 @@ button {
 }
 
 .Bubble {
+  --cursor-size: 5rem;
+  --cursor-blur: 5rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -164,6 +166,10 @@ button {
   padding: 1em;
   will-change: transform;
   background-color: var(--color-primary);
+}
+
+a.Bubble {
+  --cursor-color: hsl(240, 100%, 60%);
 }
 
 div.Bubble::after {

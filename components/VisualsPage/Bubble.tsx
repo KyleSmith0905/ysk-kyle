@@ -17,6 +17,8 @@ interface BubbleProps {
 const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, bubbleSceneReset, setBubbleSceneReset, setBubbles}) => {
 
 	const [hidden, setHidden] = useState(true);
+  const [position, setPosition] = useState<[number, number]>([0, 0]);
+  const [hover, setHover] = useState<boolean>(false);
 	const bubbleElementRef = useRef(null);
 
 	useEffect(() => {
@@ -100,6 +102,28 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 		if (!isInAnimation.current) setBubbleSceneReset(bubble.link);
 	};
 
+	// Functions related to mouse tracking
+  const onEnter: MouseEventHandler<HTMLElement> = (event) => {
+    const boundingRect = event.currentTarget.getBoundingClientRect();
+    setHover(true);
+    if (boundingRect) {
+      setPosition([event.clientX - boundingRect.left, event.clientY - boundingRect.top]);
+    }
+  };
+  const onMove: MouseEventHandler<HTMLElement> = (event) => {
+    const boundingRect = event.currentTarget.getBoundingClientRect();
+    setHover(true);
+    if (boundingRect) {
+      setPosition([event.clientX - boundingRect.left, event.clientY - boundingRect.top]);
+    }
+  };
+  const onLeave: MouseEventHandler<HTMLElement> = () => {
+    setHover(false);
+  };
+
+	const buttonCursorClass = ['buttonCursor'];
+  if (!hover) buttonCursorClass.push('transparent');
+
 	if (bubble.summary === undefined) return (
 		<BubbleTag 
 			id={`Bubble_${bubble.id}`}
@@ -109,6 +133,9 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 			rel={isExternalSite ? 'nofollow noopener' : ''}
 			target={isExternalSite ? '_blank' : '_self'}
 			onClick={updateScene}
+      onMouseEnter={onEnter}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
 			tabIndex={0}
 			style={{
 				position: 'absolute',
@@ -126,6 +153,20 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 				height={bubble.radius * 2}
 				objectFit='cover'
 			/>
+			<div
+				className='circleBubbleCursorContainer'
+				onMouseEnter={onEnter}
+				onMouseMove={onMove}
+				onMouseLeave={onLeave}
+			>
+				<div
+					className={buttonCursorClass.join(' ')}
+					style={{
+						left: `calc(${position[0]}px - 2rem)`,
+						top: `calc(${position[1]}px - 2rem)`,
+					}}
+				/>
+			</div>
 		</BubbleTag>
 	);
 	else return (
@@ -167,6 +208,20 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 					/>
 				</div>
 			}
+			<div
+				className='circleBubbleCursorContainer'
+				onMouseEnter={onEnter}
+				onMouseMove={onMove}
+				onMouseLeave={onLeave}
+			>
+				<div
+					className={buttonCursorClass.join(' ')}
+					style={{
+						left: `calc(${position[0]}px - 2rem)`,
+						top: `calc(${position[1]}px - 2rem)`,
+					}}
+				/>
+			</div>
 		</BubbleTag>
 	);
 };
