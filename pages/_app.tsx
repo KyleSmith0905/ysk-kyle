@@ -4,25 +4,38 @@ import '../styles/components.css';
 import '../styles/accessibilityPage.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { COLOR_MODES } from '../lib/colorMode';
+import { ColorMode, GRAPHICS_HIGH_COLOR_MODES, GRAPHICS_LOW_COLOR_MODES } from '../lib/colorMode';
 import { Cookies } from '../lib/cookies';
+import { useEffect, useRef } from 'react';
+import { AllProviders } from '../lib/hooks';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const currentColorMode = useRef<ColorMode>();
 
-  const cookies = pageProps as Cookies;
-  let cookiesColorMode = COLOR_MODES.find(e => e.name === (cookies.colorTheme ?? 'Dark'));
-  // Accessibility mode only has light option available.
-  if (cookies.accessibility === 'Accessibility') cookiesColorMode = COLOR_MODES.find(e => e.name === 'Light');
+  useEffect(() => {
+    const cookies = pageProps as Cookies;
+    
+    // Accessibility mode only has light option available.
+    if (cookies.accessibility === 'Accessibility') {
+      currentColorMode.current = GRAPHICS_LOW_COLOR_MODES.find(e => e.name === 'Light');
+    }
+    else if (cookies.graphics === 'High') {
+      currentColorMode.current = GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === (cookies.colorTheme ?? 'Dark'));
+    }
+    else {
+      currentColorMode.current = GRAPHICS_LOW_COLOR_MODES.find(e => e.name === (cookies.colorTheme ?? 'Dark'));
+    }
+  }, [pageProps]);
   
   return (
-    <>
+    <AllProviders cookies={pageProps as Cookies}>
       <Head>
         <meta charSet='utf-8' />
         <title>YSK Kyle - A portfolio website for Kyle Smith</title>
         <meta name='description' content='YSK Kyle is a portfolio website for Kyle Smith to showcase his web design and programming experience.' />
         <meta name='keywords' content='portfolio, programming, resume, web design, experience, frontend programmer' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <meta name='theme-color' content={cookiesColorMode?.primary} />
+        <meta name='theme-color' content={currentColorMode.current?.primary} />
         <link rel='icon' type='image/ico' href='/icons/favicon.ico' />
         <link rel='apple-touch-icon' href='/icons/logo192.png' />
         <link rel='manifest' href='/manifest.json' />
@@ -47,10 +60,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name='twitter:title' content='YSK Kyle - A portfolio website for Kyle Smith' />
         <meta name='twitter:description' content='YSK Kyle is a portfolio website for Kyle Smith to showcase his web design and programming experience.' />
       </Head>
-      <div id='ColorTheme' className={cookiesColorMode?.name}>
+      <div id='ColorTheme' className={currentColorMode.current?.name}>
         <Component {...pageProps} />
       </div>
-    </>
+    </AllProviders>
   );
 };
 

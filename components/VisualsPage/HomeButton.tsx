@@ -10,7 +10,7 @@ const HomeButton: FunctionComponent<{
 	const updateScene: MouseEventHandler<HTMLElement> = async (event) => {
 		// Ensure user cannot press home button during transition
 		if (bubbleSceneReset !== bubbleScene) return;
-		
+
 		event.preventDefault();
 		setBubbleSceneReset('index');
 	};
@@ -21,7 +21,7 @@ const HomeButton: FunctionComponent<{
 		<nav id='HomeButton'>
 			<button
 				id='DisplaySettings'
-				aria-label = 'DisplaySettings'
+				aria-label='DisplaySettings'
 				onClick={updateScene}
 			>
 				<svg width='50' height='50'>
