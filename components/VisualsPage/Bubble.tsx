@@ -1,8 +1,8 @@
 import { Dispatch, FunctionComponent, MouseEventHandler, SetStateAction, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { IBubble } from '../lib/bubbleData/_shared';
-import { driftAround, moveToPosition, spawnBubble, setRandomPosition, retreatToCenter} from '../lib/bubblePhysics';
-import { IsArrayNaN, IsArraysEqual, SetBubbleTransform } from '../lib/utils';
+import { IBubble } from '../../lib/bubbleData/_shared';
+import { driftAround, moveToPosition, spawnBubble, retreatToCenter} from '../../lib/bubblePhysics';
+import { IsArrayNaN, IsArraysEqual, SetBubbleTransform } from '../../lib/utils';
 
 interface BubbleProps {
 	bubble: IBubble,
@@ -12,24 +12,17 @@ interface BubbleProps {
 	setBubbleScene: Dispatch<SetStateAction<string>>,
 	bubbleSceneReset: string,
 	setBubbleSceneReset: Dispatch<SetStateAction<string>>,
-	isUserBot: boolean,
 }
 
-const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, bubbleSceneReset, setBubbleSceneReset, setBubbles, isUserBot}) => {
+const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, bubbleSceneReset, setBubbleSceneReset, setBubbles}) => {
 
-	const [hidden, setHidden] = useState(!isUserBot && IsArrayNaN(bubble.position));
+	const [hidden, setHidden] = useState(true);
 	const bubbleElementRef = useRef(null);
 
 	useEffect(() => {
 		const loadTime = Date.now();
 		
 		let requestId: number;
-
-		if (isUserBot) {
-			setRandomPosition(bubble);
-			SetBubbleTransform(bubble, bubbleElementRef.current);
-			return;
-		}
 		
 		const showElement = () => {
 			setHidden(false);
@@ -67,7 +60,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 		requestId = requestAnimationFrame(performPhysics);
 		
 		return () => cancelAnimationFrame(requestId);
-	}, [isUserBot, bubble, bubbles, setBubbles, bubbleScene, bubbleSceneReset]);
+	}, [bubble, bubbles, setBubbles, bubbleScene, bubbleSceneReset]);
 
 	// Exit animation
 	const isInAnimation = useRef(false);

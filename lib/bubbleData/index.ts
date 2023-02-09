@@ -63,7 +63,6 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		summary: 'Projects worked on as part of formal work experience.',
 		connection: 'welcome',
 		radius: 89,
-		size: 'small',
 	},
 	{
 		id: 'estack',

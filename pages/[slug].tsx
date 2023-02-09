@@ -1,16 +1,9 @@
 import { readdirSync } from 'fs';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import { FunctionComponent, useCallback, useEffect, useRef, useState } from 'react';
-import Connections from '../components/Connections';
-import Bubble from '../components/Bubble';
-import BrowserMovement from '../components/MovementControl/Browser';
-import ControlStickMovement from '../components/MovementControl/ControlStick';
-import EdgeScrollMovement from '../components/MovementControl/EdgeScroll';
-import PanoramaMovement from '../components/MovementControl/Panorama';
-import Settings from '../components/Settings';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { IBubble } from '../lib/bubbleData/_shared';
-import { Cookies, getCookie } from '../lib/cookies';
+import { Cookies, getCookie, setCookie } from '../lib/cookies';
 import { IsUserBot } from '../lib/utils';
 import Background from '../components/Background';
 import BackgroundConnections from '../components/BackgroundConnections';
@@ -19,21 +12,19 @@ import { GraphicsLevels } from '../lib/graphicsLevel';
 import HomeButton from '../components/HomeButton';
 import { welcomeMessage } from '../lib/consoleMessages';
 import structuredClone from '@ungap/structured-clone';
-import { GraphicsContextManager } from '../lib/hooks';
 
 interface BubblePageProps {
   slug: string;
-  bubbles: IBubble[];
   cookies?: Cookies;
   isUserBot?: boolean;
+  bubbles: IBubble[];
 }
 
 const BubblePage:
   NextPage<BubblePageProps> |
   FunctionComponent<BubblePageProps> = ({
     slug, cookies, bubbles: localBubble = [], isUserBot = false
-}) => {
-  const slugFormatted = slug.split('-').map((s: string) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+  }) => {
 
   
   const reverseBubbles = localBubble.slice().reverse();
@@ -83,18 +74,33 @@ const BubblePage:
   const bubbleResetTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
     if (!bubbleSceneReset || bubbleSceneReset === bubbleScene || bubbleResetTimeout.current) return;
+    const slugFormatted = slug.split('-').map((s: string) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
 
-    const timeout = setTimeout(async () => {
-      const bubbleDataImport = await import('../lib/bubbleData/' + bubbleSceneReset);
-      const bubbles = bubbleDataImport.default;
+    const [accessibility, setAccessibility] = useState<'Accessibility' | 'Visuals' | 'Undetermined'>(() => {
+      if (isUserBot) return 'Accessibility';
+      return cookies?.accessibility ?? 'Undetermined';
+    });
 
-      if (bubbleSceneReset === 'index') history.pushState({}, '', '/');
-      else history.pushState({}, '', `/${bubbleSceneReset}`);
-      
-      setBubbleScene(bubbleSceneReset);
-      setBubbles(structuredClone(bubbles.slice().reverse()));
-      bubbleResetTimeout.current = null;
-    }, 1000);
+    useEffect(() => {
+      // Center screen to origin.
+      scrollTo(1000 - (window.innerWidth / 2), 1000 - (window.innerHeight / 2));
+      // Display a message in chat.
+      console.log(welcomeMessage());
+    }, []);
+
+    // Uses cookie values to save settings.
+    useEffect(() => {
+      if (cookies && Object.keys(cookies).length === 0) {
+        const accessibilityCookie = getCookie('accessibility') as typeof accessibility;
+        if (accessibilityCookie) setAccessibility(accessibilityCookie);
+      }
+    }, [cookies]);
+
+    // Saves accessibility settings for next time.
+    useEffect(() => {
+      if (accessibility === 'Undetermined') return;
+      setCookie('accessibility', accessibility);
+    }, [accessibility]);
 
     bubbleResetTimeout.current = timeout;
   }, [bubbleSceneReset, bubbleScene]);
@@ -157,6 +163,45 @@ const BubblePage:
     </>
   );
 };
+    return (
+      <>
+        <Head>
+          <title>{slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'}</title>
+          <meta property='og:title' content={slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
+          <meta name='twitter:title' content={slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
+        </Head>
+        {accessibility === 'Undetermined' && (
+          <div className='alertContainer'>
+            <div className='alertBox'>
+              <h1 style={{ marginTop: '0rem' }}>Hello Visitor!</h1>
+              <p>This page is highly animated and could be a problem to some people.</p>
+              <p>Select whether you prefer an accessible or visual experience.</p>
+              <div style={{ marginTop: '2rem' }} className='buttonRow'>
+                <Button onClick={() => setAccessibility('Accessibility')}>Accessibility</Button>
+                <Button onClick={() => setAccessibility('Visuals')}>Visuals</Button>
+              </div>
+            </div>
+          </div>
+        )}
+        {accessibility === 'Accessibility' && (
+          <AccessibilityPage
+            cookies={cookies}
+            slug={slug}
+            bubbles={localBubble}
+            setAccessibility={setAccessibility}
+          />
+        )}
+        {accessibility !== 'Accessibility' && (
+          <VisualsPage
+            cookies={cookies}
+            slug={slug}
+            bubbles={localBubble}
+            setAccessibility={setAccessibility}
+          />
+        )}
+      </>
+    );
+  };
 
 export default BubblePage;
 
@@ -165,11 +210,11 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req }) =>
   if (Array.isArray(slug)) slug = slug.join('/');
 
   let allPaths = readdirSync('lib/bubbleData');
-  
-	allPaths = allPaths.map(path => path.split('.')[0]);
+
+  allPaths = allPaths.map(path => path.split('.')[0]);
   allPaths = allPaths.filter(path => !path.startsWith('_'));
   allPaths = allPaths.filter(path => path !== '404');
-	allPaths = allPaths.filter(path => path !== 'index');
+  allPaths = allPaths.filter(path => path !== 'index');
 
   const notFound = !allPaths.includes(slug);
 

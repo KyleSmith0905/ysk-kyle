@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react';
-import { IBubble } from '../lib/bubbleData/_shared';
-import { IsArrayNaN } from '../lib/utils';
+import { IBubble } from '../../lib/bubbleData/_shared';
+import { IsArrayNaN } from '../../lib/utils';
 
 const Connections: FunctionComponent<{
 	bubbles: IBubble[]

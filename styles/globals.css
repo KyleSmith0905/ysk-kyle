@@ -62,10 +62,6 @@ button {
   cursor: pointer;
 }
 
-.Hidden {
-  display: none;
-}
-
 @keyframes enterStageLeft {
   0% {
     transform: translateX(calc(-1em - 100%));

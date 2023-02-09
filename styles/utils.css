@@ -1,0 +1,11 @@
+.no-margin {
+  margin: 0rem;
+}
+
+.Hidden {
+  display: none;
+}
+
+.transparent {
+  opacity: 0;
+}

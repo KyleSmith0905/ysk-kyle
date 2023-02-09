@@ -4,8 +4,8 @@ import { ambianceGenerator } from './sceneAmbience';
 import { starGenerator } from './sceneStars';
 import { cloudGenerator } from './sceneClouds';
 import { SceneGenerator } from './utility';
-import { GraphicsLevels } from '../../lib/graphicsLevel';
 import { GraphicsHighColorModes, GRAPHICS_HIGH_COLOR_MODES } from '../../lib/colorMode';
+import { GraphicsLevels } from '../../../lib/graphicsLevel';
 import WebGl from 'three/examples/jsm/capabilities/WebGL';
 
 const Background: FunctionComponent<{
@@ -25,15 +25,23 @@ const Background: FunctionComponent<{
 	// Boosts after every transition
 	useEffect(() => {
 		let animationFrame = 0;
+		let startAnimationTime = performance.now();
+
 		const speedUp = () => {
+			// Records the movement based off of elapsed time
+			const endAnimationTime = performance.now();
+			const movement = (endAnimationTime - startAnimationTime) / 50;
+			startAnimationTime = performance.now();
+
 			if (bubbleSceneReset === bubbleScene) return;
 			if (bubbleSceneReset === 'index') {
 				// If going back to home page, make it look like you're going back
-				startingSpeedRef.current -= 0.3;
+				startingSpeedRef.current -= movement;
 			}
 			else {
-				startingSpeedRef.current += 0.3;
+				startingSpeedRef.current += movement;
 			}
+
 			animationFrame = requestAnimationFrame(speedUp);
 		};
 		animationFrame = requestAnimationFrame(speedUp);
@@ -82,7 +90,7 @@ const Background: FunctionComponent<{
 		};
 		document.addEventListener('mousemove', mouseMovementTracker);
 
-		let colorMode = GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === colorThemeRef.current) ?? GRAPHICS_HIGH_COLOR_MODES[0];
+		let colorMode = GRAPHICS_HIGH_COLOR_MODES.find((e) => e.name === colorThemeRef.current) ?? GRAPHICS_HIGH_COLOR_MODES[0];
 		scene.background = new Color(colorMode?.secondary);
 
 		const sceneGenerators: {[key: string]: SceneGenerator} = {
@@ -108,9 +116,17 @@ const Background: FunctionComponent<{
 
 			frameNumber++;
 
+			clock.stop();
+			const elapsedTime = clock.getElapsedTime() * 1000;
+			lastAnimationTimes.push(elapsedTime);
+			lastAnimationTimes.shift();
+
+			const minimumSpeed = Math.min(...lastAnimationTimes);
+			const averageSpeed = lastAnimationTimes.reduce((a, b) => a + b) / lastAnimationTimes.length;
+
 			// Sets the speed of the current frame.
-			startingSpeedRef.current = startingSpeedRef.current / 1.01;
-			const speed = 1 + startingSpeedRef.current;
+			startingSpeedRef.current = startingSpeedRef.current / (1 + (averageSpeed / 1000));
+			const speed = (1 + startingSpeedRef.current) * (averageSpeed / 10);
 			
 			renderer.clear();
 
@@ -137,12 +153,7 @@ const Background: FunctionComponent<{
 
 			// Determine if the scene is slow on the user's device.
 			if (frameNumber < 100) {
-				clock.stop();
-				lastAnimationTimes.push(clock.getElapsedTime());
-				lastAnimationTimes.shift();
-				const minimumSpeed = Math.min(...lastAnimationTimes);
-				const averageSpeed = lastAnimationTimes.reduce((a, b) => a + b) / lastAnimationTimes.length;
-				if (minimumSpeed > 0.04 || averageSpeed > 0.1) {
+				if (minimumSpeed > 40 || averageSpeed > 100) {
 					setAutoGraphics('Low');
 				}
 				if (frameNumber < 99) clock.start();

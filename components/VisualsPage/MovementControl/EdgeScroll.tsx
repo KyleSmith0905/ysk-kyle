@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect, useState } from 'react';
-import { DrawEdgeScroller, EdgeScrolling } from '../../lib/edgeScrolling';
+import { DrawEdgeScroller, EdgeScrolling } from '../../../lib/edgeScrolling';
 
 const EdgeScrollMovement: FunctionComponent = () => {
 
