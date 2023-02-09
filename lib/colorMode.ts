@@ -5,9 +5,11 @@ interface ColorMode {
 	text: string;
 }
 
-type ColorModes = 'Light' | 'Dark' | 'Iconic';
+type GraphicsLowColorModes = 'Light' | 'Dark' | 'Iconic';
 
-const COLOR_MODES: ColorMode[] = [
+type GraphicsHighColorModes = 'Dark' | 'Rainbow';
+
+const GRAPHICS_LOW_COLOR_MODES: ColorMode[] = [
 	{
 		name: 'Light',
 		primary: 'hsl(0, 0%, 100%)',
@@ -28,5 +30,14 @@ const COLOR_MODES: ColorMode[] = [
 	},
 ];
 
-export { COLOR_MODES };
-export type { ColorModes, ColorMode };
+const GRAPHICS_HIGH_COLOR_MODES: ColorMode[] = [
+	{
+		name: 'Dark',
+		primary: 'hsl(0, 0%, 6%)',
+		secondary: 'hsl(0, 0%, 0%)',
+		text: 'hsl(0, 0%, 100%)',
+	},
+];
+
+export { GRAPHICS_HIGH_COLOR_MODES, GRAPHICS_LOW_COLOR_MODES };
+export type { GraphicsLowColorModes, GraphicsHighColorModes, ColorMode };

@@ -1,33 +1,46 @@
-import { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
-import { ColorModes, COLOR_MODES } from '../lib/colorMode';
+import { Dispatch, FunctionComponent, SetStateAction, useCallback, useState } from 'react';
+import { GraphicsLowColorModes, GRAPHICS_LOW_COLOR_MODES, GraphicsHighColorModes, GRAPHICS_HIGH_COLOR_MODES } from '../lib/colorMode';
 import { setCookie } from '../lib/cookies';
 import { GraphicsLevels } from '../lib/graphicsLevel';
 
 const Settings: FunctionComponent<{
 	setTravelMode: Dispatch<SetStateAction<string>>,
 	travelMode: string,
-	setColorTheme: Dispatch<SetStateAction<ColorModes>>,
-	colorTheme: ColorModes,
+	setGraphicsLowColorTheme: Dispatch<SetStateAction<GraphicsLowColorModes>>,
+	graphicsLowColorTheme: GraphicsLowColorModes,
+	setGraphicsHighColorTheme: Dispatch<SetStateAction<GraphicsHighColorModes>>,
+	graphicsHighColorTheme: GraphicsHighColorModes,
 	setGraphics: Dispatch<SetStateAction<GraphicsLevels>>
 	graphics: GraphicsLevels,
+	autoGraphics: GraphicsLevels | 'Assume-High',
 }> = ({
 	setTravelMode, travelMode,
-	setColorTheme, colorTheme,
+	setGraphicsLowColorTheme, graphicsLowColorTheme,
+	setGraphicsHighColorTheme, graphicsHighColorTheme,
 	setGraphics, graphics,
+	autoGraphics,
 }) => {
 	const [settingsOpen, setSettingsOpen] = useState(true);
 
 	const toggleSettings = () => setSettingsOpen(!settingsOpen);
 
-	const colorThemes = COLOR_MODES.map((e) => e.name) as ColorModes[];
+	const graphicsLowColorThemes = GRAPHICS_LOW_COLOR_MODES.map((e) => e.name) as GraphicsLowColorModes[];
+	const graphicsHighColorThemes = GRAPHICS_HIGH_COLOR_MODES.map((e) => e.name) as GraphicsHighColorModes[];
 	const travelModes = ['Browser', 'Edge Scrolling', 'Control Stick', 'Panorama'];
 	const graphicsLevels: GraphicsLevels[] = ['Auto', 'Low', 'High'];
 	
 	const handleColorThemeChange = () => {
 		const root = document.getElementById('ColorTheme') as HTMLElement;
 		if (!root) return;
-		root.className = colorThemes[(colorThemes.indexOf(colorTheme) + 1) % colorThemes.length];
+		root.className = graphicsLowColorThemes[(graphicsLowColorThemes.indexOf(graphicsLowColorTheme) + 1) % graphicsLowColorThemes.length];
 	};
+
+	// Compares the user's graphics settings to a parameter.
+	const isGraphics = useCallback((compareGraphics: GraphicsLevels) => {
+		let activeGraphics = graphics === 'Auto' ? autoGraphics : graphics;
+		if (activeGraphics === 'Assume-High') activeGraphics = 'High';
+		return activeGraphics === compareGraphics;
+	}, [graphics, autoGraphics]);
 
 	return (
 		<aside id='Settings'>
@@ -56,14 +69,26 @@ const Settings: FunctionComponent<{
 				}}>
 					Travel Mode: {travelMode}
 				</button>
-				<button onClick={() => {
-					const newColorTheme = colorThemes[(colorThemes.indexOf(colorTheme) + 1) % colorThemes.length];
-					handleColorThemeChange();
-					setColorTheme(newColorTheme);
-					setCookie('colorTheme', newColorTheme);
-				}}>
-					Color Theme: {colorTheme}
-				</button>
+				{isGraphics('Low') && (
+					<button onClick={() => {
+						const newColorTheme = graphicsLowColorThemes[(graphicsLowColorThemes.indexOf(graphicsLowColorTheme) + 1) % graphicsLowColorThemes.length];
+						handleColorThemeChange();
+						setGraphicsLowColorTheme(newColorTheme);
+						setCookie('colorTheme', newColorTheme);
+					}}>
+						Color Theme: {graphicsLowColorTheme}
+					</button>
+				)}
+				{isGraphics('High') && (
+					<button onClick={() => {
+						const newColorTheme = graphicsHighColorThemes[(graphicsHighColorThemes.indexOf(graphicsHighColorTheme) + 1) % graphicsHighColorThemes.length];
+						handleColorThemeChange();
+						setGraphicsHighColorTheme(newColorTheme);
+						setCookie('colorTheme', newColorTheme);
+					}}>
+						Color Theme: {graphicsLowColorTheme}
+					</button>
+				)}
 				<button onClick={() => {
 					const newGraphics = graphicsLevels[(graphicsLevels.indexOf(graphics) + 1) % graphicsLevels.length];
 					setGraphics(newGraphics);

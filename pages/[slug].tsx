@@ -14,11 +14,12 @@ import { Cookies, getCookie } from '../lib/cookies';
 import { IsUserBot } from '../lib/utils';
 import Background from '../components/Background';
 import BackgroundConnections from '../components/BackgroundConnections';
-import { ColorModes, COLOR_MODES } from '../lib/colorMode';
+import { ColorMode, GraphicsHighColorModes, GraphicsLowColorModes, GRAPHICS_HIGH_COLOR_MODES, GRAPHICS_LOW_COLOR_MODES } from '../lib/colorMode';
 import { GraphicsLevels } from '../lib/graphicsLevel';
 import HomeButton from '../components/HomeButton';
 import { welcomeMessage } from '../lib/consoleMessages';
 import structuredClone from '@ungap/structured-clone';
+import { GraphicsContextManager } from '../lib/hooks';
 
 interface BubblePageProps {
   slug: string;
@@ -40,10 +41,11 @@ const BubblePage:
   const [bubbleSceneReset, setBubbleSceneReset] = useState<string>(slug);
   const [bubbles, setBubbles] = useState<IBubble[]>(structuredClone(reverseBubbles));
   const [travelMode, setTravelMode] = useState(cookies?.travelMode ?? 'Browser');
-  const [colorTheme, setColorTheme] = useState<ColorModes>(cookies?.colorTheme ?? 'Dark');
-  const [graphics, setGraphics] = useState<GraphicsLevels>(cookies?.graphics ?? 'Auto');
-  const [autoGraphics, setAutoGraphics] = useState<GraphicsLevels | 'Assume-High'>('High');
-  
+  const [graphicsLowColorTheme, setGraphicsLowColorTheme] = useState<GraphicsLowColorModes>(cookies?.colorTheme ?? 'Dark');
+  const [graphicsHighColorTheme, setGraphicsHighColorTheme] = useState<GraphicsHighColorModes>(cookies?.colorTheme ?? 'Dark');
+  const [currentColorMode, setCurrentColorMode] = useState<ColorMode>();
+  const { graphics, setGraphics, effectiveGraphics } = useGraphics.useConsumer();
+
   useEffect(() => {
     // Center screen to origin.
     scrollTo(1000 - (window.innerWidth / 2), 1000 - (window.innerHeight / 2));
@@ -58,12 +60,24 @@ const BubblePage:
       if (travelMode) setTravelMode(travelMode);
       const graphics = getCookie('graphics') as GraphicsLevels;
       if (graphics) setGraphics(graphics);
-      const colorTheme = getCookie('colorTheme') as ColorModes;
-      if (colorTheme) setColorTheme(colorTheme);
+      const graphicsLowColorTheme = getCookie('graphicsLowColorTheme') as GraphicsLowColorModes;
+      if (graphicsLowColorTheme) setGraphicsLowColorTheme(graphicsLowColorTheme);
+      const graphicsHighColorTheme = getCookie('graphicsHighColorTheme') as GraphicsLowColorModes;
+      if (graphicsHighColorTheme) setGraphicsLowColorTheme(graphicsHighColorTheme);
       const root = document.getElementById('ColorTheme');
-      if (root && colorTheme) root.className = colorTheme;
+      if (root && graphicsHighColorTheme) root.classList.add(graphicsHighColorTheme);
+      if (root && graphicsHighColorTheme) root.classList.add(graphicsHighColorTheme);
     }
   }, [cookies]);
+
+  useEffect(() => {
+    if (graphics === 'High') {
+      setCurrentColorMode(GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === graphicsHighColorTheme));
+    }
+    else {
+      setCurrentColorMode(GRAPHICS_LOW_COLOR_MODES.find(e => e.name === graphicsLowColorTheme));
+    }
+  }, [graphicsLowColorTheme, graphicsHighColorTheme, graphics]);
 
   // When navigating site, wait a second after transition so animation can occur.
   const bubbleResetTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -85,25 +99,18 @@ const BubblePage:
     bubbleResetTimeout.current = timeout;
   }, [bubbleSceneReset, bubbleScene]);
 
-  // Compares the user's graphics settings to a parameter.
-  const isGraphics = useCallback((compareGraphics: GraphicsLevels) => {
-    let activeGraphics = graphics === 'Auto' ? autoGraphics : graphics;
-    if (activeGraphics === 'Assume-High') activeGraphics = 'High';
-    return activeGraphics === compareGraphics;
-  }, [graphics, autoGraphics]);
-
   return (
     <>
       <Head>
         <title>{slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'}</title>
         <meta property='og:title' content={slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
         <meta name='twitter:title' content={slugFormatted + ' | YSK Kyle - A portfolio website for Kyle Smith'} />
-        <meta name='theme-color' content={COLOR_MODES.find(e => e.name === colorTheme)?.primary} />
+        {currentColorMode && <meta name='theme-color' content={currentColorMode.primary} />}
       </Head>
-      {isGraphics('High') && (
-        <Background setAutoGraphics={setAutoGraphics} colorTheme={colorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset}/>
+      {effectiveGraphics === 'High' && (
+        <Background setAutoGraphics={setAutoGraphics} colorTheme={graphicsHighColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset}/>
       )}
-      {isGraphics('Low') && (<div id='Background'>
+      {effectiveGraphics === 'Low' && (<div id='Background'>
         <div className='fill'/>
           <svg className='pattern' height="100%" width="100%">
             <defs>
@@ -117,7 +124,7 @@ const BubblePage:
       )}
       <div id='Underlay'>
         <Connections bubbles={bubbles} />
-        {isGraphics('Low') && <BackgroundConnections />}
+        {effectiveGraphics === 'Low' && <BackgroundConnections />}
       </div>
       <main id='MainContent'>
         {bubbles.map((bubble: IBubble) => (
@@ -141,10 +148,10 @@ const BubblePage:
       <Settings
         setTravelMode={setTravelMode}
         travelMode={travelMode}
-        setColorTheme={setColorTheme}
-        colorTheme={colorTheme}
-        setGraphics={setGraphics}
-        graphics={graphics}
+        setGraphicsLowColorTheme={setGraphicsLowColorTheme}
+        graphicsLowColorTheme={graphicsLowColorTheme}
+        setGraphicsHighColorTheme={setGraphicsHighColorTheme}
+        graphicsHighColorTheme={graphicsHighColorTheme}
       />
       <HomeButton bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} setBubbleSceneReset={setBubbleSceneReset}/>
     </>

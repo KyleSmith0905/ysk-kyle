@@ -5,14 +5,14 @@ import { starGenerator } from './sceneStars';
 import { cloudGenerator } from './sceneClouds';
 import { SceneGenerator } from './utility';
 import { GraphicsLevels } from '../../lib/graphicsLevel';
-import { ColorModes, COLOR_MODES } from '../../lib/colorMode';
+import { GraphicsHighColorModes, GRAPHICS_HIGH_COLOR_MODES } from '../../lib/colorMode';
 import WebGl from 'three/examples/jsm/capabilities/WebGL';
 
 const Background: FunctionComponent<{
 	setAutoGraphics: Dispatch<SetStateAction<GraphicsLevels | 'Assume-High'>>,
 	bubbleScene: string,
 	bubbleSceneReset: string,
-	colorTheme: ColorModes,
+	colorTheme: GraphicsHighColorModes,
 }> = ({setAutoGraphics, colorTheme, bubbleSceneReset, bubbleScene}) => {
 	const backgroundRef = useRef<HTMLCanvasElement>(null);
 	const colorThemeRef = useRef<string>();
@@ -82,7 +82,7 @@ const Background: FunctionComponent<{
 		};
 		document.addEventListener('mousemove', mouseMovementTracker);
 
-		let colorMode = COLOR_MODES.find(e => e.name === colorThemeRef.current) ?? COLOR_MODES[0];
+		let colorMode = GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === colorThemeRef.current) ?? GRAPHICS_HIGH_COLOR_MODES[0];
 		scene.background = new Color(colorMode?.secondary);
 
 		const sceneGenerators: {[key: string]: SceneGenerator} = {
@@ -116,7 +116,7 @@ const Background: FunctionComponent<{
 
 			// Recolor the scene's objects.
 			if (colorThemeRef.current !== colorMode.name) {
-				colorMode = COLOR_MODES.find(e => e.name === colorThemeRef.current) ?? COLOR_MODES[0];
+				colorMode = GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === colorThemeRef.current) ?? GRAPHICS_HIGH_COLOR_MODES[0];
 				scene.background = new Color(colorMode?.secondary);
 				layerResult.forEach((e) => e.recolor({colorMode}));
 			}
