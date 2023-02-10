@@ -38,8 +38,8 @@ const Button: FunctionComponent<ButtonProps> = ({children, onClick, size}) => {
   if (size === 'small') buttonClass.push('smallButton');
   else buttonClass.push('button');
 
-  const buttonCursorClass = ['buttonCursor'];
-  if (!hover) buttonCursorClass.push('transparent');
+  const buttonCursorContainerClass = ['buttonCursorContainer'];
+  if (!hover) buttonCursorContainerClass.push('transparent');
 
   return (
     <button
@@ -50,13 +50,18 @@ const Button: FunctionComponent<ButtonProps> = ({children, onClick, size}) => {
       onMouseLeave={onLeave}
     >
       {children}
+      <div className='buttonBackground'/>
       <div
-        className={buttonCursorClass.join(' ')}
+        className={buttonCursorContainerClass.join(' ')}
         style={{
+          '--border-radius': '1.2rem',
           '--left': `${position[0]}px`,
           '--top': `${position[1]}px`,
         } as CSSProperties}
-      />
+      >
+        <div className='buttonCursorBorder' />
+        <div className='buttonCursor' />
+      </div>
     </button>
   );
 };
