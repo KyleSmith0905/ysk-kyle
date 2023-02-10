@@ -30,7 +30,7 @@ const AllProviders: FunctionComponent<{cookies: Cookies, children: ReactNode}> =
 const useGraphics = () => {
 	const {graphics, setGraphics, autoGraphics, setAutoGraphics} = useContext(GraphicsContext);
 
-	const [effectiveGraphics, setEffectiveGraphics] = useState<Omit<GraphicsLevels, 'Auto'>>();
+	const [effectiveGraphics, setEffectiveGraphics] = useState<Omit<GraphicsLevels, 'Auto'>>('High');
 
   // Compares the user's graphics settings to a parameter.
   useEffect(() => {

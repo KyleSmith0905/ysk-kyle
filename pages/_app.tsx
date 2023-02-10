@@ -6,42 +6,42 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ColorMode, GRAPHICS_HIGH_COLOR_MODES, GRAPHICS_LOW_COLOR_MODES } from '../lib/colorMode';
 import { Cookies } from '../lib/cookies';
-import { useEffect, useState } from 'react';
+import { CSSProperties, useRef } from 'react';
 import { AllProviders } from '../lib/hooks';
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
-  const [currentColorMode, setCurrentColorMode] = useState<ColorMode | undefined>(GRAPHICS_HIGH_COLOR_MODES?.find(e => e.name === 'Dark'));
-  const [currentColorStyles, setCurrentColorStyles] = useState<Record<string, string | undefined>>({});
+const determineColorMode = (cookies: Cookies) => {
+  // If there are no cookies at all, the page loaded is guaranteed to be default settings.
+  if (!cookies) {
+    return GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === 'Dark');
+  }
+  // Accessibility mode only has light option available.
+  else if (cookies.accessibility === 'Accessibility') {
+    return GRAPHICS_LOW_COLOR_MODES.find(e => e.name === 'Light');
+  }
+  else if (!cookies.graphics || cookies.graphics === 'High') {
+    return GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === (cookies.graphicsHighColorTheme ?? 'Dark'));
+  }
+  else {
+    return GRAPHICS_LOW_COLOR_MODES.find(e => e.name === (cookies.graphicsLowColorTheme ?? 'Light'));
+  }
+};
 
+const MyApp = ({ Component, pageProps }: AppProps) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const cookies = (pageProps as any).cookies as Cookies;
 
-  useEffect(() => {    
-    let colorMode: ColorMode | undefined;
-
-    // If there are no cookies at all, the page loaded is guaranteed to be default settings.
-    if (!cookies) {
-      colorMode = GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === 'Dark');
-    }
-    // Accessibility mode only has light option available.
-    else if (cookies.accessibility === 'Accessibility') {
-      colorMode = GRAPHICS_LOW_COLOR_MODES.find(e => e.name === 'Light');
-    }
-    else if (!cookies.graphics || cookies.graphics === 'High') {
-      colorMode = GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === (cookies.graphicsHighColorTheme ?? 'Dark'));
-    }
-    else {
-      colorMode = GRAPHICS_LOW_COLOR_MODES.find(e => e.name === (cookies.graphicsLowColorTheme ?? 'Light'));
-    }
-
-    setCurrentColorMode(colorMode);
-
-    setCurrentColorStyles({
+  // Current color state, defaults to dark (since that is what the site is usually loaded on).
+  const currentColorMode = useRef<ColorMode | undefined>((() => {
+    return determineColorMode(cookies);
+  })());
+  const currentColorStyles = useRef<Record<string, string | undefined>>((() => {
+    const colorMode = determineColorMode(cookies);
+    return {
       '--color-primary': colorMode?.primary,
       '--color-secondary': colorMode?.secondary,
       '--color-text': colorMode?.text,
-    });
-  }, [cookies, pageProps]);
+    };
+  })());
 
   return (
     <AllProviders cookies={cookies}>
@@ -51,7 +51,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name='description' content='YSK Kyle is a portfolio website for Kyle Smith to showcase his web design and programming experience.' />
         <meta name='keywords' content='portfolio, programming, resume, web design, experience, frontend programmer' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <meta name='theme-color' content={currentColorMode?.primary} />
+        <meta name='theme-color' content={currentColorMode.current?.primary} />
         <link rel='icon' type='image/ico' href='/icons/favicon.ico' />
         <link rel='apple-touch-icon' href='/icons/logo192.png' />
         <link rel='manifest' href='/manifest.json' />
@@ -76,7 +76,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name='twitter:title' content='YSK Kyle - A portfolio website for Kyle Smith' />
         <meta name='twitter:description' content='YSK Kyle is a portfolio website for Kyle Smith to showcase his web design and programming experience.' />
       </Head>
-      <div id='ColorTheme' className={currentColorMode?.name} style={currentColorStyles}>
+      <div id='ColorTheme' className={currentColorMode.current?.name} style={currentColorStyles?.current as CSSProperties}>
         <Component {...pageProps} />
       </div>
     </AllProviders>
