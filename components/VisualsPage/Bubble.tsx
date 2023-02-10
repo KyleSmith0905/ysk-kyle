@@ -154,7 +154,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 				objectFit='cover'
 			/>
 			<div
-				className='circleBubbleCursorContainer'
+				className={buttonCursorClass.join(' ')}
 				onMouseEnter={onEnter}
 				onMouseMove={onMove}
 				onMouseLeave={onLeave}
@@ -164,7 +164,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 				} as CSSProperties}
 			>
 				<div className='buttonCursorBorder' />
-				<div className={buttonCursorClass.join(' ')} />
+				<div className='buttonCursor' />
 			</div>
 		</BubbleTag>
 	);

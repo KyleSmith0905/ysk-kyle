@@ -18,15 +18,14 @@ import Settings from './Settings';
 const VisualsPage: FunctionComponent<{
   slug: string;
   bubbles: IBubble[];
+  setBubbles: Dispatch<SetStateAction<IBubble[]>>;
   setAccessibility: Dispatch<SetStateAction<'Accessibility' | 'Visuals' | 'Undetermined'>>;
   cookies?: Cookies;
 }> = ({
-  slug, bubbles: localBubble = [], setAccessibility, cookies,
+  slug, bubbles, setBubbles, setAccessibility, cookies,
 }) => {
-    const reverseBubbles = localBubble.slice().reverse();
     const [bubbleScene, setBubbleScene] = useState<string>(slug);
     const [bubbleSceneReset, setBubbleSceneReset] = useState<string>(slug);
-    const [bubbles, setBubbles] = useState<IBubble[]>(structuredClone(reverseBubbles));
     const [travelMode, setTravelMode] = useState(cookies?.travelMode ?? 'Browser');
     const [graphicsHighColorTheme, setGraphicsHighColorTheme] = useState<GraphicsHighColorModes>(cookies?.graphicsHighColorTheme ?? 'Dark');
     const [graphicsLowColorTheme, setGraphicsLowColorTheme] = useState<GraphicsLowColorModes>(cookies?.graphicsLowColorTheme ?? 'Light');
@@ -74,7 +73,7 @@ const VisualsPage: FunctionComponent<{
       }, 1000);
 
       bubbleResetTimeout.current = timeout;
-    }, [bubbleSceneReset, bubbleScene]);
+    }, [bubbleSceneReset, bubbleScene, setBubbles]);
 
     // Determines theme color
     let color: string | undefined = 'hsl(0, 0%, 6%)';

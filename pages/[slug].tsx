@@ -22,9 +22,10 @@ const BubblePage:
   FunctionComponent<BubblePageProps> = ({
     slug, cookies, bubbles: localBubble = [], isUserBot = false
   }) => {
-  
   const slugFormatted = slug.split('-').map((s: string) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
-
+  
+  const reverseBubbles = localBubble.slice().reverse();
+  const [bubbles, setBubbles] = useState<IBubble[]>(structuredClone(reverseBubbles));
   const [accessibility, setAccessibility] = useState<'Accessibility' | 'Visuals' | 'Undetermined'>(() => {
     if (isUserBot) return 'Accessibility';
     return cookies?.accessibility ?? 'Undetermined';
@@ -75,7 +76,8 @@ const BubblePage:
           <AccessibilityPage
             cookies={cookies}
             slug={slug}
-            bubbles={localBubble}
+            bubbles={bubbles}
+            setBubbles={setBubbles}
             setAccessibility={setAccessibility}
           />
         )}
@@ -83,7 +85,8 @@ const BubblePage:
           <VisualsPage
             cookies={cookies}
             slug={slug}
-            bubbles={localBubble}
+            bubbles={bubbles}
+            setBubbles={setBubbles}
             setAccessibility={setAccessibility}
           />
         )}

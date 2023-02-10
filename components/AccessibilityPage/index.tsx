@@ -10,10 +10,11 @@ import InfoBlock, { RecursiveBubble } from './infoBlock';
 const AccessibilityPage: FunctionComponent<{
   slug: string;
   bubbles: IBubble[];
+  setBubbles: Dispatch<SetStateAction<IBubble[]>>;
   setAccessibility: Dispatch<SetStateAction<'Accessibility' | 'Visuals' | 'Undetermined'>>
   cookies?: Cookies;
 }> = ({
-  slug, bubbles: localBubble = [], setAccessibility, cookies,
+  slug, bubbles = [], setBubbles, setAccessibility, cookies,
 }) => {
 
   const [reformattedBubbles, setReformattedBubbles] = useState<RecursiveBubble>();
@@ -32,7 +33,7 @@ const AccessibilityPage: FunctionComponent<{
 
   // Reformats the bubble so they look like they're in the correct order.
   useEffect(() => {
-    const unusedBubbles = [...localBubble];
+    const unusedBubbles = [...bubbles];
 
     const centralBubble = unusedBubbles.findIndex((e) => e.connection === '.');
     const reformattedBubbles: RecursiveBubble = {bubble: unusedBubbles[centralBubble], children: []};
@@ -44,7 +45,7 @@ const AccessibilityPage: FunctionComponent<{
     unusedBubbles.splice(centralBubble, 1);
 
     // Go through layers of heritage.
-    for (let step = 0; step < localBubble.length; step++) {
+    for (let step = 0; step < bubbles.length; step++) {
       availableChildren = nextAvailableChildren;
       nextAvailableChildren = [[], []];
       
@@ -78,7 +79,13 @@ const AccessibilityPage: FunctionComponent<{
     }
 
     setReformattedBubbles(reformattedBubbles);
-  }, [localBubble]);
+  }, [bubbles]);
+
+  const changePage = async (bubbleScene: string) => {
+    const bubbleDataImport = await import('../../lib/bubbleData/' + bubbleScene);
+    const bubbles = bubbleDataImport.default;
+    setBubbles(structuredClone(bubbles.slice().reverse()));
+  };
 
   return (
     <div id='accessibilityPage' className='accessibilityPage'>
@@ -89,7 +96,7 @@ const AccessibilityPage: FunctionComponent<{
         <p className='logo'>YSK Kyle</p>
         <div className='buttonRow'>
           <Link href='/'>
-            <Button>Home Page</Button>
+            <Button onClick={() => changePage('index')}>Home Page</Button>
           </Link>
           <Button onClick={() => setAccessibility('Visuals')}>To Visual Page</Button>
         </div>
@@ -97,7 +104,7 @@ const AccessibilityPage: FunctionComponent<{
       <main>
         {reformattedBubbles && (
           <>
-            <InfoBlock recursiveBubble={reformattedBubbles} slug={slug}/>
+            <InfoBlock recursiveBubble={reformattedBubbles} setBubbles={setBubbles} slug={slug}/>
             <Connections recursiveBubble={reformattedBubbles} slug={slug}/>
           </>
         )}

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { IBubble } from '../../lib/bubbleData/_shared';
-import { FunctionComponent } from 'react';
+import { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import { Button } from '../Button';
 import Image from 'next/future/image';
 
@@ -13,10 +13,17 @@ interface RecursiveBubble {
 const InfoBlock: FunctionComponent<{
   recursiveBubble: RecursiveBubble;
   slug: string;
+  setBubbles: Dispatch<SetStateAction<IBubble[]>>
 }> = ({
-  recursiveBubble, slug,
+  recursiveBubble, slug, setBubbles,
 }) => {
   const bubble = recursiveBubble.bubble;
+
+  const changePage = async (bubbleScene: string) => {
+    const bubbleDataImport = await import('../../lib/bubbleData/' + bubbleScene);
+    const bubbles = bubbleDataImport.default;
+    setBubbles(structuredClone(bubbles.slice().reverse()));
+  };
 
   return (
     <div key={bubble.id} className='bubbleContainer'>
@@ -34,7 +41,7 @@ const InfoBlock: FunctionComponent<{
               )}
               {(bubble.link && !bubble.link.startsWith('https://')) && (
                 <Link href={bubble.link}>
-                  <Button size='small'>More Details</Button>
+                  <Button onClick={() => changePage(bubble.link ?? 'index')} size='small'>More Details</Button>
                 </Link>
               )}
               {bubble.image && (
@@ -70,7 +77,7 @@ const InfoBlock: FunctionComponent<{
       )}
       <div className='children'>
         {recursiveBubble.children?.map((children) => (
-          <InfoBlock key={children.bubble.id} recursiveBubble={children} slug={slug}/>
+          <InfoBlock key={children.bubble.id} recursiveBubble={children} slug={slug} setBubbles={setBubbles}/>
         ))}
       </div>
     </div>
