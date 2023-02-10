@@ -21,7 +21,13 @@ const AccessibilityPage: FunctionComponent<{
   // Uses cookie values to save settings.
   useEffect(() => {
     const root = document.getElementById('ColorTheme');
-    if (root) root.className = 'Light';
+    if (!root) return;
+
+    root.className = 'Light';
+      
+    root.style.setProperty('--color-primary', 'hsl(0, 0%, 100%)');
+    root.style.setProperty('--color-secondary', 'hsl(0, 0%, 95%)');
+    root.style.setProperty('--color-text', 'hsl(0, 0%, 0%)');
   }, [cookies]);
 
   // Reformats the bubble so they look like they're in the correct order.
