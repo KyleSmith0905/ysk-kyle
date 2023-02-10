@@ -1,19 +1,19 @@
-import { Dispatch, FunctionComponent, SetStateAction, useEffect, useRef } from 'react';
+import { FunctionComponent, useEffect, useRef } from 'react';
 import { WebGLRenderer, PerspectiveCamera, Scene, Color, sRGBEncoding, Clock } from 'three';
 import { ambianceGenerator } from './sceneAmbience';
 import { starGenerator } from './sceneStars';
 import { cloudGenerator } from './sceneClouds';
 import { SceneGenerator } from './utility';
-import { GraphicsHighColorModes, GRAPHICS_HIGH_COLOR_MODES } from '../../lib/colorMode';
-import { GraphicsLevels } from '../../../lib/graphicsLevel';
+import { GraphicsHighColorModes, GRAPHICS_HIGH_COLOR_MODES } from '@lib/colorMode';
 import WebGl from 'three/examples/jsm/capabilities/WebGL';
+import { useGraphics } from '@lib/hooks';
 
 const Background: FunctionComponent<{
-	setAutoGraphics: Dispatch<SetStateAction<GraphicsLevels | 'Assume-High'>>,
 	bubbleScene: string,
 	bubbleSceneReset: string,
 	colorTheme: GraphicsHighColorModes,
-}> = ({setAutoGraphics, colorTheme, bubbleSceneReset, bubbleScene}) => {
+}> = ({colorTheme, bubbleSceneReset, bubbleScene}) => {
+  const {setAutoGraphics} = useGraphics();
 	const backgroundRef = useRef<HTMLCanvasElement>(null);
 	const colorThemeRef = useRef<string>();
 	const startingSpeedRef = useRef(15);

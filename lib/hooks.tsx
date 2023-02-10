@@ -1,4 +1,4 @@
-import { createContext, Dispatch, FunctionComponent, PropsWithChildren, ReactNode, SetStateAction, useContext, useEffect, useState } from 'react';
+import { createContext, Dispatch, FunctionComponent, ReactNode, SetStateAction, useContext, useEffect, useState } from 'react';
 import { Cookies } from './cookies';
 import { GraphicsLevels } from './graphicsLevel';
 
@@ -28,7 +28,8 @@ const AllProviders: FunctionComponent<{cookies: Cookies, children: ReactNode}> =
  * Gets the current active graphics settings.
  */
 const useGraphics = () => {
-	const {graphics, autoGraphics} = GraphicsContextManager.useConsumer();
+	const {graphics, setGraphics, autoGraphics, setAutoGraphics} = useContext(GraphicsContext);
+
 	const [effectiveGraphics, setEffectiveGraphics] = useState<Omit<GraphicsLevels, 'Auto'>>();
 
   // Compares the user's graphics settings to a parameter.
@@ -38,7 +39,7 @@ const useGraphics = () => {
     setEffectiveGraphics(activeGraphics);
   }, [graphics, autoGraphics]);
 
-	return {graphics, autoGraphics, effectiveGraphics};
+	return {setGraphics, setAutoGraphics, graphics, autoGraphics, effectiveGraphics};
 };
 
 export {AllProviders, useGraphics};

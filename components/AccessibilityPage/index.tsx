@@ -2,7 +2,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Dispatch, FunctionComponent, SetStateAction, useEffect, useState } from 'react';
 import { IBubble } from '../../lib/bubbleData/_shared';
-import { COLOR_MODES } from '../../lib/colorMode';
 import { Cookies } from '../../lib/cookies';
 import { Button } from '../Button';
 import Connections from './connections';
@@ -78,7 +77,7 @@ const AccessibilityPage: FunctionComponent<{
   return (
     <div id='accessibilityPage' className='accessibilityPage'>
       <Head>
-        <meta name='theme-color' content={COLOR_MODES.find(e => e.name === 'Light')?.primary} />
+        <meta name='theme-color' content='hsl(0, 0%, 100%)' />
       </Head>
       <header>
         <p className='logo'>YSK Kyle</p>

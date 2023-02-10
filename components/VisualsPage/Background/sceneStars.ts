@@ -11,7 +11,7 @@ const starGenerator: SceneGenerator = ({scene}) => {
 				geometry.computeBoundingBox();
 				const material = new ShaderMaterial({
 					uniforms: {
-						color: {value: new Color(colorMode.text)},
+						color: {value: new Color(colorMode.highGraphics?.stars)},
 						boundingBox: {value: [geometry.boundingBox?.min, geometry.boundingBox?.max]},
 						opacity: {value: 1},
 					},
@@ -69,7 +69,7 @@ const starGenerator: SceneGenerator = ({scene}) => {
 		},
 		recolor: ({colorMode}) => {
 			starsMesh.forEach((star) => {
-				star.material.uniforms.color.value = new Color(colorMode.text);
+				star.material.uniforms.color.value = new Color(colorMode.highGraphics?.stars);
 			});
 		}
 	};

@@ -10,25 +10,6 @@
   background-color: var(--color-secondary);
 }
 
-#ColorTheme.Light {
-  --color-primary: hsl(0, 0%, 100%);
-  --color-secondary: hsl(0, 0%, 95%);
-  --color-text: hsl(0, 0%, 0%);
-}
-
-#ColorTheme.Dark {
-  --color-primary: hsl(0, 0%, 6%);
-  --color-secondary: hsl(0, 0%, 0%);
-  --color-text: hsl(0, 0%, 100%);
-}
-
-#ColorTheme.Iconic {
-  --color-primary: hsl(220, 100%, 50%);
-  --color-secondary: hsl(40, 100%, 50%);
-  --color-text: hsl(0, 0%, 100%);
-}
-
-
 html {
   overflow: hidden;
 }

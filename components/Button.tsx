@@ -1,4 +1,4 @@
-import { FunctionComponent, MouseEventHandler, ReactNode, useState } from 'react';
+import { CSSProperties, FunctionComponent, MouseEventHandler, ReactNode, useState } from 'react';
 
 interface ButtonProps {
   children: ReactNode;
@@ -53,9 +53,9 @@ const Button: FunctionComponent<ButtonProps> = ({children, onClick, size}) => {
       <div
         className={buttonCursorClass.join(' ')}
         style={{
-          left: `calc(${position[0]}px - 2rem)`,
-          top: `calc(${position[1]}px - 2rem)`,
-        }}
+          '--left': `${position[0]}px`,
+          '--top': `${position[1]}px`,
+        } as CSSProperties}
       />
     </button>
   );

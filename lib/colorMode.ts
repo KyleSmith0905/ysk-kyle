@@ -3,6 +3,11 @@ interface ColorMode {
 	primary: string;
 	secondary: string;
 	text: string;
+	highGraphics?: {
+		ambience: string;
+		clouds: 'rainbow' | string;
+		stars: string;
+	}
 }
 
 type GraphicsLowColorModes = 'Light' | 'Dark' | 'Iconic';
@@ -36,6 +41,22 @@ const GRAPHICS_HIGH_COLOR_MODES: ColorMode[] = [
 		primary: 'hsl(0, 0%, 6%)',
 		secondary: 'hsl(0, 0%, 0%)',
 		text: 'hsl(0, 0%, 100%)',
+		highGraphics: {
+			ambience: 'hsl(220, 100%, 50%)',
+			clouds: 'hsl(40, 100%, 50%)',
+			stars: 'hsl(0, 0%, 100%)',
+		}
+	},
+	{
+		name: 'Rainbow',
+		primary: 'hsl(0, 0%, 6%)',
+		secondary: 'hsl(0, 0%, 0%)',
+		text: 'hsl(0, 0%, 100%)',
+		highGraphics: {
+			ambience: 'rainbow',
+			clouds: 'rainbow',
+			stars: 'hsl(0, 0%, 100%)',
+		}
 	},
 ];
 

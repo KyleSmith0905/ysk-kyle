@@ -1,9 +1,9 @@
+import { useGraphics } from '@lib/hooks';
 import Head from 'next/head';
-import { Dispatch, FunctionComponent, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import { Dispatch, FunctionComponent, SetStateAction, useEffect, useRef, useState } from 'react';
 import { IBubble } from '../../lib/bubbleData/_shared';
-import { ColorModes, COLOR_MODES } from '../../lib/colorMode';
+import { GRAPHICS_LOW_COLOR_MODES, GRAPHICS_HIGH_COLOR_MODES, GraphicsHighColorModes, GraphicsLowColorModes, ColorMode } from '../../lib/colorMode';
 import { Cookies } from '../../lib/cookies';
-import { GraphicsLevels } from '../../lib/graphicsLevel';
 import Background from './Background';
 import BackgroundConnections from './BackgroundConnections';
 import Bubble from './Bubble';
@@ -28,15 +28,33 @@ const VisualsPage: FunctionComponent<{
     const [bubbleSceneReset, setBubbleSceneReset] = useState<string>(slug);
     const [bubbles, setBubbles] = useState<IBubble[]>(structuredClone(reverseBubbles));
     const [travelMode, setTravelMode] = useState(cookies?.travelMode ?? 'Browser');
-    const [colorTheme, setColorTheme] = useState<ColorModes>(cookies?.colorTheme ?? 'Dark');
-    const [graphics, setGraphics] = useState<GraphicsLevels>(cookies?.graphics ?? 'Auto');
-    const [autoGraphics, setAutoGraphics] = useState<GraphicsLevels | 'Assume-High'>('High');
+    const [graphicsHighColorTheme, setGraphicsHighColorTheme] = useState<GraphicsHighColorModes>(cookies?.graphicsHighColorTheme ?? 'Dark');
+    const [graphicsLowColorTheme, setGraphicsLowColorTheme] = useState<GraphicsLowColorModes>(cookies?.graphicsLowColorTheme ?? 'Light');
 
-    // Uses cookie values to save settings.
+    const {effectiveGraphics} = useGraphics();
+
+    // Modifies the page's color theme setting.
     useEffect(() => {
       const root = document.getElementById('ColorTheme');
-      if (root) root.className = colorTheme;
-    }, [cookies, colorTheme]);
+      if (!root) return;
+
+      let colorMode: ColorMode | undefined;
+  
+      if (effectiveGraphics === 'High') {
+        colorMode = GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === (graphicsHighColorTheme ?? 'Dark'));
+      }
+      else {
+        colorMode = GRAPHICS_LOW_COLOR_MODES.find(e => e.name === (graphicsLowColorTheme ?? 'Light'));
+      }
+
+      if (!colorMode) return;
+  
+      root.className = colorMode.name;
+  
+      root.style.setProperty('--color-primary', colorMode?.primary);
+      root.style.setProperty('--color-secondary', colorMode?.secondary);
+      root.style.setProperty('--color-text', colorMode?.text);
+    }, [effectiveGraphics, graphicsHighColorTheme, graphicsLowColorTheme]);
 
     // When navigating site, wait a second after transition so animation can occur.
     const bubbleResetTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -58,22 +76,20 @@ const VisualsPage: FunctionComponent<{
       bubbleResetTimeout.current = timeout;
     }, [bubbleSceneReset, bubbleScene]);
 
-    // Compares the user's graphics settings to a parameter.
-    const isGraphics = useCallback((compareGraphics: GraphicsLevels) => {
-      let activeGraphics = graphics === 'Auto' ? autoGraphics : graphics;
-      if (activeGraphics === 'Assume-High') activeGraphics = 'High';
-      return activeGraphics === compareGraphics;
-    }, [graphics, autoGraphics]);
+    // Determines theme color
+    let color: string | undefined = 'hsl(0, 0%, 6%)';
+    if (effectiveGraphics === 'Low') color = GRAPHICS_LOW_COLOR_MODES.find(e => e.name === graphicsLowColorTheme)?.primary;
+    else color = GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === graphicsHighColorTheme)?.primary;
 
     return (
       <>
         <Head>
-          <meta name='theme-color' content={COLOR_MODES.find(e => e.name === colorTheme)?.primary} />
+          <meta name='theme-color' content={color} />
         </Head>
-        {isGraphics('High') && (
-          <Background setAutoGraphics={setAutoGraphics} colorTheme={colorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
+        {effectiveGraphics === 'High' && (
+          <Background colorTheme={graphicsHighColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
         )}
-        {isGraphics('Low') && (<div id='Background'>
+        {effectiveGraphics === 'Low' && (<div id='Background'>
           <div className='fill' />
           <svg className='pattern' height="100%" width="100%">
             <defs>
@@ -87,7 +103,7 @@ const VisualsPage: FunctionComponent<{
         )}
         <div id='Underlay'>
           <Connections bubbles={bubbles} />
-          {isGraphics('Low') && <BackgroundConnections />}
+          {effectiveGraphics === 'Low' && <BackgroundConnections />}
         </div>
         <main id='MainContent'>
           {bubbles.map((bubble: IBubble) => (
@@ -110,10 +126,10 @@ const VisualsPage: FunctionComponent<{
         <Settings
           setTravelMode={setTravelMode}
           travelMode={travelMode}
-          setColorTheme={setColorTheme}
-          colorTheme={colorTheme}
-          setGraphics={setGraphics}
-          graphics={graphics}
+          setGraphicsHighColorTheme={setGraphicsHighColorTheme}
+          graphicsHighColorTheme={graphicsHighColorTheme}
+          setGraphicsLowColorTheme={setGraphicsLowColorTheme}
+          graphicsLowColorTheme={graphicsLowColorTheme}
           setAccessibility={setAccessibility}
         />
         <HomeButton bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} setBubbleSceneReset={setBubbleSceneReset} />

@@ -55,10 +55,22 @@
   inset: 0rem;
   border-radius: 50%;
   overflow: hidden;
+  transition: opacity ease 1s;
+}
+
+.buttonCursorBorder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: inset 0rem 0rem 0rem 1px var(--cursor-color, var(--color-text));
+  opacity: 0.5;
+  clip-path: circle(var(--cursor-size) at var(--left) var(--top));
 }
 
 .buttonCursor {
   position: absolute;
+  left: calc(var(--left) - (var(--cursor-size, 4rem) * 0.5));
+  top: calc(var(--top) - (var(--cursor-size, 4rem) * 0.5));
   background-color: var(--cursor-color, var(--color-text));
   width: var(--cursor-size, 4rem);
   height: var(--cursor-size, 4rem);

@@ -1,11 +1,17 @@
 import { Color, MathUtils, Mesh, MeshBasicMaterial, PlaneBufferGeometry, Texture } from 'three';
 import { SceneGenerator, sineSmooth } from './utility';
 
-const getCloudColor = (primaryColor: Color) => {
-	const cloudColor = new Color(0x005aff);
-	cloudColor.setHSL(MathUtils.randFloat(0.5, 0.7), MathUtils.randFloat(0.8, 1), MathUtils.randFloat(0.45, 0.55));
-	cloudColor.lerp(primaryColor, 0.7);
-	return cloudColor;
+const getCloudColor = (primaryColor?: string) => {
+	if (primaryColor === 'rainbow') {
+		const cloudColor = new Color('#ffffff');
+		cloudColor.setHSL(MathUtils.randFloat(0, 1), MathUtils.randFloat(0.9, 1), MathUtils.randFloat(0.495, 0.505));
+		return cloudColor;
+	}
+	else {
+		const cloudColor = new Color(primaryColor);
+		cloudColor.offsetHSL(MathUtils.randFloat(-0.1, 0.1), MathUtils.randFloat(-0.2, 0.2), MathUtils.randFloat(-0.05, 0.05));
+		return cloudColor;
+	}
 };
 
 const ambianceGenerator: SceneGenerator = ({scene}) => {
@@ -14,14 +20,13 @@ const ambianceGenerator: SceneGenerator = ({scene}) => {
 	return {
 		initial: async ({colorMode}) => {
 			const planeGeometry = new PlaneBufferGeometry(200, 200, 1, 1);
-			const colorModeBlend = new Color(colorMode.primary);
 
 			const image = new Image();
 			image.src = 'noise-maps/noise-1.webp';
 			await new Promise<void>((resolve) => (image.onload = () => resolve()));
 
 			for (let i = 0; i < 10; i++) {
-				const cloudColor = getCloudColor(colorModeBlend);
+				const cloudColor = getCloudColor(colorMode.highGraphics?.ambience);
 
 				// Generates an orange cloud texture by cropping part a noise map.
 				const canvas = document.createElement('canvas');
@@ -76,9 +81,8 @@ const ambianceGenerator: SceneGenerator = ({scene}) => {
 			});
 		},
 		recolor: ({colorMode}) => {
-			const colorModeBlend = new Color(colorMode.primary);
 			cloudsMesh.forEach((cloud) => {
-				cloud.material.color = getCloudColor(colorModeBlend);
+				cloud.material.color = getCloudColor(colorMode.highGraphics?.ambience);
 			});
 		}
 	};

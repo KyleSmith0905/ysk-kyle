@@ -1,4 +1,4 @@
-import { Dispatch, FunctionComponent, MouseEventHandler, SetStateAction, useEffect, useRef, useState } from 'react';
+import { CSSProperties, Dispatch, FunctionComponent, MouseEventHandler, SetStateAction, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { IBubble } from '../../lib/bubbleData/_shared';
 import { driftAround, moveToPosition, spawnBubble, retreatToCenter} from '../../lib/bubblePhysics';
@@ -121,7 +121,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
     setHover(false);
   };
 
-	const buttonCursorClass = ['buttonCursor'];
+	const buttonCursorClass = ['circleBubbleCursorContainer'];
   if (!hover) buttonCursorClass.push('transparent');
 
 	if (bubble.summary === undefined) return (
@@ -158,14 +158,13 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 				onMouseEnter={onEnter}
 				onMouseMove={onMove}
 				onMouseLeave={onLeave}
+				style={{
+					'--left': `${position[0]}px`,
+					'--top': `${position[1]}px`,
+				} as CSSProperties}
 			>
-				<div
-					className={buttonCursorClass.join(' ')}
-					style={{
-						left: `calc(${position[0]}px - 2rem)`,
-						top: `calc(${position[1]}px - 2rem)`,
-					}}
-				/>
+				<div className='buttonCursorBorder' />
+				<div className={buttonCursorClass.join(' ')} />
 			</div>
 		</BubbleTag>
 	);
@@ -209,18 +208,17 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 				</div>
 			}
 			<div
-				className='circleBubbleCursorContainer'
+				className={buttonCursorClass.join(' ')}
 				onMouseEnter={onEnter}
 				onMouseMove={onMove}
 				onMouseLeave={onLeave}
+				style={{
+					'--left': `${position[0]}px`,
+					'--top': `${position[1]}px`,
+				} as CSSProperties}
 			>
-				<div
-					className={buttonCursorClass.join(' ')}
-					style={{
-						left: `calc(${position[0]}px - 2rem)`,
-						top: `calc(${position[1]}px - 2rem)`,
-					}}
-				/>
+				<div className='buttonCursorBorder' />
+				<div className='buttonCursor' />
 			</div>
 		</BubbleTag>
 	);

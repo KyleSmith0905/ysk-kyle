@@ -1,7 +1,8 @@
 import { Dispatch, FunctionComponent, SetStateAction, useCallback, useState } from 'react';
-import { GraphicsLowColorModes, GRAPHICS_LOW_COLOR_MODES, GraphicsHighColorModes, GRAPHICS_HIGH_COLOR_MODES } from '../lib/colorMode';
-import { setCookie } from '../lib/cookies';
-import { GraphicsLevels } from '../lib/graphicsLevel';
+import { GraphicsLowColorModes, GRAPHICS_LOW_COLOR_MODES, GraphicsHighColorModes, GRAPHICS_HIGH_COLOR_MODES } from '@lib/colorMode';
+import { setCookie } from '@lib/cookies';
+import { GraphicsLevels } from '@lib/graphicsLevel';
+import { useGraphics } from '@lib/hooks';
 
 const Settings: FunctionComponent<{
 	setTravelMode: Dispatch<SetStateAction<string>>,
@@ -10,18 +11,14 @@ const Settings: FunctionComponent<{
 	graphicsLowColorTheme: GraphicsLowColorModes,
 	setGraphicsHighColorTheme: Dispatch<SetStateAction<GraphicsHighColorModes>>,
 	graphicsHighColorTheme: GraphicsHighColorModes,
-	setGraphics: Dispatch<SetStateAction<GraphicsLevels>>
-	graphics: GraphicsLevels,
-	autoGraphics: GraphicsLevels | 'Assume-High',
   setAccessibility: Dispatch<SetStateAction<'Accessibility' | 'Visuals' | 'Undetermined'>>;
 }> = ({
 	setTravelMode, travelMode,
 	setGraphicsLowColorTheme, graphicsLowColorTheme,
 	setGraphicsHighColorTheme, graphicsHighColorTheme,
-	setGraphics, graphics,
-	autoGraphics,
 	setAccessibility,
 }) => {
+	const { autoGraphics, graphics, setGraphics} = useGraphics();
 	const [settingsOpen, setSettingsOpen] = useState(true);
 
 	const toggleSettings = () => setSettingsOpen(!settingsOpen);
@@ -79,7 +76,7 @@ const Settings: FunctionComponent<{
 						const newColorTheme = graphicsLowColorThemes[(graphicsLowColorThemes.indexOf(graphicsLowColorTheme) + 1) % graphicsLowColorThemes.length];
 						handleColorThemeChange();
 						setGraphicsLowColorTheme(newColorTheme);
-						setCookie('colorTheme', newColorTheme);
+						setCookie('graphicsLowColorTheme', newColorTheme);
 					}}>
 						Color Theme: {graphicsLowColorTheme}
 					</button>
@@ -89,9 +86,9 @@ const Settings: FunctionComponent<{
 						const newColorTheme = graphicsHighColorThemes[(graphicsHighColorThemes.indexOf(graphicsHighColorTheme) + 1) % graphicsHighColorThemes.length];
 						handleColorThemeChange();
 						setGraphicsHighColorTheme(newColorTheme);
-						setCookie('colorTheme', newColorTheme);
+						setCookie('graphicsHighColorTheme', newColorTheme);
 					}}>
-						Color Theme: {graphicsLowColorTheme}
+						Color Theme: {graphicsHighColorTheme}
 					</button>
 				)}
 				<button onClick={() => {
