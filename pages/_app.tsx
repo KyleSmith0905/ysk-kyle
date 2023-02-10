@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { AllProviders } from '../lib/hooks';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  const [currentColorMode, setCurrentColorMode] = useState<ColorMode>();
+  const [currentColorMode, setCurrentColorMode] = useState<ColorMode | undefined>(GRAPHICS_HIGH_COLOR_MODES?.find(e => e.name === 'Dark'));
   const [currentColorStyles, setCurrentColorStyles] = useState<Record<string, string | undefined>>({});
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,11 +19,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {    
     let colorMode: ColorMode | undefined;
 
+    // If there are no cookies at all, the page loaded is guaranteed to be default settings.
+    if (!cookies) {
+      colorMode = GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === 'Dark');
+    }
     // Accessibility mode only has light option available.
-    if (cookies.accessibility === 'Accessibility') {
+    else if (cookies.accessibility === 'Accessibility') {
       colorMode = GRAPHICS_LOW_COLOR_MODES.find(e => e.name === 'Light');
     }
-    else if (cookies.graphics === 'High') {
+    else if (!cookies.graphics || cookies.graphics === 'High') {
       colorMode = GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === (cookies.graphicsHighColorTheme ?? 'Dark'));
     }
     else {
