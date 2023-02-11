@@ -45,7 +45,7 @@ const starGenerator: SceneGenerator = ({scene}) => {
 				starsMesh.push(sphere);
 			}
 		},
-		loop: ({speed}) => {
+		loop: ({speed, colorMode}) => {
 			starsMesh.forEach((star) => {
 				star.translateZ(0.02 * speed);
 				star.scale.setZ(speed * 2);
@@ -60,10 +60,12 @@ const starGenerator: SceneGenerator = ({scene}) => {
 				if (star.position.z > -10) {
 					const position = randomPointInTorus(17, 55);
 					star.position.set(position.x, position.y,  MathUtils.randFloat(-210, -200));
+					star.material.uniforms.color.value = new Color(colorMode.highGraphics?.stars);
 				}
 				else if (star.position.z < -210) {
 					const position = randomPointInTorus(17, 55);
 					star.position.set(position.x, position.y,  MathUtils.randFloat(0, -10));
+					star.material.uniforms.color.value = new Color(colorMode.highGraphics?.stars);
 				}
 			});
 		},

@@ -148,7 +148,7 @@ const Background: FunctionComponent<{
 			camera.rotation.x = cursorY * -0.00001;
 
 			// Animate the scenes.
-			layerResult.forEach((e) => e.loop({speed}));
+			layerResult.forEach((e) => e.loop({speed, colorMode}));
 			renderer.render(scene, camera);
 
 			// Determine if the scene is slow on the user's device.

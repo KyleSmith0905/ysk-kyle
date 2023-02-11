@@ -63,7 +63,7 @@ const ambianceGenerator: SceneGenerator = ({scene}) => {
 				cloudsMesh.push(planeMesh);
 			}
 		},
-		loop: ({speed}) => {
+		loop: ({speed, colorMode}) => {
 			cloudsMesh.forEach((cloud) => {
 				cloud.translateZ(0.02 * speed);
 
@@ -73,10 +73,12 @@ const ambianceGenerator: SceneGenerator = ({scene}) => {
 				if (cloud.position.z > 10) {
 					cloud.position.set(MathUtils.randFloatSpread(50), MathUtils.randFloatSpread(50), MathUtils.randFloat(-70, -60));
 					cloud.rotateZ(MathUtils.randFloat(0, 360));
+					cloud.material.color = getCloudColor(colorMode.highGraphics?.ambience);
 				}
 				else if (cloud.position.z < -70) {
 					cloud.position.set(MathUtils.randFloatSpread(50), MathUtils.randFloatSpread(50), MathUtils.randFloat(0, 10));
 					cloud.rotateZ(MathUtils.randFloat(0, 360));
+				cloud.material.color = getCloudColor(colorMode.highGraphics?.ambience);
 				}
 			});
 		},

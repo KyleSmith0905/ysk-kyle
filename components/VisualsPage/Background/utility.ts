@@ -9,7 +9,7 @@ type SceneGenerator = (
 	}
 ) => {
 	initial: ({colorMode}: {colorMode: ColorMode}) => void,
-	loop: ({speed}: {speed: number}) => void,
+	loop: ({speed, colorMode}: {speed: number, colorMode: ColorMode}) => void,
 	recolor: ({colorMode}: {colorMode: ColorMode}) => void,
 }
 

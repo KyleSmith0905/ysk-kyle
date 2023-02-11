@@ -66,7 +66,7 @@ const cloudGenerator: SceneGenerator = ({scene}) => {
 				meshes.push(planeMesh);
 			}
 		},
-		loop: ({speed}) => {
+		loop: ({speed, colorMode}) => {
 			meshes.forEach((cloud) => {
 				cloud.translateZ(0.02 * speed);
 				cloud.material.opacity = sineSmooth(cloud.position.z, -75, -10, 0.9, 0);
@@ -76,11 +76,13 @@ const cloudGenerator: SceneGenerator = ({scene}) => {
 					const position = randomPointInTorus(8, 14);
 					cloud.position.set(position.x, position.y, MathUtils.randFloat(-75, -85));
 					cloud.rotation.set(0, 0, position.angle);
+					cloud.material.color = getCloudColor(colorMode.highGraphics?.ambience);
 				}
 				else if (cloud.position.z < -85) {
 					const position = randomPointInTorus(8, 14);
 					cloud.position.set(position.x, position.y, MathUtils.randFloat(-10, 0));
 					cloud.rotation.set(0, 0, position.angle);
+					cloud.material.color = getCloudColor(colorMode.highGraphics?.ambience);
 				}
 			});
 		},
