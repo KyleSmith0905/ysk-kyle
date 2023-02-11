@@ -63,7 +63,7 @@ const BubblePage:
           <div className='alertContainer'>
             <div className='alertBox'>
               <h1 style={{ marginTop: '0rem' }}>Hello Visitor!</h1>
-              <p>This page is highly animated and could be a problem to some people.</p>
+              <p>This page is highly animated and could create a distraction.</p>
               <p>Select whether you prefer an accessible or visual experience.</p>
               <div style={{ marginTop: '2rem' }} className='buttonRow'>
                 <Button onClick={() => setAccessibility('Accessibility')}>Accessibility</Button>

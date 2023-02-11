@@ -76,7 +76,7 @@
   gap: 1rem;
 }
 
-.accessibilityPage :is(.bubbleBlock :is(h1, h2, h3, p, a)) {
+.accessibilityPage :is(.bubbleBlock :is(h1, h2, h3, p)) {
   position: relative;
   margin: 0rem;
   text-align: left;
@@ -93,10 +93,6 @@
 
 .accessibilityPage :is(.bubbleBlock h3) {
   font-size: 1.1rem;
-}
-
-.accessibilityPage :is(.bubbleBlock :is(a)) {
-  margin-left: 1rem;
 }
 
 .accessibilityPage :is(.inlineImageContainer) {
