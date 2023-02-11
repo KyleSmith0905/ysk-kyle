@@ -36,7 +36,9 @@ const InfoBlock: FunctionComponent<{
               {bubble.size === 'small' && <h3>{bubble.name}</h3>}
               {(bubble.link && bubble.link.startsWith('https://')) && (
                 <Link href={bubble.link}>
-                  <Button size='small'>Navigate There</Button>
+                  <a target='_blank'>
+                    <Button size='small'>Navigate There</Button>
+                  </a>
                 </Link>
               )}
               {(bubble.link && !bubble.link.startsWith('https://')) && (
