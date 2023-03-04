@@ -33,6 +33,7 @@
 .buttonRow {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   gap: 1rem;
 }
 
@@ -50,7 +51,7 @@
 }
 
 .buttonBackground {
-  opacity: 0.2;
+  opacity: 0.1;
   position: absolute;
   border-radius: 1.2rem;
   inset: 0rem;
@@ -71,7 +72,7 @@
   border-radius: var(--border-radius, 50%);
   box-shadow: inset 0rem 0rem 0rem 1px var(--cursor-color, var(--color-text));
   opacity: 0.5;
-  clip-path: circle(var(--cursor-size) at var(--left) var(--top));
+  clip-path: circle(var(--cursor-size, 4rem) at var(--left) var(--top));
 }
 
 .buttonCursor {
