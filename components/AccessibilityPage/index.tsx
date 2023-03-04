@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/future/image';
 import Link from 'next/link';
 import { Dispatch, FunctionComponent, SetStateAction, useEffect, useState } from 'react';
 import { IBubble } from '../../lib/bubbleData/_shared';
@@ -93,7 +94,10 @@ const AccessibilityPage: FunctionComponent<{
         <meta name='theme-color' content='hsl(0, 0%, 100%)' />
       </Head>
       <header>
-        <p className='logo'>YSK Kyle</p>
+        <div className='buttonRow'>
+          <Image src='/icons/logo.svg' width={40} height={40} alt=''/>
+          <p className='logo'>YSK Kyle</p>
+        </div>
         <div className='buttonRow'>
           <Link href='/'>
             <Button onClick={() => changePage('index')}>Home Page</Button>
