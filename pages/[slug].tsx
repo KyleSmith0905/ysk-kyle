@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { IBubble } from '../lib/bubbleData/_shared';
 import { Cookies, getCookie, setCookie } from '../lib/cookies';
-import { IsUserBot } from '../lib/utils';
+import { conditionallySetInert, IsUserBot } from '../lib/utils';
 import { welcomeMessage } from '../lib/consoleMessages';
 import AccessibilityPage from '../components/AccessibilityPage';
 import { Button } from '../components/Button';
@@ -101,22 +101,24 @@ const BubblePage:
 				</div>
 			)}
 			{accessibility === 'Accessibility' && (
-				<AccessibilityPage
-					cookies={cookies}
-					slug={slug}
-					bubbles={bubbles}
-					setBubbles={setBubbles}
-					setAccessibility={setAccessibility}
-				/>
+        <AccessibilityPage
+          cookies={cookies}
+          slug={slug}
+          bubbles={bubbles}
+          setBubbles={setBubbles}
+          setAccessibility={setAccessibility}
+        />
 			)}
 			{accessibility !== 'Accessibility' && (
-				<VisualsPage
-					cookies={cookies}
-					slug={slug}
-					bubbles={bubbles}
-					setBubbles={setBubbles}
-					setAccessibility={setAccessibility}
-				/>
+        <div ref={conditionallySetInert(accessibility === 'Visuals')}>
+          <VisualsPage
+            cookies={cookies}
+            slug={slug}
+            bubbles={bubbles}
+            setBubbles={setBubbles}
+            setAccessibility={setAccessibility}
+          />
+        </div>
 			)}
 		</>
 	);

@@ -131,6 +131,22 @@ const objectToQueryString = (obj: {[key: string]: string | undefined}): string =
 	return Object.keys(obj).map(key => encodeURI(key) + '=' + encodeURI(obj[key] ?? '')).join('&');
 };
 
+/**
+ * Conditionally applies inert to an element using the element's ref tag. The inert attribute
+ * stops keyboard navigation to the element.
+ * @example
+ * // When shouldDisplay is true, the element would have the inert attribute.
+ * <div ref={conditionallySetInert(shouldDisplay === true)} />
+ */
+const conditionallySetInert = (condition: boolean) => {
+	return (element: HTMLElement | null) => {
+		if (element === null) return;
+		else if (!condition) element.setAttribute('inert', 'inert');
+		else element.removeAttribute('inert');
+	};
+};
+
+
 export {
 	IsNumberBetween,
 	clamp,
@@ -141,5 +157,6 @@ export {
 	IsCollideWithBubbles,
 	IsUserBot,
 	SetBubbleTransform,
-	objectToQueryString
+	objectToQueryString,
+	conditionallySetInert,
 };
