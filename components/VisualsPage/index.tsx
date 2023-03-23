@@ -104,6 +104,19 @@ const VisualsPage: FunctionComponent<{
           <Connections bubbles={bubbles} />
           {effectiveGraphics === 'Low' && <BackgroundConnections />}
         </div>
+        {travelMode === 'Browser' && <BrowserMovement />}
+        {travelMode === 'Edge Scrolling' && <EdgeScrollMovement />}
+        {travelMode === 'Control Stick' && <ControlStickMovement />}
+        {travelMode === 'Panorama' && <PanoramaMovement />}
+        <Settings
+          setTravelMode={setTravelMode}
+          travelMode={travelMode}
+          setGraphicsHighColorTheme={setGraphicsHighColorTheme}
+          graphicsHighColorTheme={graphicsHighColorTheme}
+          setGraphicsLowColorTheme={setGraphicsLowColorTheme}
+          graphicsLowColorTheme={graphicsLowColorTheme}
+          setAccessibility={setAccessibility}
+        />
         <main id='MainContent'>
           {bubbles.map((bubble: IBubble) => (
             <Bubble
@@ -118,19 +131,6 @@ const VisualsPage: FunctionComponent<{
             />
           ))}
         </main>
-        {travelMode === 'Browser' && <BrowserMovement />}
-        {travelMode === 'Edge Scrolling' && <EdgeScrollMovement />}
-        {travelMode === 'Control Stick' && <ControlStickMovement />}
-        {travelMode === 'Panorama' && <PanoramaMovement />}
-        <Settings
-          setTravelMode={setTravelMode}
-          travelMode={travelMode}
-          setGraphicsHighColorTheme={setGraphicsHighColorTheme}
-          graphicsHighColorTheme={graphicsHighColorTheme}
-          setGraphicsLowColorTheme={setGraphicsLowColorTheme}
-          graphicsLowColorTheme={graphicsLowColorTheme}
-          setAccessibility={setAccessibility}
-        />
         <HomeButton bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} setBubbleSceneReset={setBubbleSceneReset} />
       </>
     );
