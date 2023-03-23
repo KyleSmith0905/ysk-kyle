@@ -136,7 +136,6 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
       onMouseEnter={onEnter}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-			tabIndex={0}
 			style={{
 				position: 'absolute',
 				width: (bubble.radius * 2) + 'px',
@@ -177,7 +176,6 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 			rel={isExternalSite ? 'nofollow noopener' : ''}
 			target={isExternalSite ? '_blank' : '_self'}
 			onClick={isExternalSite ? undefined : updateScene}
-			tabIndex={0}
 			style={{
 				position: 'absolute',
 				width: (bubble.radius * 2) + 'px',
