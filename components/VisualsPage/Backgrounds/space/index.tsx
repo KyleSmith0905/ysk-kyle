@@ -52,7 +52,7 @@ const Background: FunctionComponent<{
 	useEffect(() => {
 		if (!backgroundRef.current) return;
 		else if (!WebGl.isWebGLAvailable()) {
-			return setAutoGraphics('Low');
+			return setAutoGraphics('Flat');
 		}
 		let componentDetached = false;
 		
@@ -154,7 +154,7 @@ const Background: FunctionComponent<{
 			// Determine if the scene is slow on the user's device.
 			if (frameNumber < 100) {
 				if (minimumSpeed > 40 || averageSpeed > 100) {
-					setAutoGraphics('Low');
+					setAutoGraphics('Flat');
 				}
 				if (frameNumber < 99) clock.start();
 			}

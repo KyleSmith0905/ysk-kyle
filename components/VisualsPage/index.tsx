@@ -4,8 +4,8 @@ import { Dispatch, FunctionComponent, SetStateAction, useEffect, useRef, useStat
 import { IBubble } from '../../lib/bubbleData/_shared';
 import { GRAPHICS_LOW_COLOR_MODES, GRAPHICS_HIGH_COLOR_MODES, GraphicsHighColorModes, GraphicsLowColorModes, ColorMode } from '../../lib/colorMode';
 import { Cookies } from '../../lib/cookies';
-import Background from './Background';
-import BackgroundConnections from './BackgroundConnections';
+import Background from './Backgrounds/space';
+import BackgroundConnections from './Backgrounds/flat/backgroundConnections';
 import Bubble from './Bubble';
 import Connections from './Connections';
 import HomeButton from './HomeButton';
@@ -14,6 +14,7 @@ import ControlStickMovement from './MovementControl/ControlStick';
 import EdgeScrollMovement from './MovementControl/EdgeScroll';
 import PanoramaMovement from './MovementControl/Panorama';
 import Settings from './Settings';
+import BackgroundPattern from './Backgrounds/flat/backgroundPattern';
 
 const VisualsPage: FunctionComponent<{
   slug: string;
@@ -39,7 +40,7 @@ const VisualsPage: FunctionComponent<{
 
       let colorMode: ColorMode | undefined;
   
-      if (effectiveGraphics === 'High') {
+      if (effectiveGraphics === 'Space') {
         colorMode = GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === (graphicsHighColorTheme ?? 'Dark'));
       }
       else {
@@ -77,7 +78,7 @@ const VisualsPage: FunctionComponent<{
 
     // Determines theme color
     let color: string | undefined = 'hsl(0, 0%, 6%)';
-    if (effectiveGraphics === 'Low') color = GRAPHICS_LOW_COLOR_MODES.find(e => e.name === graphicsLowColorTheme)?.primary;
+    if (effectiveGraphics === 'Flat') color = GRAPHICS_LOW_COLOR_MODES.find(e => e.name === graphicsLowColorTheme)?.primary;
     else color = GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === graphicsHighColorTheme)?.primary;
 
     return (
@@ -85,24 +86,17 @@ const VisualsPage: FunctionComponent<{
         <Head>
           <meta name='theme-color' content={color} />
         </Head>
-        {effectiveGraphics === 'High' && (
+        {effectiveGraphics === 'Space' && (
           <Background colorTheme={graphicsHighColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
         )}
-        {effectiveGraphics === 'Low' && (<div id='Background'>
-          <div className='fill' />
-          <svg className='pattern' height="100%" width="100%">
-            <defs>
-              <pattern id="background-pattern" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="rotate(135)">
-                <circle cx="16" cy="16" r="0.7" fill="var(--color-text)" />
-              </pattern>
-            </defs>
-            <rect fill="url(#background-pattern)" height="200%" width="200%" />
-          </svg>
-        </div>
+        {effectiveGraphics === 'Flat' && (
+          <>
+            <BackgroundPattern/>
+            <BackgroundConnections/>
+          </>
         )}
         <div id='Underlay'>
           <Connections bubbles={bubbles} />
-          {effectiveGraphics === 'Low' && <BackgroundConnections />}
         </div>
         {travelMode === 'Browser' && <BrowserMovement />}
         {travelMode === 'Edge Scrolling' && <EdgeScrollMovement />}

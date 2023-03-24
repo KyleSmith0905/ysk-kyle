@@ -26,7 +26,7 @@ const Settings: FunctionComponent<{
 	const graphicsLowColorThemes = GRAPHICS_LOW_COLOR_MODES.map((e) => e.name) as GraphicsLowColorModes[];
 	const graphicsHighColorThemes = GRAPHICS_HIGH_COLOR_MODES.map((e) => e.name) as GraphicsHighColorModes[];
 	const travelModes = ['Browser', 'Edge Scrolling', 'Control Stick', 'Panorama'];
-	const graphicsLevels: GraphicsLevels[] = ['Auto', 'Low', 'High'];
+	const graphicsLevels: GraphicsLevels[] = ['Auto', 'Flat', 'Space'];
 	
 	const handleColorThemeChange = () => {
 		const root = document.getElementById('ColorTheme') as HTMLElement;
@@ -37,7 +37,7 @@ const Settings: FunctionComponent<{
 	// Compares the user's graphics settings to a parameter.
 	const isGraphics = useCallback((compareGraphics: GraphicsLevels) => {
 		let activeGraphics = graphics === 'Auto' ? autoGraphics : graphics;
-		if (activeGraphics === 'Assume-High') activeGraphics = 'High';
+		if (activeGraphics === 'Assume-Space') activeGraphics = 'Space';
 		return activeGraphics === compareGraphics;
 	}, [graphics, autoGraphics]);
 
@@ -71,7 +71,7 @@ const Settings: FunctionComponent<{
 				}}>
 					Travel Mode: {travelMode}
 				</button>
-				{isGraphics('Low') && (
+				{isGraphics('Flat') && (
 					<button onClick={() => {
 						const newColorTheme = graphicsLowColorThemes[(graphicsLowColorThemes.indexOf(graphicsLowColorTheme) + 1) % graphicsLowColorThemes.length];
 						handleColorThemeChange();
@@ -81,7 +81,7 @@ const Settings: FunctionComponent<{
 						Color Theme: {graphicsLowColorTheme}
 					</button>
 				)}
-				{isGraphics('High') && (
+				{isGraphics('Space') && (
 					<button onClick={() => {
 						const newColorTheme = graphicsHighColorThemes[(graphicsHighColorThemes.indexOf(graphicsHighColorTheme) + 1) % graphicsHighColorThemes.length];
 						handleColorThemeChange();
