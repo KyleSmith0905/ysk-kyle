@@ -3,18 +3,18 @@ interface ColorMode {
 	primary: string;
 	secondary: string;
 	text: string;
-	highGraphics?: {
+	space?: {
 		ambience: string;
 		clouds: 'rainbow' | string;
 		stars: string;
 	}
 }
 
-type GraphicsLowColorModes = 'Light' | 'Dark' | 'Iconic';
+type GraphicsFlatColorModes = 'Light' | 'Dark' | 'Iconic';
 
-type GraphicsHighColorModes = 'Dark' | 'Rainbow';
+type GraphicsSpaceColorModes = 'Dark' | 'Rainbow';
 
-const GRAPHICS_LOW_COLOR_MODES: ColorMode[] = [
+const GRAPHICS_FLAT_COLOR_MODES: ColorMode[] = [
 	{
 		name: 'Light',
 		primary: 'hsl(0, 0%, 100%)',
@@ -35,13 +35,13 @@ const GRAPHICS_LOW_COLOR_MODES: ColorMode[] = [
 	},
 ];
 
-const GRAPHICS_HIGH_COLOR_MODES: ColorMode[] = [
+const GRAPHICS_SPACE_COLOR_MODES: ColorMode[] = [
 	{
 		name: 'Dark',
 		primary: 'hsl(0, 0%, 6%)',
 		secondary: 'hsl(0, 0%, 0%)',
 		text: 'hsl(0, 0%, 100%)',
-		highGraphics: {
+		space: {
 			ambience: 'hsl(220, 100%, 50%)',
 			clouds: 'hsl(40, 100%, 50%)',
 			stars: 'hsl(0, 0%, 100%)',
@@ -52,7 +52,7 @@ const GRAPHICS_HIGH_COLOR_MODES: ColorMode[] = [
 		primary: 'hsl(0, 0%, 6%)',
 		secondary: 'hsl(0, 0%, 0%)',
 		text: 'hsl(0, 0%, 100%)',
-		highGraphics: {
+		space: {
 			ambience: 'rainbow',
 			clouds: 'rainbow',
 			stars: 'hsl(0, 0%, 100%)',
@@ -60,5 +60,5 @@ const GRAPHICS_HIGH_COLOR_MODES: ColorMode[] = [
 	},
 ];
 
-export { GRAPHICS_HIGH_COLOR_MODES, GRAPHICS_LOW_COLOR_MODES };
-export type { GraphicsLowColorModes, GraphicsHighColorModes, ColorMode };
+export { GRAPHICS_SPACE_COLOR_MODES, GRAPHICS_FLAT_COLOR_MODES };
+export type { GraphicsFlatColorModes, GraphicsSpaceColorModes, ColorMode };

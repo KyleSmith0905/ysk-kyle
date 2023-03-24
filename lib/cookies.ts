@@ -1,9 +1,9 @@
-import { GraphicsHighColorModes, GraphicsLowColorModes } from './colorMode';
+import { GraphicsSpaceColorModes, GraphicsFlatColorModes } from './colorMode';
 import { GraphicsLevels } from './graphicsLevel';
 
 interface Cookies {
-	graphicsHighColorTheme: GraphicsHighColorModes
-	graphicsLowColorTheme: GraphicsLowColorModes;
+	graphicsSpaceColorTheme: GraphicsSpaceColorModes
+	graphicsFlatColorTheme: GraphicsFlatColorModes;
 	travelMode: string;
 	graphics: GraphicsLevels;
 	accessibility: 'Accessibility' | 'Visuals' | 'Undetermined';

@@ -250,6 +250,7 @@ a.Bubble:focus-visible::after, a.Bubble:hover::after, div.Bubble:focus-visible::
   height: 9em;
   left: calc(50% - 4.5em);
   top: calc(85% - 4.5em);
+  z-index: 1000;
 }
 
 #ControlStickHandle {
@@ -263,6 +264,7 @@ a.Bubble:focus-visible::after, a.Bubble:hover::after, div.Bubble:focus-visible::
   top: calc(85% - 80px);
   cursor: grab;
   transition: transform ease-in-out 500ms;
+  z-index: 1000;
 }
 
 #ControlStickHandle.GrabbingHandle {

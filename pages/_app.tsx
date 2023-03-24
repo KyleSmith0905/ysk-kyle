@@ -4,7 +4,7 @@ import '../styles/components.css';
 import '../styles/accessibilityPage.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { ColorMode, GRAPHICS_HIGH_COLOR_MODES, GRAPHICS_LOW_COLOR_MODES } from '../lib/colorMode';
+import { ColorMode, GRAPHICS_SPACE_COLOR_MODES, GRAPHICS_FLAT_COLOR_MODES } from '../lib/colorMode';
 import { Cookies } from '../lib/cookies';
 import { CSSProperties, useRef } from 'react';
 import { AllProviders } from '../lib/hooks';
@@ -12,17 +12,17 @@ import { AllProviders } from '../lib/hooks';
 const determineColorMode = (cookies: Cookies) => {
   // If there are no cookies at all, the page loaded is guaranteed to be default settings.
   if (!cookies) {
-    return GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === 'Dark');
+    return GRAPHICS_SPACE_COLOR_MODES.find(e => e.name === 'Dark');
   }
   // Accessibility mode only has light option available.
   else if (cookies.accessibility === 'Accessibility') {
-    return GRAPHICS_LOW_COLOR_MODES.find(e => e.name === 'Light');
+    return GRAPHICS_FLAT_COLOR_MODES.find(e => e.name === 'Light');
   }
-  else if (!cookies.graphics || cookies.graphics === 'High') {
-    return GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === (cookies.graphicsHighColorTheme ?? 'Dark'));
+  else if (!cookies.graphics || cookies.graphics === 'Space') {
+    return GRAPHICS_SPACE_COLOR_MODES.find(e => e.name === (cookies.graphicsSpaceColorTheme ?? 'Dark'));
   }
   else {
-    return GRAPHICS_LOW_COLOR_MODES.find(e => e.name === (cookies.graphicsLowColorTheme ?? 'Light'));
+    return GRAPHICS_FLAT_COLOR_MODES.find(e => e.name === (cookies.graphicsFlatColorTheme ?? 'Light'));
   }
 };
 
