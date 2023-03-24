@@ -43,7 +43,12 @@ const BubblePage:
 
 	useEffect(() => {
 		// Center screen to origin.
-		scrollTo(1000 - window.innerWidth / 2, 1000 - window.innerHeight / 2);
+		const rootFontSizeValue = window.getComputedStyle(document.body).getPropertyValue('font-size');
+		const rootFontSize = parseInt(rootFontSizeValue);
+		scrollTo(
+			(62.5 * rootFontSize) - (window.innerWidth / 2),
+			(62.5 * rootFontSize) - (window.innerHeight / 2),
+		);
 		// Display a message in chat.
 		console.log(welcomeMessage());
 	}, []);

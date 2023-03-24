@@ -123,8 +123,8 @@ const IsUserBot = (userAgent?: string): boolean => {
 
 const SetBubbleTransform = (bubble: IBubble, bubbleElement: HTMLElement | null): void => {
 	if (bubbleElement) bubbleElement.style.transform = 'translate('
-	+ (bubble.position[0] * 20 - bubble.radius) + 'px,'
-	+ (bubble.position[1] * 20 - bubble.radius) + 'px)';
+	+ (bubble.position[0] * 20 - bubble.radius) / 16 + 'rem,'
+	+ (bubble.position[1] * 20 - bubble.radius) / 16 + 'rem)';
 };
 
 const objectToQueryString = (obj: {[key: string]: string | undefined}): string => {

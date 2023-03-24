@@ -138,8 +138,8 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
       onMouseLeave={onLeave}
 			style={{
 				position: 'absolute',
-				width: (bubble.radius * 2) + 'px',
-				height: (bubble.radius * 2) + 'px',
+				width: (bubble.radius * 2 / 16) + 'rem',
+				height: (bubble.radius * 2 / 16) + 'rem',
 			}}
 		>
 			<Image
@@ -158,8 +158,8 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 				onMouseMove={onMove}
 				onMouseLeave={onLeave}
 				style={{
-					'--left': `${position[0]}px`,
-					'--top': `${position[1]}px`,
+					'--left': `${position[0] / 16}rem`,
+					'--top': `${position[1] / 16}rem`,
 				} as CSSProperties}
 			>
 				<div className='buttonCursorBorder' />
@@ -178,8 +178,8 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 			onClick={isExternalSite ? undefined : updateScene}
 			style={{
 				position: 'absolute',
-				width: (bubble.radius * 2) + 'px',
-				height: (bubble.radius * 2) + 'px',
+				width: (bubble.radius * 2 / 16) + 'rem',
+				height: (bubble.radius * 2 / 16) + 'rem',
 			}}
 		>
 			<h2>
@@ -198,9 +198,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 						alt=''
 						quality={1}
 						priority={false}
-						width={bubble.radius * 2}
-						height={bubble.radius * 2}
-						layout='intrinsic'
+						layout='fill'
 						objectFit='cover'
 					/>
 				</div>
@@ -211,8 +209,8 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 				onMouseMove={onMove}
 				onMouseLeave={onLeave}
 				style={{
-					'--left': `${position[0]}px`,
-					'--top': `${position[1]}px`,
+					'--left': `${position[0] / 16}rem`,
+					'--top': `${position[1] / 16}rem`,
 				} as CSSProperties}
 			>
 				<div className='buttonCursorBorder' />

@@ -1,20 +1,25 @@
-import { CSSProperties, FunctionComponent, MouseEventHandler, ReactNode, useState } from 'react';
+import { CSSProperties, FunctionComponent, HTMLAttributeAnchorTarget, MouseEventHandler, ReactNode, useState } from 'react';
 
 interface ButtonProps {
   children: ReactNode;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLElement>;
   size?: 'small';
+  polymorphic?: 'a' | 'button';
+  target?: HTMLAttributeAnchorTarget;
+  href?: string;
+  className?: string;
+  tabIndex?: number;
 }
 
 /**
  * A standard button component with directional hover effects.
  */
-const Button: FunctionComponent<ButtonProps> = ({children, onClick, size}) => {
+const Button: FunctionComponent<ButtonProps> = ({children, onClick, size, polymorphic = 'button', target, href, className, tabIndex}) => {
 
   const [position, setPosition] = useState<[number, number]>([0, 0]);
   const [hover, setHover] = useState<boolean>(false);
 
-  const onEnter: MouseEventHandler<HTMLButtonElement> = (event) => {
+  const onEnter: MouseEventHandler<HTMLElement> = (event) => {
     const boundingRect = event.currentTarget.getBoundingClientRect();
     setHover(true);
     if (boundingRect) {
@@ -22,7 +27,7 @@ const Button: FunctionComponent<ButtonProps> = ({children, onClick, size}) => {
     }
   };
 
-  const onMove: MouseEventHandler<HTMLButtonElement> = (event) => {
+  const onMove: MouseEventHandler<HTMLElement> = (event) => {
     const boundingRect = event.currentTarget.getBoundingClientRect();
     setHover(true);
     if (boundingRect) {
@@ -30,24 +35,32 @@ const Button: FunctionComponent<ButtonProps> = ({children, onClick, size}) => {
     }
   };
 
-  const onLeave: MouseEventHandler<HTMLButtonElement> = () => {
+  const onLeave: MouseEventHandler<HTMLElement> = () => {
     setHover(false);
   };
 
+  // Add classes to the button
   const buttonClass = [];
+  if (className) buttonClass.push(className);
   if (size === 'small') buttonClass.push('smallButton');
   else buttonClass.push('button');
 
   const buttonCursorContainerClass = ['buttonCursorContainer'];
   if (!hover) buttonCursorContainerClass.push('transparent');
 
+  // Change button to inputted polymorphic component
+  const PolymorphicComponent = polymorphic;
+
   return (
-    <button
+    <PolymorphicComponent
       className={buttonClass.join(' ')}
       onClick={onClick}
       onMouseEnter={onEnter}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
+      target={target}
+      href={href}
+      tabIndex={tabIndex}
     >
       {children}
       <div className='buttonBackground'/>
@@ -62,7 +75,7 @@ const Button: FunctionComponent<ButtonProps> = ({children, onClick, size}) => {
         <div className='buttonCursorBorder' />
         <div className='buttonCursor' />
       </div>
-    </button>
+    </PolymorphicComponent>
   );
 };
 

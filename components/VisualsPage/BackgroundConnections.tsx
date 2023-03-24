@@ -15,8 +15,8 @@ const BackgroundConnections: FunctionComponent = () => {
 
 	return (
 		<svg
-			height={2000}
-			width={2000}
+			height='125rem'
+			width='125rem'
 			style={{width: '100%', position: 'absolute'}}
 		>
 			<path

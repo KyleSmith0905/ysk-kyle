@@ -4,7 +4,6 @@ import { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import { Button } from '../Button';
 import Image from 'next/future/image';
 
-
 interface RecursiveBubble {
   bubble: IBubble,
   children: RecursiveBubble[];
@@ -35,10 +34,8 @@ const InfoBlock: FunctionComponent<{
               {(bubble.size === 'medium' || !bubble.size) && <h2>{bubble.name}</h2>}
               {bubble.size === 'small' && <h3>{bubble.name}</h3>}
               {(bubble.link && bubble.link.startsWith('https://')) && (
-                <Link href={bubble.link}>
-                  <a target='_blank'>
-                    <Button size='small'>Navigate There</Button>
-                  </a>
+                <Link href={bubble.link} passHref={true}>
+                  <Button polymorphic='a' target='_blank' size='small'>Navigate There</Button>
                 </Link>
               )}
               {(bubble.link && !bubble.link.startsWith('https://')) && (

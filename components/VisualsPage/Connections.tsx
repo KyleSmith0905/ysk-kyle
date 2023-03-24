@@ -10,7 +10,7 @@ const Connections: FunctionComponent<{
 		let requestId = 0;
 
 		const positionToString = (position: number[]): string => {
-			return (position[0] * 20).toFixed(2) + ',' + (position[1] * 20).toFixed(2);
+			return `${(position[0]).toFixed(2)},${(position[1]).toFixed(2)} `;
 		};
 
 		const renderBackground = () => {
@@ -39,15 +39,16 @@ const Connections: FunctionComponent<{
 	return (
 		<svg
 			id='Connections'
-			height={2000}
-			width={2000}
+			height='125rem'
+			width='125rem'
+			viewBox='0 0 100 100'
 			style={{width: '100%', position: 'absolute'}}
 		>
 			<path
 				id='ConnectionsPath'
 				d=''
 				stroke='var(--color-text)'
-				strokeWidth={2}
+				strokeWidth={0.1}
 				fill='none'
 			/>
 		</svg>
