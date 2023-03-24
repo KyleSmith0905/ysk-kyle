@@ -2,10 +2,9 @@ import { useGraphics } from '@lib/hooks';
 import Head from 'next/head';
 import { Dispatch, FunctionComponent, SetStateAction, useEffect, useRef, useState } from 'react';
 import { IBubble } from '../../lib/bubbleData/_shared';
-import { GRAPHICS_LOW_COLOR_MODES, GRAPHICS_HIGH_COLOR_MODES, GraphicsHighColorModes, GraphicsLowColorModes, ColorMode } from '../../lib/colorMode';
+import { GRAPHICS_FLAT_COLOR_MODES, GRAPHICS_SPACE_COLOR_MODES, GraphicsSpaceColorModes, GraphicsFlatColorModes, ColorMode } from '../../lib/colorMode';
 import { Cookies } from '../../lib/cookies';
-import Background from './Backgrounds/space';
-import BackgroundConnections from './Backgrounds/flat/backgroundConnections';
+import SpaceBackground from './Backgrounds/space';
 import Bubble from './Bubble';
 import Connections from './Connections';
 import HomeButton from './HomeButton';
@@ -14,7 +13,7 @@ import ControlStickMovement from './MovementControl/ControlStick';
 import EdgeScrollMovement from './MovementControl/EdgeScroll';
 import PanoramaMovement from './MovementControl/Panorama';
 import Settings from './Settings';
-import BackgroundPattern from './Backgrounds/flat/backgroundPattern';
+import FlatBackground from './Backgrounds/flat';
 
 const VisualsPage: FunctionComponent<{
   slug: string;
@@ -28,8 +27,8 @@ const VisualsPage: FunctionComponent<{
     const [bubbleScene, setBubbleScene] = useState<string>(slug);
     const [bubbleSceneReset, setBubbleSceneReset] = useState<string>(slug);
     const [travelMode, setTravelMode] = useState(cookies?.travelMode ?? 'Browser');
-    const [graphicsHighColorTheme, setGraphicsHighColorTheme] = useState<GraphicsHighColorModes>(cookies?.graphicsHighColorTheme ?? 'Dark');
-    const [graphicsLowColorTheme, setGraphicsLowColorTheme] = useState<GraphicsLowColorModes>(cookies?.graphicsLowColorTheme ?? 'Light');
+    const [graphicsSpaceColorTheme, setGraphicsSpaceColorTheme] = useState<GraphicsSpaceColorModes>(cookies?.graphicsSpaceColorTheme ?? 'Dark');
+    const [graphicsFlatColorTheme, setGraphicsFlatColorTheme] = useState<GraphicsFlatColorModes>(cookies?.graphicsFlatColorTheme ?? 'Light');
 
     const {effectiveGraphics} = useGraphics();
 
@@ -41,10 +40,10 @@ const VisualsPage: FunctionComponent<{
       let colorMode: ColorMode | undefined;
   
       if (effectiveGraphics === 'Space') {
-        colorMode = GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === (graphicsHighColorTheme ?? 'Dark'));
+        colorMode = GRAPHICS_SPACE_COLOR_MODES.find(e => e.name === (graphicsSpaceColorTheme ?? 'Dark'));
       }
       else {
-        colorMode = GRAPHICS_LOW_COLOR_MODES.find(e => e.name === (graphicsLowColorTheme ?? 'Light'));
+        colorMode = GRAPHICS_FLAT_COLOR_MODES.find(e => e.name === (graphicsFlatColorTheme ?? 'Light'));
       }
 
       if (!colorMode) return;
@@ -54,7 +53,7 @@ const VisualsPage: FunctionComponent<{
       root.style.setProperty('--color-primary', colorMode?.primary);
       root.style.setProperty('--color-secondary', colorMode?.secondary);
       root.style.setProperty('--color-text', colorMode?.text);
-    }, [effectiveGraphics, graphicsHighColorTheme, graphicsLowColorTheme]);
+    }, [effectiveGraphics, graphicsSpaceColorTheme, graphicsFlatColorTheme]);
 
     // When navigating site, wait a second after transition so animation can occur.
     const bubbleResetTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -78,8 +77,8 @@ const VisualsPage: FunctionComponent<{
 
     // Determines theme color
     let color: string | undefined = 'hsl(0, 0%, 6%)';
-    if (effectiveGraphics === 'Flat') color = GRAPHICS_LOW_COLOR_MODES.find(e => e.name === graphicsLowColorTheme)?.primary;
-    else color = GRAPHICS_HIGH_COLOR_MODES.find(e => e.name === graphicsHighColorTheme)?.primary;
+    if (effectiveGraphics === 'Flat') color = GRAPHICS_FLAT_COLOR_MODES.find(e => e.name === graphicsFlatColorTheme)?.primary;
+    else color = GRAPHICS_SPACE_COLOR_MODES.find(e => e.name === graphicsSpaceColorTheme)?.primary;
 
     return (
       <>
@@ -87,13 +86,10 @@ const VisualsPage: FunctionComponent<{
           <meta name='theme-color' content={color} />
         </Head>
         {effectiveGraphics === 'Space' && (
-          <Background colorTheme={graphicsHighColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
+          <SpaceBackground colorTheme={graphicsSpaceColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
         )}
         {effectiveGraphics === 'Flat' && (
-          <>
-            <BackgroundPattern/>
-            <BackgroundConnections/>
-          </>
+          <FlatBackground />
         )}
         <div id='Underlay'>
           <Connections bubbles={bubbles} />
@@ -105,10 +101,10 @@ const VisualsPage: FunctionComponent<{
         <Settings
           setTravelMode={setTravelMode}
           travelMode={travelMode}
-          setGraphicsHighColorTheme={setGraphicsHighColorTheme}
-          graphicsHighColorTheme={graphicsHighColorTheme}
-          setGraphicsLowColorTheme={setGraphicsLowColorTheme}
-          graphicsLowColorTheme={graphicsLowColorTheme}
+          setGraphicsSpaceColorTheme={setGraphicsSpaceColorTheme}
+          graphicsSpaceColorTheme={graphicsSpaceColorTheme}
+          setGraphicsFlatColorTheme={setGraphicsFlatColorTheme}
+          graphicsFlatColorTheme={graphicsFlatColorTheme}
           setAccessibility={setAccessibility}
         />
         <main id='MainContent'>

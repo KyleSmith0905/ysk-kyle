@@ -26,7 +26,7 @@ const ambianceGenerator: SceneGenerator = ({scene}) => {
 			await new Promise<void>((resolve) => (image.onload = () => resolve()));
 
 			for (let i = 0; i < 10; i++) {
-				const cloudColor = getCloudColor(colorMode.highGraphics?.ambience);
+				const cloudColor = getCloudColor(colorMode.space?.ambience);
 
 				// Generates an orange cloud texture by cropping part a noise map.
 				const canvas = document.createElement('canvas');
@@ -73,18 +73,18 @@ const ambianceGenerator: SceneGenerator = ({scene}) => {
 				if (cloud.position.z > 10) {
 					cloud.position.set(MathUtils.randFloatSpread(50), MathUtils.randFloatSpread(50), MathUtils.randFloat(-70, -60));
 					cloud.rotateZ(MathUtils.randFloat(0, 360));
-					cloud.material.color = getCloudColor(colorMode.highGraphics?.ambience);
+					cloud.material.color = getCloudColor(colorMode.space?.ambience);
 				}
 				else if (cloud.position.z < -70) {
 					cloud.position.set(MathUtils.randFloatSpread(50), MathUtils.randFloatSpread(50), MathUtils.randFloat(0, 10));
 					cloud.rotateZ(MathUtils.randFloat(0, 360));
-				cloud.material.color = getCloudColor(colorMode.highGraphics?.ambience);
+				cloud.material.color = getCloudColor(colorMode.space?.ambience);
 				}
 			});
 		},
 		recolor: ({colorMode}) => {
 			cloudsMesh.forEach((cloud) => {
-				cloud.material.color = getCloudColor(colorMode.highGraphics?.ambience);
+				cloud.material.color = getCloudColor(colorMode.space?.ambience);
 			});
 		}
 	};

@@ -1,5 +1,5 @@
 import { Dispatch, FunctionComponent, SetStateAction, useCallback, useState } from 'react';
-import { GraphicsLowColorModes, GRAPHICS_LOW_COLOR_MODES, GraphicsHighColorModes, GRAPHICS_HIGH_COLOR_MODES } from '@lib/colorMode';
+import { GraphicsFlatColorModes, GRAPHICS_FLAT_COLOR_MODES, GraphicsSpaceColorModes, GRAPHICS_SPACE_COLOR_MODES } from '@lib/colorMode';
 import { setCookie } from '@lib/cookies';
 import { GraphicsLevels } from '@lib/graphicsLevel';
 import { useGraphics } from '@lib/hooks';
@@ -7,15 +7,15 @@ import { useGraphics } from '@lib/hooks';
 const Settings: FunctionComponent<{
 	setTravelMode: Dispatch<SetStateAction<string>>,
 	travelMode: string,
-	setGraphicsLowColorTheme: Dispatch<SetStateAction<GraphicsLowColorModes>>,
-	graphicsLowColorTheme: GraphicsLowColorModes,
-	setGraphicsHighColorTheme: Dispatch<SetStateAction<GraphicsHighColorModes>>,
-	graphicsHighColorTheme: GraphicsHighColorModes,
+	setGraphicsFlatColorTheme: Dispatch<SetStateAction<GraphicsFlatColorModes>>,
+	graphicsFlatColorTheme: GraphicsFlatColorModes,
+	setGraphicsSpaceColorTheme: Dispatch<SetStateAction<GraphicsSpaceColorModes>>,
+	graphicsSpaceColorTheme: GraphicsSpaceColorModes,
   setAccessibility: Dispatch<SetStateAction<'Accessibility' | 'Visuals' | 'Undetermined'>>;
 }> = ({
 	setTravelMode, travelMode,
-	setGraphicsLowColorTheme, graphicsLowColorTheme,
-	setGraphicsHighColorTheme, graphicsHighColorTheme,
+	setGraphicsFlatColorTheme, graphicsFlatColorTheme,
+	setGraphicsSpaceColorTheme, graphicsSpaceColorTheme,
 	setAccessibility,
 }) => {
 	const { autoGraphics, graphics, setGraphics} = useGraphics();
@@ -23,15 +23,15 @@ const Settings: FunctionComponent<{
 
 	const toggleSettings = () => setSettingsOpen(!settingsOpen);
 
-	const graphicsLowColorThemes = GRAPHICS_LOW_COLOR_MODES.map((e) => e.name) as GraphicsLowColorModes[];
-	const graphicsHighColorThemes = GRAPHICS_HIGH_COLOR_MODES.map((e) => e.name) as GraphicsHighColorModes[];
+	const graphicsFlatColorThemes = GRAPHICS_FLAT_COLOR_MODES.map((e) => e.name) as GraphicsFlatColorModes[];
+	const graphicsSpaceColorThemes = GRAPHICS_SPACE_COLOR_MODES.map((e) => e.name) as GraphicsSpaceColorModes[];
 	const travelModes = ['Browser', 'Edge Scrolling', 'Control Stick', 'Panorama'];
 	const graphicsLevels: GraphicsLevels[] = ['Auto', 'Flat', 'Space'];
 	
 	const handleColorThemeChange = () => {
 		const root = document.getElementById('ColorTheme') as HTMLElement;
 		if (!root) return;
-		root.className = graphicsLowColorThemes[(graphicsLowColorThemes.indexOf(graphicsLowColorTheme) + 1) % graphicsLowColorThemes.length];
+		root.className = graphicsFlatColorThemes[(graphicsFlatColorThemes.indexOf(graphicsFlatColorTheme) + 1) % graphicsFlatColorThemes.length];
 	};
 
 	// Compares the user's graphics settings to a parameter.
@@ -73,22 +73,22 @@ const Settings: FunctionComponent<{
 				</button>
 				{isGraphics('Flat') && (
 					<button onClick={() => {
-						const newColorTheme = graphicsLowColorThemes[(graphicsLowColorThemes.indexOf(graphicsLowColorTheme) + 1) % graphicsLowColorThemes.length];
+						const newColorTheme = graphicsFlatColorThemes[(graphicsFlatColorThemes.indexOf(graphicsFlatColorTheme) + 1) % graphicsFlatColorThemes.length];
 						handleColorThemeChange();
-						setGraphicsLowColorTheme(newColorTheme);
-						setCookie('graphicsLowColorTheme', newColorTheme);
+						setGraphicsFlatColorTheme(newColorTheme);
+						setCookie('graphicsFlatColorTheme', newColorTheme);
 					}}>
-						Color Theme: {graphicsLowColorTheme}
+						Color Theme: {graphicsFlatColorTheme}
 					</button>
 				)}
 				{isGraphics('Space') && (
 					<button onClick={() => {
-						const newColorTheme = graphicsHighColorThemes[(graphicsHighColorThemes.indexOf(graphicsHighColorTheme) + 1) % graphicsHighColorThemes.length];
+						const newColorTheme = graphicsSpaceColorThemes[(graphicsSpaceColorThemes.indexOf(graphicsSpaceColorTheme) + 1) % graphicsSpaceColorThemes.length];
 						handleColorThemeChange();
-						setGraphicsHighColorTheme(newColorTheme);
-						setCookie('graphicsHighColorTheme', newColorTheme);
+						setGraphicsSpaceColorTheme(newColorTheme);
+						setCookie('graphicsSpaceColorTheme', newColorTheme);
 					}}>
-						Color Theme: {graphicsHighColorTheme}
+						Color Theme: {graphicsSpaceColorTheme}
 					</button>
 				)}
 				<button onClick={() => {
