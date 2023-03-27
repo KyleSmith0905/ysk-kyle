@@ -8,11 +8,16 @@ interface ColorMode {
 		clouds: 'rainbow' | string;
 		stars: string;
 	}
+	particles?: {
+		something: ''
+	}
 }
 
 type GraphicsFlatColorModes = 'Light' | 'Dark' | 'Iconic';
 
 type GraphicsSpaceColorModes = 'Dark' | 'Rainbow';
+
+type GraphicsParticlesColorModes = 'Iconic' | 'Rainbow';
 
 const GRAPHICS_FLAT_COLOR_MODES: ColorMode[] = [
 	{
@@ -60,5 +65,17 @@ const GRAPHICS_SPACE_COLOR_MODES: ColorMode[] = [
 	},
 ];
 
-export { GRAPHICS_SPACE_COLOR_MODES, GRAPHICS_FLAT_COLOR_MODES };
-export type { GraphicsFlatColorModes, GraphicsSpaceColorModes, ColorMode };
+const GRAPHICS_PARTICLES_COLOR_MODES: ColorMode[] = [
+	{
+		name: 'Dark',
+		primary: 'hsl(0, 0%, 6%)',
+		secondary: 'hsl(0, 0%, 0%)',
+		text: 'hsl(0, 0%, 100%)',
+		particles: {
+			something: '',
+		}
+	},
+];
+
+export { GRAPHICS_SPACE_COLOR_MODES, GRAPHICS_FLAT_COLOR_MODES, GRAPHICS_PARTICLES_COLOR_MODES };
+export type { GraphicsFlatColorModes, GraphicsSpaceColorModes, GraphicsParticlesColorModes, ColorMode };

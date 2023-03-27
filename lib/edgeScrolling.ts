@@ -1,4 +1,4 @@
-import { Pythagorean } from './utils';
+import { pythagorean } from './utils';
 
 /**
  * Calculates where to scroll to based on the current scroll position and scrolls automatically.
@@ -11,7 +11,7 @@ export const EdgeScrolling = (mousePosition: {x: number, y: number}) => {
 		y: mousePosition.y/window.innerHeight
 	};
 
-	const distance = Pythagorean(
+	const distance = pythagorean(
 		percentagePosition.x - 0.5, percentagePosition.y - 0.5
 	);
 

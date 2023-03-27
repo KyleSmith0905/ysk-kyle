@@ -1,5 +1,5 @@
 import { Dispatch, FunctionComponent, SetStateAction, useCallback, useState } from 'react';
-import { GraphicsFlatColorModes, GRAPHICS_FLAT_COLOR_MODES, GraphicsSpaceColorModes, GRAPHICS_SPACE_COLOR_MODES } from '@lib/colorMode';
+import { GraphicsFlatColorModes, GRAPHICS_FLAT_COLOR_MODES, GraphicsSpaceColorModes, GRAPHICS_SPACE_COLOR_MODES, GraphicsParticlesColorModes, GRAPHICS_PARTICLES_COLOR_MODES } from '@lib/colorMode';
 import { setCookie } from '@lib/cookies';
 import { GraphicsLevels } from '@lib/graphicsLevel';
 import { useGraphics } from '@lib/hooks';
@@ -11,11 +11,14 @@ const Settings: FunctionComponent<{
 	graphicsFlatColorTheme: GraphicsFlatColorModes,
 	setGraphicsSpaceColorTheme: Dispatch<SetStateAction<GraphicsSpaceColorModes>>,
 	graphicsSpaceColorTheme: GraphicsSpaceColorModes,
+	setGraphicsParticlesColorTheme: Dispatch<SetStateAction<GraphicsParticlesColorModes>>,
+	graphicsParticlesColorTheme: GraphicsParticlesColorModes,
   setAccessibility: Dispatch<SetStateAction<'Accessibility' | 'Visuals' | 'Undetermined'>>;
 }> = ({
 	setTravelMode, travelMode,
 	setGraphicsFlatColorTheme, graphicsFlatColorTheme,
 	setGraphicsSpaceColorTheme, graphicsSpaceColorTheme,
+	setGraphicsParticlesColorTheme, graphicsParticlesColorTheme,
 	setAccessibility,
 }) => {
 	const { autoGraphics, graphics, setGraphics} = useGraphics();
@@ -25,8 +28,9 @@ const Settings: FunctionComponent<{
 
 	const graphicsFlatColorThemes = GRAPHICS_FLAT_COLOR_MODES.map((e) => e.name) as GraphicsFlatColorModes[];
 	const graphicsSpaceColorThemes = GRAPHICS_SPACE_COLOR_MODES.map((e) => e.name) as GraphicsSpaceColorModes[];
+	const graphicsParticlesColorThemes = GRAPHICS_PARTICLES_COLOR_MODES.map((e) => e.name) as GraphicsParticlesColorModes[];
 	const travelModes = ['Browser', 'Edge Scrolling', 'Control Stick', 'Panorama'];
-	const graphicsLevels: GraphicsLevels[] = ['Auto', 'Flat', 'Space'];
+	const graphicsLevels: GraphicsLevels[] = ['Auto', 'Flat', 'Space', 'Particles'];
 	
 	const handleColorThemeChange = () => {
 		const root = document.getElementById('ColorTheme') as HTMLElement;
@@ -89,6 +93,16 @@ const Settings: FunctionComponent<{
 						setCookie('graphicsSpaceColorTheme', newColorTheme);
 					}}>
 						Color Theme: {graphicsSpaceColorTheme}
+					</button>
+				)}
+				{isGraphics('Particles') && (
+					<button onClick={() => {
+						const newColorTheme = graphicsParticlesColorThemes[(graphicsParticlesColorThemes.indexOf(graphicsParticlesColorTheme) + 1) % graphicsParticlesColorThemes.length];
+						handleColorThemeChange();
+						setGraphicsParticlesColorTheme(newColorTheme);
+						setCookie('graphicsParticlesColorTheme', newColorTheme);
+					}}>
+						Color Theme: {graphicsParticlesColorTheme}
 					</button>
 				)}
 				<button onClick={() => {

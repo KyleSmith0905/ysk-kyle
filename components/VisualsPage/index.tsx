@@ -2,7 +2,7 @@ import { useGraphics } from '@lib/hooks';
 import Head from 'next/head';
 import { Dispatch, FunctionComponent, SetStateAction, useEffect, useRef, useState } from 'react';
 import { IBubble } from '../../lib/bubbleData/_shared';
-import { GRAPHICS_FLAT_COLOR_MODES, GRAPHICS_SPACE_COLOR_MODES, GraphicsSpaceColorModes, GraphicsFlatColorModes, ColorMode } from '../../lib/colorMode';
+import { GRAPHICS_FLAT_COLOR_MODES, GRAPHICS_SPACE_COLOR_MODES, GraphicsSpaceColorModes, GraphicsFlatColorModes, ColorMode, GraphicsParticlesColorModes } from '../../lib/colorMode';
 import { Cookies } from '../../lib/cookies';
 import SpaceBackground from './Backgrounds/space';
 import Bubble from './Bubble';
@@ -14,6 +14,7 @@ import EdgeScrollMovement from './MovementControl/EdgeScroll';
 import PanoramaMovement from './MovementControl/Panorama';
 import Settings from './Settings';
 import FlatBackground from './Backgrounds/flat';
+import ParticlesBackground from './Backgrounds/particles';
 
 const VisualsPage: FunctionComponent<{
   slug: string;
@@ -29,6 +30,7 @@ const VisualsPage: FunctionComponent<{
     const [travelMode, setTravelMode] = useState(cookies?.travelMode ?? 'Browser');
     const [graphicsSpaceColorTheme, setGraphicsSpaceColorTheme] = useState<GraphicsSpaceColorModes>(cookies?.graphicsSpaceColorTheme ?? 'Dark');
     const [graphicsFlatColorTheme, setGraphicsFlatColorTheme] = useState<GraphicsFlatColorModes>(cookies?.graphicsFlatColorTheme ?? 'Light');
+    const [graphicsParticlesColorTheme, setGraphicsParticlesColorTheme] = useState<GraphicsParticlesColorModes>(cookies?.graphicsParticlesColorTheme ?? 'Iconic');
 
     const {effectiveGraphics} = useGraphics();
 
@@ -40,6 +42,9 @@ const VisualsPage: FunctionComponent<{
       let colorMode: ColorMode | undefined;
   
       if (effectiveGraphics === 'Space') {
+        colorMode = GRAPHICS_SPACE_COLOR_MODES.find(e => e.name === (graphicsSpaceColorTheme ?? 'Dark'));
+      }
+      else if (effectiveGraphics === 'Particles') {
         colorMode = GRAPHICS_SPACE_COLOR_MODES.find(e => e.name === (graphicsSpaceColorTheme ?? 'Dark'));
       }
       else {
@@ -85,6 +90,9 @@ const VisualsPage: FunctionComponent<{
         <Head>
           <meta name='theme-color' content={color} />
         </Head>
+        {effectiveGraphics === 'Particles' && (
+          <ParticlesBackground colorTheme={graphicsParticlesColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
+        )}
         {effectiveGraphics === 'Space' && (
           <SpaceBackground colorTheme={graphicsSpaceColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
         )}
@@ -105,6 +113,8 @@ const VisualsPage: FunctionComponent<{
           graphicsSpaceColorTheme={graphicsSpaceColorTheme}
           setGraphicsFlatColorTheme={setGraphicsFlatColorTheme}
           graphicsFlatColorTheme={graphicsFlatColorTheme}
+          setGraphicsParticlesColorTheme={setGraphicsParticlesColorTheme}
+          graphicsParticlesColorTheme={graphicsParticlesColorTheme}
           setAccessibility={setAccessibility}
         />
         <main id='MainContent'>

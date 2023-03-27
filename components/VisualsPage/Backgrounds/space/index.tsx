@@ -68,19 +68,18 @@ const SpaceBackground: FunctionComponent<{
 		const scene = new Scene();
 
 		// Saves and updates screen size.
-		let width = Math.max(window.innerWidth, window.innerHeight);
-		let height = width;
+		let width = 0;
+		let height = 0;
 		const screenResizeTracker = () => {
 			width = Math.max(window.innerWidth, window.innerHeight);
 			height = width;
 			renderer.setSize(width, height);
 			renderer.setViewport((width - window.innerWidth) / -2, (height - window.innerHeight) / 2, width, height);
 		};
+		screenResizeTracker();
 		window.addEventListener('resize', screenResizeTracker);
 		window.addEventListener('gesturechange', screenResizeTracker);
 		window.addEventListener('gestureend', screenResizeTracker);
-		renderer.setSize(width, height);
-		renderer.setViewport((width - window.innerWidth) / -2, (height - window.innerHeight) / 2, width, height);
 
 		// Tracks the mouse position for later.
 		const mousePosition: {x: number, y: number} = {x: window.innerWidth / 2, y: window.innerHeight / 2};

@@ -152,7 +152,7 @@ export {
 	clamp,
 	IsArrayNaN,
 	IsArraysEqual,
-	Pythagorean,
+	Pythagorean as pythagorean,
 	CoordinateCollisions,
 	IsCollideWithBubbles,
 	IsUserBot,

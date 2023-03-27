@@ -1,6 +1,6 @@
 import { IBubble } from './bubbleData/_shared';
-import { Noise2D } from './noiseGenerators';
-import { IsArrayNaN, Pythagorean, IsCollideWithBubbles, IsNumberBetween, clamp } from './utils';
+import { noise2d } from './noiseGenerators';
+import { IsArrayNaN, pythagorean, IsCollideWithBubbles, IsNumberBetween, clamp } from './utils';
 
 /**
  * Slightly moves position around a bubble's pivot position to simulate slight fluid motion.
@@ -20,8 +20,8 @@ const driftAround = (bubble: IBubble, bubbles: IBubble[]): [number, number] => {
 		
 	const offset = index * 60000;
 	
-	const angle = currentAngle + ((Noise2D(Date.now() * 1e-4 - offset) - 0.5) * 0.025);
-	const distance = Noise2D(Date.now() * 2e-6 - offset + 30000) * bubble.radius * 0.005;
+	const angle = currentAngle + ((noise2d(Date.now() * 1e-4 - offset) - 0.5) * 0.025);
+	const distance = noise2d(Date.now() * 2e-6 - offset + 30000) * bubble.radius * 0.005;
 	
 
 	position[0] = bubble.pivotPosition[0] + Math.cos(angle) * distance;
@@ -57,7 +57,7 @@ const spawnBubble = (bubble: IBubble, bubbles: IBubble[], elapsedTime: number): 
 
 	if (
 		IsCollideWithBubbles([...deployPosition, bubble.radius], bubbles.map(e => [...e.deployPosition, e.radius]))
-		|| Pythagorean(50 - deployPosition[0], 50 - deployPosition[1]) * 20 > 1000 - (bubble.radius * 1.005)
+		|| pythagorean(50 - deployPosition[0], 50 - deployPosition[1]) * 20 > 1000 - (bubble.radius * 1.005)
 	) {
 		return;
 	}
@@ -100,8 +100,8 @@ const moveToPosition = (bubble: IBubble, bubbles: IBubble[]): [number, number] =
 	}
 
 	// Get distance of bubbles
-	const deployDistance = Pythagorean(relativeDeployPosition[0], relativeDeployPosition[1]);
-	const pivotDistance = Pythagorean(relativePivotPosition[0], relativePivotPosition[1]);
+	const deployDistance = pythagorean(relativeDeployPosition[0], relativeDeployPosition[1]);
+	const pivotDistance = pythagorean(relativePivotPosition[0], relativePivotPosition[1]);
 
 	// Get difference between polar coordinates
 	const differenceAngle = deployAngle - pivotAngle;

@@ -1,10 +1,10 @@
-import { Pythagorean, IsCollideWithBubbles } from '../../lib/utils';
-import { Noise2D } from '../../lib/noiseGenerators';
+import { pythagorean, IsCollideWithBubbles } from '../../lib/utils';
+import { noise2d } from '../../lib/noiseGenerators';
 
 describe('Physics', () => {
 	it('Pythagorean', () => {		
-		expect(Pythagorean(3, 4)).to.equal(5);
-		expect(Pythagorean(115, 252)).to.equal(277);
+		expect(pythagorean(3, 4)).to.equal(5);
+		expect(pythagorean(115, 252)).to.equal(277);
 	});
 
 	it('Collision', () => {
@@ -15,7 +15,7 @@ describe('Physics', () => {
 	it('2D Noise', () => {
 		let brokenRule = false;
 		for (let i = 0; i < 20; i++) {
-			if (Noise2D(i) < 0 || Noise2D(i) > 1) {
+			if (noise2d(i) < 0 || noise2d(i) > 1) {
 				brokenRule = true;
 			}
 		}
