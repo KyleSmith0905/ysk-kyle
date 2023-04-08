@@ -35,9 +35,13 @@ const calculateCurrentPosition = (
     (noise2d(driftOffset[0] + progress * 10) - 0.5) * stream.angleSqueeze,
     (noise2d(driftOffset[1] + progress * 10) - 0.5) * stream.angleSqueeze,
   ];
+  const globalDriftScalar = [
+    noise2d(stream.globalTransformDrift[0] + position[0] * 10) - 0.5,
+    noise2d(stream.globalTransformDrift[1] + position[1] * 10) - 0.5,
+  ];
   const globalDrift = [
-    (noise2d(stream.globalTransformDrift[0] - position[0] * 10) - 0.5) * 0.3,
-    (noise2d(stream.globalTransformDrift[1] - position[1] * 10) - 0.5) * 0.3,
+    (Math.abs(globalDriftScalar[0]) ** 0.6) * 0.1 * Math.sign(globalDriftScalar[0]),
+    (Math.abs(globalDriftScalar[1]) ** 0.6) * 0.1 * Math.sign(globalDriftScalar[1]),
   ];
   const totalDrift = [localDrift[0] + globalDrift[0], localDrift[1] + globalDrift[1]];
   return [position[0] + totalDrift[0], position[1] + totalDrift[1]];
