@@ -138,8 +138,8 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
       onMouseLeave={onLeave}
 			style={{
 				position: 'absolute',
-				width: (bubble.radius * 2 / 16) + 'rem',
-				height: (bubble.radius * 2 / 16) + 'rem',
+				width: (bubble.radius / 8) + 'rem',
+				height: (bubble.radius / 8) + 'rem',
 			}}
 		>
 			<Image
@@ -178,8 +178,8 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 			onClick={isExternalSite ? undefined : updateScene}
 			style={{
 				position: 'absolute',
-				width: (bubble.radius * 2 / 16) + 'rem',
-				height: (bubble.radius * 2 / 16) + 'rem',
+				width: (bubble.radius / 8) + 'rem',
+				height: (bubble.radius / 8) + 'rem',
 			}}
 		>
 			<h2>

@@ -106,7 +106,9 @@ const Settings: FunctionComponent<{
 					</button>
 				)}
 				<button onClick={() => {
-					const newGraphics = graphicsLevels[(graphicsLevels.indexOf(graphics) + 1) % graphicsLevels.length];
+					// Remove the "Auto" option as that is usually not a defined option.
+					const autoLessGraphicsLevels = graphicsLevels.slice(1);
+					const newGraphics = autoLessGraphicsLevels[(autoLessGraphicsLevels.indexOf(graphics) + 1) % autoLessGraphicsLevels.length];
 					setGraphics(newGraphics);
 					setCookie('graphics', newGraphics);
 				}}>

@@ -37,8 +37,9 @@ export const PadBubblePositions = (originId: string, bubbles: IBubbleWithoutPosi
 		};
 		if (bubble.connection !== '.') bubble.connection = `${originId}_${bubble.connection}`;
 
-		if (bubble.size === 'small') bubble.radius = bubble.radius * 0.9;
-		else if (bubble.size === 'large') bubble.radius = bubble.radius * 1.11;
+		if (bubble.size === 'small') bubble.radius = bubble.radius * 1;
+		else if (bubble.size === 'large') bubble.radius = bubble.radius * 1.2;
+		else bubble.radius = bubble.radius * 1.1;
 		return Object.assign(bubble, newProperties);
 	});
 	return output;
