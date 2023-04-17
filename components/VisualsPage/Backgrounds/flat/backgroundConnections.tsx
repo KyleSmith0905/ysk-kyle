@@ -17,7 +17,7 @@ const BackgroundConnections: FunctionComponent = () => {
 		<svg
 			height='125rem'
 			width='125rem'
-			style={{width: '100%', position: 'absolute'}}
+			style={{position: 'absolute'}}
 		>
 			<path
 				d={PathCross() + PathCircle(333) + PathCircle(666) + PathCircle(999) + PathCircle(1332)}

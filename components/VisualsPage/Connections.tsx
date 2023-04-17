@@ -42,14 +42,21 @@ const Connections: FunctionComponent<{
 			height='125rem'
 			width='125rem'
 			viewBox='0 0 100 100'
-			style={{width: '100%', position: 'absolute'}}
+			style={{position: 'absolute'}}
 		>
+			<defs>
+				<radialGradient id="ConnectionsGradient" gradientUnits="userSpaceOnUse">
+					<stop offset="0%" stopColor="var(--color-text)" stopOpacity={0}/>
+					<stop offset="100%" stopColor="var(--color-text)" stopOpacity={1}/>
+				</radialGradient>
+			</defs>
 			<path
 				id='ConnectionsPath'
+				stroke="url(#ConnectionsGradient)"
 				d=''
-				stroke='var(--color-text)'
-				strokeWidth={0.1}
-				fill='none'
+				strokeWidth={0.2}
+				// stroke='var(--color-text)'
+				// fill="none"
 			/>
 		</svg>
 	);
