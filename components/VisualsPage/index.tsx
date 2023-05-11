@@ -15,6 +15,7 @@ import PanoramaMovement from './MovementControl/Panorama';
 import Settings from './Settings';
 import FlatBackground from './Backgrounds/flat';
 import ParticlesBackground from './Backgrounds/particles';
+import PrototypeMovement from './MovementControl/Prototype';
 
 const VisualsPage: FunctionComponent<{
   slug: string;
@@ -90,48 +91,53 @@ const VisualsPage: FunctionComponent<{
         <Head>
           <meta name='theme-color' content={color} />
         </Head>
-        {effectiveGraphics === 'Particles' && (
-          <ParticlesBackground colorTheme={graphicsParticlesColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
-        )}
-        {effectiveGraphics === 'Space' && (
-          <SpaceBackground colorTheme={graphicsSpaceColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
-        )}
-        {effectiveGraphics === 'Flat' && (
-          <FlatBackground />
-        )}
-        <div id='Underlay'>
-          <Connections bubbles={bubbles} />
+        <div id='BackgroundDisplay'>
+          {effectiveGraphics === 'Particles' && (
+            <ParticlesBackground colorTheme={graphicsParticlesColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
+          )}
+          {effectiveGraphics === 'Space' && (
+            <SpaceBackground colorTheme={graphicsSpaceColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
+          )}
+          {effectiveGraphics === 'Flat' && (
+            <FlatBackground />
+          )}
+          <div id='Underlay'>
+            <Connections bubbles={bubbles} />
+          </div>
+          {travelMode === 'Browser' && <BrowserMovement />}
+          {travelMode === 'Edge Scrolling' && <EdgeScrollMovement />}
+          {travelMode === 'Control Stick' && <ControlStickMovement />}
+          {travelMode === 'Panorama' && <PanoramaMovement />}
+          {travelMode === 'Prototype' && <PrototypeMovement />}
+          <main id='MainContent'>
+            {bubbles.map((bubble: IBubble) => (
+              <Bubble
+                key={bubble.id}
+                setBubbleSceneReset={setBubbleSceneReset}
+                setBubbleScene={setBubbleScene}
+                setBubbles={setBubbles}
+                bubbleSceneReset={bubbleSceneReset}
+                bubbleScene={bubbleScene}
+                bubbles={bubbles}
+                bubble={bubble}
+              />
+            ))}
+          </main>
         </div>
-        {travelMode === 'Browser' && <BrowserMovement />}
-        {travelMode === 'Edge Scrolling' && <EdgeScrollMovement />}
-        {travelMode === 'Control Stick' && <ControlStickMovement />}
-        {travelMode === 'Panorama' && <PanoramaMovement />}
-        <Settings
-          setTravelMode={setTravelMode}
-          travelMode={travelMode}
-          setGraphicsSpaceColorTheme={setGraphicsSpaceColorTheme}
-          graphicsSpaceColorTheme={graphicsSpaceColorTheme}
-          setGraphicsFlatColorTheme={setGraphicsFlatColorTheme}
-          graphicsFlatColorTheme={graphicsFlatColorTheme}
-          setGraphicsParticlesColorTheme={setGraphicsParticlesColorTheme}
-          graphicsParticlesColorTheme={graphicsParticlesColorTheme}
-          setAccessibility={setAccessibility}
-        />
-        <main id='MainContent'>
-          {bubbles.map((bubble: IBubble) => (
-            <Bubble
-              key={bubble.id}
-              setBubbleSceneReset={setBubbleSceneReset}
-              setBubbleScene={setBubbleScene}
-              setBubbles={setBubbles}
-              bubbleSceneReset={bubbleSceneReset}
-              bubbleScene={bubbleScene}
-              bubbles={bubbles}
-              bubble={bubble}
-            />
-          ))}
-        </main>
-        <HomeButton bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} setBubbleSceneReset={setBubbleSceneReset} />
+        <div id='OverlayDisplay'>
+          <HomeButton bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} setBubbleSceneReset={setBubbleSceneReset} />
+          <Settings
+            setTravelMode={setTravelMode}
+            travelMode={travelMode}
+            setGraphicsSpaceColorTheme={setGraphicsSpaceColorTheme}
+            graphicsSpaceColorTheme={graphicsSpaceColorTheme}
+            setGraphicsFlatColorTheme={setGraphicsFlatColorTheme}
+            graphicsFlatColorTheme={graphicsFlatColorTheme}
+            setGraphicsParticlesColorTheme={setGraphicsParticlesColorTheme}
+            graphicsParticlesColorTheme={graphicsParticlesColorTheme}
+            setAccessibility={setAccessibility}
+          />
+        </div>
       </>
     );
   };

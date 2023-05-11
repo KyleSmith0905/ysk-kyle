@@ -29,7 +29,7 @@ const Settings: FunctionComponent<{
 	const graphicsFlatColorThemes = GRAPHICS_FLAT_COLOR_MODES.map((e) => e.name) as GraphicsFlatColorModes[];
 	const graphicsSpaceColorThemes = GRAPHICS_SPACE_COLOR_MODES.map((e) => e.name) as GraphicsSpaceColorModes[];
 	const graphicsParticlesColorThemes = GRAPHICS_PARTICLES_COLOR_MODES.map((e) => e.name) as GraphicsParticlesColorModes[];
-	const travelModes = ['Browser', 'Edge Scrolling', 'Control Stick', 'Panorama'];
+	const travelModes = ['Browser', 'Edge Scrolling', 'Control Stick', 'Panorama', 'Prototype'];
 	const graphicsLevels: GraphicsLevels[] = ['Auto', 'Flat', 'Space', 'Particles'];
 	
 	const handleColorThemeChange = () => {

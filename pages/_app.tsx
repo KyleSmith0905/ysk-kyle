@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import '../styles/utils.css';
 import '../styles/components.css';
 import '../styles/accessibilityPage.css';
+import '../styles/visualsPage.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ColorMode, GRAPHICS_SPACE_COLOR_MODES, GRAPHICS_FLAT_COLOR_MODES } from '../lib/colorMode';

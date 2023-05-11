@@ -9,6 +9,7 @@ import { welcomeMessage } from '../lib/consoleMessages';
 import AccessibilityPage from '../components/AccessibilityPage';
 import { Button } from '../components/Button';
 import VisualsPage from '../components/VisualsPage';
+import structuredClone from '@ungap/structured-clone';
 
 interface BubblePageProps {
 	slug: string;

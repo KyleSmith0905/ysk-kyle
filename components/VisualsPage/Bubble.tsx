@@ -123,6 +123,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 
 	const buttonCursorClass = ['buttonCursorContainer'];
   if (!hover) buttonCursorClass.push('transparent');
+	
 
 	if (bubble.summary === undefined) return (
 		<BubbleTag 

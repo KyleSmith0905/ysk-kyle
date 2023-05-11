@@ -61,6 +61,10 @@ button {
   }
 }
 
+.prevent-drag * {
+  -webkit-user-drag: none;
+}
+
 #HomeButton {
   position: fixed;
   right: 0.9em;
@@ -201,15 +205,15 @@ a.Bubble:focus-visible::after, a.Bubble:hover::after, div.Bubble:focus-visible::
 }
 
 .BubbleSmall {
-  font-size: 1em;
+  font-size: 0.9em;
 }
 
 .BubbleMedium { 
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 .BubbleLarge {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 
