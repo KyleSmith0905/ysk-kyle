@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  backdrop-filter: blur(1px);
 }
 
 .alertContainer::before {
@@ -18,12 +19,16 @@
   opacity: 0.6;
 }
 
+.dimensionalBox {
+  color: var(--color-text);
+  border-radius: 1rem;
+  box-shadow: 1rem 1rem 3rem 1rem var(--color-primary), -1rem -1rem 6rem -3rem var(--color-text);
+  background: linear-gradient(315deg, var(--color-text) -1500%, var(--color-primary) 100%);
+}
+
 .alertContainer > .alertBox {
   position: absolute;
   padding: 1rem 2rem;
-  border-radius: 1rem;
-  box-shadow: 1rem 1rem 3rem 1rem var(--color-primary), -1rem -1rem 6rem -3rem var(--color-text);
-  background: linear-gradient(315deg, var(--color-text) -900%, var(--color-primary) 100%);
   color: var(--color-text);
   z-index: 100;
   margin: 1rem;

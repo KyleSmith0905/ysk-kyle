@@ -40,6 +40,7 @@ const Connections: FunctionComponent<{
 			return `${(position[0]).toFixed(2)},${(position[1]).toFixed(2)} `;
 		};
 
+		// A renderer that runs every frame to update the lines to connect the bubbles
 		const renderBackground = () => {
 			for (let i = 0; i < bubbles.length; i++) {
 				const bubble = bubbles[i];
@@ -83,7 +84,7 @@ const Connections: FunctionComponent<{
 							values="0.5;0.2"
 							dur="10s"
 							calcMode="spline"
-							keySplines='0.5 0 1 0.5'
+							keySplines='0.5 0 0.8 1'
 							repeatCount="indefinite"
 						/>
 					</stop>
@@ -93,7 +94,7 @@ const Connections: FunctionComponent<{
 							values="1;0.1"
 							dur="10s"
 							calcMode="spline"
-							keySplines='0.5 0 1 0.5'
+							keySplines='0.5 0 0.8 1'
 							repeatCount="indefinite"
 						/>
 						<animate
@@ -115,8 +116,7 @@ const Connections: FunctionComponent<{
 							repeatCount="indefinite"
 						/>
 					</stop>
-					<stop stopColor="var(--color-text)" offset={1} stopOpacity={0.1}>
-					</stop>
+					<stop stopColor="var(--color-text)" offset={1} stopOpacity={0.1}/>
 				</linearGradient>
 			</defs>
 		</svg>

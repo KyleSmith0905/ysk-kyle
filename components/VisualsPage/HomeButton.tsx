@@ -15,16 +15,14 @@ const HomeButton: FunctionComponent<{
 		setBubbleSceneReset('index');
 	};
 
-	if (bubbleScene === 'index') return null;
-
 	return (
 		<nav id='HomeButton'>
 			<button
-				id='DisplaySettings'
-				aria-label='DisplaySettings'
+				aria-label='Home Button'
+				className={bubbleScene === 'index' ? 'dimensionalBox Hidden' : 'dimensionalBox'}
 				onClick={updateScene}
 			>
-				<svg width='50' height='50'>
+				<svg viewBox='0 0 50 50' width='35' height='35'>
 					<path
 						d='M10,46 L40,46
 						M10,46 L10,18

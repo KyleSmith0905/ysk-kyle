@@ -15,7 +15,7 @@ const GraphicsContext = createContext<{
  */
 const AllProviders: FunctionComponent<{cookies: Cookies, children: ReactNode}> = ({children, cookies}) => {
 	const [graphics, setGraphics] = useState<GraphicsLevels>(cookies?.graphics ?? 'Auto');
-	const [autoGraphics, setAutoGraphics] = useState<GraphicsLevels | 'Assume-Space'>('Space');
+	const [autoGraphics, setAutoGraphics] = useState<GraphicsLevels | 'Assume-Space'>('Flat');
 
 	return (
 		<GraphicsContext.Provider value={{graphics, autoGraphics, setGraphics, setAutoGraphics}}>
@@ -30,7 +30,7 @@ const AllProviders: FunctionComponent<{cookies: Cookies, children: ReactNode}> =
 const useGraphics = () => {
 	const {graphics, setGraphics, autoGraphics, setAutoGraphics} = useContext(GraphicsContext);
 
-	const [effectiveGraphics, setEffectiveGraphics] = useState<Omit<GraphicsLevels, 'Auto'>>('Space');
+	const [effectiveGraphics, setEffectiveGraphics] = useState<Omit<GraphicsLevels, 'Auto'>>('Flat');
 
   // Compares the user's graphics settings to a parameter.
   useEffect(() => {

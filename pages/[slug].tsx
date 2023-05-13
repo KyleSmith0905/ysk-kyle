@@ -91,7 +91,7 @@ const BubblePage:
 			</Head>
 			{accessibility === 'Undetermined' && (
 				<div className='alertContainer'>
-					<div className='alertBox'>
+					<div className='alertBox dimensionalBox'>
 						<h1 style={{ marginTop: '0rem' }}>Hello Visitor!</h1>
 						<p>This page is highly animated and could be distracting.</p>
 						<p>Select whether you prefer an accessible or visual experience.</p>

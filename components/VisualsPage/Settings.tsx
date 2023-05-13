@@ -41,7 +41,7 @@ const Settings: FunctionComponent<{
 	// Compares the user's graphics settings to a parameter.
 	const isGraphics = useCallback((compareGraphics: GraphicsLevels) => {
 		let activeGraphics = graphics === 'Auto' ? autoGraphics : graphics;
-		if (activeGraphics === 'Assume-Space') activeGraphics = 'Space';
+		if (activeGraphics === 'Assume-Space') activeGraphics = 'Flat';
 		return activeGraphics === compareGraphics;
 	}, [graphics, autoGraphics]);
 
@@ -49,10 +49,11 @@ const Settings: FunctionComponent<{
 		<aside id='Settings'>
 			<button
 				onClick={toggleSettings}
+				className='dimensionalBox'
 				id='DisplaySettings'
-				aria-label = 'DisplaySettings'
+				aria-label = 'Display Settings'
 			>
-				<svg width='50' height='50'>
+				<svg viewBox='0 0 50 50' width='35' height='35'>
 					<path
 						d='M4,4 L46,4
 						M4,25 L46,25
@@ -64,7 +65,7 @@ const Settings: FunctionComponent<{
 					/>
 				</svg>
 			</button>
-			<div id='SettingsList' className={settingsOpen ? '': 'Hidden'}>
+			<div id='SettingsList' className={settingsOpen ? 'dimensionalBox': 'Hidden dimensionalBox'}>
 				<button onClick={() => {setAccessibility('Accessibility');}}>
 					Accessibility: Visuals
 				</button>

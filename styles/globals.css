@@ -61,6 +61,24 @@ button {
   }
 }
 
+@keyframes enterStageRight {
+  0% {
+    transform: translateX(calc(1em + 100%));
+  }
+  100% {
+    transform: translateX(0em);
+  }
+}
+
+@keyframes leaveStageRight {
+  0% {
+    transform: translateX(0em);
+  }
+  100% {
+    transform: translateX(calc(1em + 100%));
+  }
+}
+
 .prevent-drag * {
   -webkit-user-drag: none;
 }
@@ -80,11 +98,9 @@ button {
 
 #HomeButton > button,
 #Settings > button {
-  background-color: var(--color-primary);
   overflow: hidden;
-  padding: 1em;
+  padding: 0.8rem;
   border: none;
-  border-radius: 1em;
   aspect-ratio: 1;
   cursor: pointer;
 }
@@ -94,10 +110,8 @@ button {
   flex-direction: column;
   transition: visibility ease-in-out 0.5s;
   animation: 500ms ease-in-out 0s 1 enterStageLeft;
-  background-color: var(--color-primary);
   padding: 0.6em 1em 0.6em 1em;
   margin-top: 0.9em;
-  border-radius: 1em
 }
 
 #SettingsList[class*="Hidden"] {
@@ -105,11 +119,24 @@ button {
   animation: 500ms ease-in-out 0s 1 forwards leaveStageLeft;
 }
 
+#HomeButton > * {
+  transition: visibility ease-in-out 0.5s;
+  animation: 500ms ease-in-out 0s 1 enterStageRight;
+}
+
+#HomeButton > .Hidden {
+  visibility: hidden;
+  display: block;
+  animation-name: leaveStageRight;
+  animation-duration: 500ms;
+  animation-timing-function: ease-in-out;
+}
+
 #SettingsList > * {
   padding: 0px;
   margin: 0.4em 0em 0.4em 0em;
   text-align: left;
-  font-size: 1.2em;
+  font-size: 1rem;
   line-height: 1em;
 }
 
