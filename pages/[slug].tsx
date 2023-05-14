@@ -89,8 +89,7 @@ const BubblePage:
 					}
 				/>
 			</Head>
-			{accessibility === 'Undetermined' && (
-				<div className='alertContainer'>
+			<div className={accessibility === 'Undetermined' ? 'alertContainer' : 'alertContainer Hidden'}>
 					<div className='alertBox dimensionalBox'>
 						<h1 style={{ marginTop: '0rem' }}>Hello Visitor!</h1>
 						<p>This page is highly animated and could be distracting.</p>
@@ -105,7 +104,6 @@ const BubblePage:
 						</div>
 					</div>
 				</div>
-			)}
 			{accessibility === 'Accessibility' && (
         <AccessibilityPage
           cookies={cookies}

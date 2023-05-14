@@ -9,6 +9,14 @@
   justify-content: center;
   z-index: 1000;
   backdrop-filter: blur(1px);
+  filter: blur(0px);
+  transition: opacity ease 250ms, filter ease 250ms, visibility ease 250ms;
+}
+
+.alertContainer.Hidden {
+  opacity: 0;
+  visibility: hidden;
+  filter: blur(10px);
 }
 
 .alertContainer::before {
