@@ -19,7 +19,7 @@ export const EdgeScrolling = (mousePosition: {x: number, y: number}) => {
 		const angle = Math.atan2(percentagePosition.y - 0.5, percentagePosition.x - 0.5);
 		const scalar = (Math.min(distance, 0.47) - 0.35) * 50;
 
-		window.scrollBy(Math.cos(angle) * scalar, Math.sin(angle) * scalar);
+		scrollBy({left: Math.cos(angle) * scalar, top: Math.sin(angle) * scalar});
 	}
 };
 

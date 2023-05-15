@@ -42,7 +42,7 @@ const ControlStickMovement: FunctionComponent = () => {
 
 			const movePosition = controlStickPhysics(relativeMousePosition);
 
-			scrollBy(movePosition[0] * 0.25, movePosition[1] * 0.25);
+			scrollBy({left: movePosition[0] * 0.25, top: movePosition[1] * 0.25});
 			handle.style.transform = 'translate(' +
 				Math.round(movePosition[0]) + 'px,' +
 				Math.round(movePosition[1]) + 'px)';
