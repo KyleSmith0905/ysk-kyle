@@ -161,10 +161,13 @@ const BrowserMovement: FunctionComponent = () => {
     }
 
     return () => {
+      const mainContent = document.querySelector<HTMLDivElement>('#BackgroundDisplay');
       document.removeEventListener('wheel', zoomStartEvent);
       document.removeEventListener('keydown', keyStartEvent);
       document.removeEventListener('mousedown', interactStartEvent);
       document.removeEventListener('touchstart', interactStartEvent);
+      
+      mainContent?.style.removeProperty('transform');
       document.documentElement.style.removeProperty('cursor');
       document.documentElement.style.removeProperty('user-select');
       document.documentElement.style.removeProperty('overflow');
