@@ -168,6 +168,8 @@ const BrowserMovement: FunctionComponent = () => {
       document.documentElement.style.removeProperty('cursor');
       document.documentElement.style.removeProperty('user-select');
       document.documentElement.style.removeProperty('overflow');
+      document.documentElement.style.removeProperty('width');
+      document.documentElement.style.removeProperty('height');
       document.body.style.removeProperty('overflow');
       document.body.style.removeProperty('width');
       document.body.style.removeProperty('height');
