@@ -24,7 +24,6 @@ const Connections: FunctionComponent<{
 			let parentBubble: IBubble | undefined = bubble;
 			while (parentBubble.connection !== '.') {
 				parentBubble = bubbles.find(e => e.id === parentBubble?.connection);
-				console.log(parentBubble);
 				if (!parentBubble) {
 					break;
 				}
