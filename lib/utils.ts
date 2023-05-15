@@ -107,15 +107,12 @@ const UserAgentIsBot = (userAgent: string): boolean => {
 
 const IsUserMobileSafari = (userAgent?: string) => {
 	if (typeof window === 'undefined') { 
-		console.log('1');
 		return false;
 	}
 	if (!userAgent) {
-		console.log('2');
 		userAgent = navigator.userAgent;
 	}
 	
-	console.log(`3 ${(userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) !== null}`);
 	return (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) !== null;
 };
 
