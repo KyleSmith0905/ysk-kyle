@@ -19,6 +19,17 @@ const Connections: FunctionComponent<{
 		const bubblesPathMap: Record<string, {element: SVGPathElement, gradient: SVGLinearGradientElement}> = {};
 		for (const bubble of bubbles) {
 			if (!bubble.connection) return;
+			// Find the amount of parents in this linked list.
+			let numberOfParents = 0;
+			let parentBubble: IBubble | undefined = bubble;
+			while (parentBubble.connection !== '.') {
+				parentBubble = bubbles.find(e => e.id === parentBubble?.connection);
+				console.log(parentBubble);
+				if (!parentBubble) {
+					break;
+				}
+				numberOfParents++;
+			}
 
 			// Create a path element to later manipulate
 			const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -31,6 +42,7 @@ const Connections: FunctionComponent<{
 			// Create a path element to later manipulate
 			const gradient = GradientDefaultRef.current?.cloneNode(true) as SVGLinearGradientElement;
 			gradient.setAttribute('id', `${bubble.id}_ConnectionsGradient`);
+			gradient.querySelectorAll('animate').forEach(e => e.setAttribute('begin', `${numberOfParents * 3.33}s`));
 			SvgDefinitionsRef.current?.appendChild(gradient);
 
 			bubblesPathMap[bubble.id] = {element: path, gradient: gradient};
