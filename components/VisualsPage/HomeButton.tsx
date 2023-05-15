@@ -20,6 +20,7 @@ const HomeButton: FunctionComponent<{
 			<button
 				aria-label='Home Button'
 				className={bubbleScene === 'index' ? 'dimensionalBox Hidden' : 'dimensionalBox'}
+				data-e2e='home-button'
 				onClick={updateScene}
 			>
 				<svg viewBox='0 0 50 50' width='35' height='35'>

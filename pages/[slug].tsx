@@ -95,10 +95,10 @@ const BubblePage:
 					<p>This page is highly animated and could be distracting.</p>
 					<p>Select whether you prefer an accessible or visual experience.</p>
 					<div style={{ marginTop: '2rem' }} className='buttonRow'>
-						<Button onClick={() => setAccessibility('Accessibility')}>
+						<Button e2e='intro-accessibility-mode' onClick={() => setAccessibility('Accessibility')}>
 							Accessibility
 						</Button>
-						<Button onClick={() => setAccessibility('Visuals')}>
+						<Button e2e='intro-visual-mode' onClick={() => setAccessibility('Visuals')}>
 							Visuals
 						</Button>
 					</div>

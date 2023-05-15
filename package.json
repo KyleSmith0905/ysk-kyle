@@ -32,6 +32,7 @@
     "start": "next build && next start",
     "lint": "next lint",
     "test": "cypress run",
+    "test:open": "cypress open",
     "build:vercel": "pnpm run build",
     "install:vercel": "pnpm install"
   },

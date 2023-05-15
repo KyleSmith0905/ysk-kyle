@@ -9,12 +9,13 @@ interface ButtonProps {
   href?: string;
   className?: string;
   tabIndex?: number;
+  e2e?: string;
 }
 
 /**
  * A standard button component with directional hover effects.
  */
-const Button: FunctionComponent<ButtonProps> = ({children, onClick, size, polymorphic = 'button', target, href, className, tabIndex}) => {
+const Button: FunctionComponent<ButtonProps> = ({children, onClick, size, polymorphic = 'button', target, href, className, tabIndex, e2e}) => {
 
   const [position, setPosition] = useState<[number, number]>([0, 0]);
   const [hover, setHover] = useState<boolean>(false);
@@ -61,6 +62,7 @@ const Button: FunctionComponent<ButtonProps> = ({children, onClick, size, polymo
       target={target}
       href={href}
       tabIndex={tabIndex}
+      data-e2e={e2e}
     >
       {children}
       <div className='buttonBackground'/>

@@ -52,6 +52,7 @@ const Settings: FunctionComponent<{
 				className='dimensionalBox'
 				id='DisplaySettings'
 				aria-label = 'Display Settings'
+				data-e2e='display-settings'
 			>
 				<svg viewBox='0 0 50 50' width='35' height='35'>
 					<path
@@ -65,11 +66,15 @@ const Settings: FunctionComponent<{
 					/>
 				</svg>
 			</button>
-			<div id='SettingsList' className={settingsOpen ? 'dimensionalBox': 'Hidden dimensionalBox'}>
+			<div
+				id='SettingsList'
+				className={settingsOpen ? 'dimensionalBox': 'Hidden dimensionalBox'}
+				data-e2e='settings-list'
+			>
 				<button onClick={() => {setAccessibility('Accessibility');}}>
 					Accessibility: Visuals
 				</button>
-				<button onClick={() => {
+				<button data-e2e="travel-mode" onClick={() => {
 					const newTravelMode = travelModes[(travelModes.indexOf(travelMode) + 1) % travelModes.length];
 					setTravelMode(newTravelMode);
 					setCookie('travelMode', newTravelMode);

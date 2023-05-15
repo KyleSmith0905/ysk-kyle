@@ -129,7 +129,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
 		<BubbleTag 
 			id={`Bubble_${bubble.id}`}
 			ref={bubbleElementRef}
-			className={`Bubble ${sizeClass} ${hidden ? ' Hidden' : ''}`}
+			className={`Bubble ImageBubble ${sizeClass} ${hidden ? ' Hidden' : ''}`}
 			href={bubble.link}
 			rel={isExternalSite ? 'nofollow noopener' : ''}
 			target={isExternalSite ? '_blank' : '_self'}
@@ -139,6 +139,7 @@ const Bubble: FunctionComponent<BubbleProps> = ({bubble, bubbles, bubbleScene, b
       onMouseLeave={onLeave}
 			style={{
 				position: 'absolute',
+				padding: '0rem',
 				width: (bubble.radius / 8) + 'rem',
 				height: (bubble.radius / 8) + 'rem',
 			}}
