@@ -1,22 +1,35 @@
-import { clamp, pythagorean } from '@lib/utils';
+import { clamp, pythagorean, IsUserMobileSafari } from '@lib/utils';
+import { useState } from 'react';
 import { FunctionComponent, useEffect } from 'react';
 
 const BrowserMovement: FunctionComponent = () => {
+
+  const [isMobileSafari, setIsMobileSafari] = useState(false);
+
   useEffect(() => {
+    const isMobileSafari = IsUserMobileSafari();
+    setIsMobileSafari(isMobileSafari);
+
 		document.documentElement.style.setProperty('cursor', 'grab');
 		document.documentElement.style.setProperty('user-select', 'none');
-		document.documentElement.style.setProperty('overflow', 'hidden');
-		document.body.style.setProperty('overflow', 'hidden');
-		document.body.style.setProperty('width', '100%');
-		document.body.style.setProperty('height', '100%');
-		document.documentElement.classList.add('prevent-drag');
+    if (!isMobileSafari) {
+      document.documentElement.style.setProperty('overflow', 'hidden');
+      document.body.style.setProperty('overflow', 'hidden');
+      document.body.style.setProperty('width', '100%');
+      document.body.style.setProperty('height', '100%');
+      document.documentElement.classList.add('prevent-drag');
+    }
+    else {
+      document.documentElement.style.setProperty('overflow', 'auto');
+    }
 
     const getMousePosition = (e: MouseEvent | TouchEvent) => {
       if (e instanceof MouseEvent) {
         return { x: e.clientX, y: e.clientY };
       }
       else {
-        return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        const touchPosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        return touchPosition;
       }
     };
 
@@ -33,6 +46,7 @@ const BrowserMovement: FunctionComponent = () => {
 
       const interactMoveEvent = (e: MouseEvent | TouchEvent) => {
         const position = getMousePosition(e);
+        
         const deltaPosition = {
           x: startPosition.x - position.x,
           y: startPosition.y - position.y,
@@ -41,11 +55,11 @@ const BrowserMovement: FunctionComponent = () => {
         if (change > maxChange) {
           maxChange = change;
         }
-
-        scrollTo(
-          startScrollX + deltaPosition.x,
-          startScrollY + deltaPosition.y,
-        );
+        const newScrollLocation = {
+          x: startScrollX + deltaPosition.x,
+          y: startScrollY + deltaPosition.y,
+        };
+        scrollTo({left: newScrollLocation.x, top: newScrollLocation.y});
 
         // User is dragging mouse around, prevent any clicks
         if (maxChange > 75) {
@@ -133,26 +147,37 @@ const BrowserMovement: FunctionComponent = () => {
         y: ((rootDocumentSize * scale / 2) - center.y) * (1 - ratioChange),
       };
 
-      console.log(`${(rootDocumentSize * scale) * (1 - ratioChange)}\n${rootDocumentSize * scale}\n${1 - ratioChange}`);
-
       scrollTo({
         left: scrollX + scaleCorrection.x + centerCorrection.x,
         top: scrollY + scaleCorrection.y + centerCorrection.y,
       });
     };
 
-		document.addEventListener('wheel', zoomStartEvent);
-		document.addEventListener('keydown', keyStartEvent);
-		document.addEventListener('mousedown', interactStartEvent);
-		document.addEventListener('touchstart', interactStartEvent);
+    if (!isMobileSafari) {
+      document.addEventListener('wheel', zoomStartEvent);
+      document.addEventListener('keydown', keyStartEvent);
+      document.addEventListener('mousedown', interactStartEvent);
+      document.addEventListener('touchstart', interactStartEvent);
+    }
 
     return () => {
+      document.removeEventListener('wheel', zoomStartEvent);
+      document.removeEventListener('keydown', keyStartEvent);
+      document.removeEventListener('mousedown', interactStartEvent);
+      document.removeEventListener('touchstart', interactStartEvent);
       document.documentElement.style.removeProperty('cursor');
       document.documentElement.style.removeProperty('user-select');
+      document.documentElement.style.removeProperty('overflow');
+      document.body.style.removeProperty('overflow');
+      document.body.style.removeProperty('width');
+      document.body.style.removeProperty('height');
       document.documentElement.classList.remove('prevent-drag');
     };
   }, []);
 
+  if (isMobileSafari) {
+    return <div/>;
+  }
 	return (
 		<></>
 	);

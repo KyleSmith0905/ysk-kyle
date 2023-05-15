@@ -90,20 +90,20 @@ const BubblePage:
 				/>
 			</Head>
 			<div className={accessibility === 'Undetermined' ? 'alertContainer' : 'alertContainer Hidden'}>
-					<div className='alertBox dimensionalBox'>
-						<h1 style={{ marginTop: '0rem' }}>Hello Visitor!</h1>
-						<p>This page is highly animated and could be distracting.</p>
-						<p>Select whether you prefer an accessible or visual experience.</p>
-						<div style={{ marginTop: '2rem' }} className='buttonRow'>
-							<Button onClick={() => setAccessibility('Accessibility')}>
-								Accessibility
-							</Button>
-							<Button onClick={() => setAccessibility('Visuals')}>
-								Visuals
-							</Button>
-						</div>
+				<div className='alertBox dimensionalBox'>
+					<h1 style={{ marginTop: '0rem' }}>Hello Visitor!</h1>
+					<p>This page is highly animated and could be distracting.</p>
+					<p>Select whether you prefer an accessible or visual experience.</p>
+					<div style={{ marginTop: '2rem' }} className='buttonRow'>
+						<Button onClick={() => setAccessibility('Accessibility')}>
+							Accessibility
+						</Button>
+						<Button onClick={() => setAccessibility('Visuals')}>
+							Visuals
+						</Button>
 					</div>
 				</div>
+			</div>
 			{accessibility === 'Accessibility' && (
         <AccessibilityPage
           cookies={cookies}

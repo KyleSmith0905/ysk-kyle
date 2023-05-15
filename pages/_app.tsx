@@ -13,13 +13,13 @@ import { AllProviders } from '../lib/hooks';
 const determineColorMode = (cookies: Cookies) => {
   // If there are no cookies at all, the page loaded is guaranteed to be default settings.
   if (!cookies) {
-    return GRAPHICS_SPACE_COLOR_MODES.find(e => e.name === 'Dark');
+    return GRAPHICS_SPACE_COLOR_MODES.find(e => e.name === 'Light');
   }
   // Accessibility mode only has light option available.
   else if (cookies.accessibility === 'Accessibility') {
     return GRAPHICS_FLAT_COLOR_MODES.find(e => e.name === 'Light');
   }
-  else if (!cookies.graphics || cookies.graphics === 'Space') {
+  else if (cookies.graphics === 'Space') {
     return GRAPHICS_SPACE_COLOR_MODES.find(e => e.name === (cookies.graphicsSpaceColorTheme ?? 'Dark'));
   }
   else {
@@ -51,7 +51,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <title>YSK Kyle - A portfolio website for Kyle Smith</title>
         <meta name='description' content='YSK Kyle is a portfolio website for Kyle Smith to showcase his web design and programming experience.' />
         <meta name='keywords' content='portfolio, programming, resume, web design, experience, frontend programmer' />
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <meta name="viewport" content="initial-scale=1, maximum-scale=2.5, minimum-scale=0.5, width=device-width, height=device-height" />
         <meta name='theme-color' content={currentColorMode.current?.primary} />
         <link rel='icon' type='image/ico' href='/icons/favicon.ico' />
         <link rel='apple-touch-icon' href='/icons/logo192.png' />

@@ -105,6 +105,20 @@ const UserAgentIsBot = (userAgent: string): boolean => {
 	else return false;
 };
 
+const IsUserMobileSafari = (userAgent?: string) => {
+	if (typeof window === 'undefined') { 
+		console.log('1');
+		return false;
+	}
+	if (!userAgent) {
+		console.log('2');
+		userAgent = navigator.userAgent;
+	}
+	
+	console.log(`3 ${(userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) !== null}`);
+	return (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) !== null;
+};
+
 /**
  * Detects if the user is a self-identified robot, crawler, or anything else
  * @returns Whether the user is a userbot
@@ -117,7 +131,7 @@ const IsUserBot = (userAgent?: string): boolean => {
 		return false;
 	}
 	else {
-		return UserAgentIsBot(window.navigator.userAgent);
+		return UserAgentIsBot(navigator.userAgent);
 	}
 };
 
@@ -156,6 +170,7 @@ export {
 	CoordinateCollisions,
 	IsCollideWithBubbles,
 	IsUserBot,
+	IsUserMobileSafari,
 	SetBubbleTransform,
 	objectToQueryString,
 	conditionallySetInert,

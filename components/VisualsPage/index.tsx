@@ -28,7 +28,7 @@ const VisualsPage: FunctionComponent<{
 }) => {
     const [bubbleScene, setBubbleScene] = useState<string>(slug);
     const [bubbleSceneReset, setBubbleSceneReset] = useState<string>(slug);
-    const [travelMode, setTravelMode] = useState(cookies?.travelMode ?? 'Browser');
+    const [travelMode, setTravelMode] = useState(cookies?.travelMode ?? 'Prototype');
     const [graphicsSpaceColorTheme, setGraphicsSpaceColorTheme] = useState<GraphicsSpaceColorModes>(cookies?.graphicsSpaceColorTheme ?? 'Dark');
     const [graphicsFlatColorTheme, setGraphicsFlatColorTheme] = useState<GraphicsFlatColorModes>(cookies?.graphicsFlatColorTheme ?? 'Light');
     const [graphicsParticlesColorTheme, setGraphicsParticlesColorTheme] = useState<GraphicsParticlesColorModes>(cookies?.graphicsParticlesColorTheme ?? 'Iconic');
@@ -104,11 +104,6 @@ const VisualsPage: FunctionComponent<{
           <div id='Underlay'>
             <Connections bubbles={bubbles} />
           </div>
-          {travelMode === 'Browser' && <BrowserMovement />}
-          {travelMode === 'Edge Scrolling' && <EdgeScrollMovement />}
-          {travelMode === 'Control Stick' && <ControlStickMovement />}
-          {travelMode === 'Panorama' && <PanoramaMovement />}
-          {travelMode === 'Prototype' && <PrototypeMovement />}
           <main id='MainContent'>
             {bubbles.map((bubble: IBubble) => (
               <Bubble
@@ -137,6 +132,11 @@ const VisualsPage: FunctionComponent<{
             graphicsParticlesColorTheme={graphicsParticlesColorTheme}
             setAccessibility={setAccessibility}
           />
+          {travelMode === 'Browser' && <BrowserMovement />}
+          {travelMode === 'Edge Scrolling' && <EdgeScrollMovement />}
+          {travelMode === 'Control Stick' && <ControlStickMovement />}
+          {travelMode === 'Panorama' && <PanoramaMovement />}
+          {travelMode === 'Prototype' && <PrototypeMovement />}
         </div>
       </>
     );
