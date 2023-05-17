@@ -26,120 +26,133 @@ const VisualsPage: FunctionComponent<{
 }> = ({
   slug, bubbles, setBubbles, setAccessibility, cookies,
 }) => {
-    const [bubbleScene, setBubbleScene] = useState<string>(slug);
-    const [bubbleSceneReset, setBubbleSceneReset] = useState<string>(slug);
-    const [travelMode, setTravelMode] = useState(cookies?.travelMode ?? 'Prototype');
-    const [graphicsSpaceColorTheme, setGraphicsSpaceColorTheme] = useState<GraphicsSpaceColorModes>(cookies?.graphicsSpaceColorTheme ?? 'Dark');
-    const [graphicsFlatColorTheme, setGraphicsFlatColorTheme] = useState<GraphicsFlatColorModes>(cookies?.graphicsFlatColorTheme ?? 'Light');
-    const [graphicsParticlesColorTheme, setGraphicsParticlesColorTheme] = useState<GraphicsParticlesColorModes>(cookies?.graphicsParticlesColorTheme ?? 'Iconic');
+  const [bubbleScene, setBubbleScene] = useState<string>(slug);
+  const [bubbleSceneReset, setBubbleSceneReset] = useState<string>(slug);
+  const [travelMode, setTravelMode] = useState(cookies?.travelMode ?? 'Prototype');
+  const [graphicsSpaceColorTheme, setGraphicsSpaceColorTheme] = useState<GraphicsSpaceColorModes>(cookies?.graphicsSpaceColorTheme ?? 'Dark');
+  const [graphicsFlatColorTheme, setGraphicsFlatColorTheme] = useState<GraphicsFlatColorModes>(cookies?.graphicsFlatColorTheme ?? 'Light');
+  const [graphicsParticlesColorTheme, setGraphicsParticlesColorTheme] = useState<GraphicsParticlesColorModes>(cookies?.graphicsParticlesColorTheme ?? 'Iconic');
 
-    const {effectiveGraphics} = useGraphics();
+  const {effectiveGraphics} = useGraphics();
 
-    // Modifies the page's color theme setting.
-    useEffect(() => {
-      const root = document.getElementById('ColorTheme');
-      if (!root) return;
+  // Modifies the page's color theme setting.
+  useEffect(() => {
+    const root = document.getElementById('ColorTheme');
+    if (!root) return;
 
-      let colorMode: ColorMode | undefined;
-  
-      if (effectiveGraphics === 'Space') {
-        colorMode = GRAPHICS_SPACE_COLOR_MODES.find(e => e.name === (graphicsSpaceColorTheme ?? 'Dark'));
-      }
-      else if (effectiveGraphics === 'Particles') {
-        colorMode = GRAPHICS_SPACE_COLOR_MODES.find(e => e.name === (graphicsSpaceColorTheme ?? 'Dark'));
-      }
-      else {
-        colorMode = GRAPHICS_FLAT_COLOR_MODES.find(e => e.name === (graphicsFlatColorTheme ?? 'Light'));
-      }
+    let colorMode: ColorMode | undefined;
 
-      if (!colorMode) return;
-  
-      root.className = colorMode.name;
-  
-      root.style.setProperty('--color-primary', colorMode?.primary);
-      root.style.setProperty('--color-secondary', colorMode?.secondary);
-      root.style.setProperty('--color-text', colorMode?.text);
-    }, [effectiveGraphics, graphicsSpaceColorTheme, graphicsFlatColorTheme]);
+    if (effectiveGraphics === 'Space') {
+      colorMode = GRAPHICS_SPACE_COLOR_MODES.find(e => e.name === (graphicsSpaceColorTheme ?? 'Dark'));
+    }
+    else if (effectiveGraphics === 'Particles') {
+      colorMode = GRAPHICS_SPACE_COLOR_MODES.find(e => e.name === (graphicsSpaceColorTheme ?? 'Dark'));
+    }
+    else {
+      colorMode = GRAPHICS_FLAT_COLOR_MODES.find(e => e.name === (graphicsFlatColorTheme ?? 'Light'));
+    }
 
-    // When navigating site, wait a second after transition so animation can occur.
-    const bubbleResetTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-    useEffect(() => {
-      if (!bubbleSceneReset || bubbleSceneReset === bubbleScene || bubbleResetTimeout.current) return;
+    if (!colorMode) return;
 
-      const timeout = setTimeout(async () => {
-        const bubbleDataImport = await import('../../lib/bubbleData/' + bubbleSceneReset);
-        const bubbles = bubbleDataImport.default;
+    root.className = colorMode.name;
 
-        if (bubbleSceneReset === 'index') history.pushState({}, '', '/');
-        else history.pushState({}, '', `/${bubbleSceneReset}`);
+    root.style.setProperty('--color-primary', colorMode?.primary);
+    root.style.setProperty('--color-secondary', colorMode?.secondary);
+    root.style.setProperty('--color-text', colorMode?.text);
+  }, [effectiveGraphics, graphicsSpaceColorTheme, graphicsFlatColorTheme]);
 
-        setBubbleScene(bubbleSceneReset);
-        setBubbles(structuredClone(bubbles.slice().reverse()));
-        bubbleResetTimeout.current = null;
-      }, 1000);
+  // When navigating site, wait a second after transition so animation can occur.
+  const bubbleResetTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    if (!bubbleSceneReset || bubbleSceneReset === bubbleScene || bubbleResetTimeout.current) return;
 
-      bubbleResetTimeout.current = timeout;
-    }, [bubbleSceneReset, bubbleScene, setBubbles]);
+    const timeout = setTimeout(async () => {
+      const bubbleDataImport = await import('../../lib/bubbleData/' + bubbleSceneReset);
+      const bubbles = bubbleDataImport.default;
 
-    // Determines theme color
-    let color: string | undefined = 'hsl(0, 0%, 6%)';
-    if (effectiveGraphics === 'Flat') color = GRAPHICS_FLAT_COLOR_MODES.find(e => e.name === graphicsFlatColorTheme)?.primary;
-    else color = GRAPHICS_SPACE_COLOR_MODES.find(e => e.name === graphicsSpaceColorTheme)?.primary;
+      if (bubbleSceneReset === 'index') history.pushState({}, '', '/');
+      else history.pushState({}, '', `/${bubbleSceneReset}`);
 
-    return (
-      <>
-        <Head>
-          <meta name='theme-color' content={color} />
-        </Head>
-        <div id='BackgroundDisplay'>
-          {effectiveGraphics === 'Particles' && (
-            <ParticlesBackground colorTheme={graphicsParticlesColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
-          )}
-          {effectiveGraphics === 'Space' && (
-            <SpaceBackground colorTheme={graphicsSpaceColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
-          )}
-          {effectiveGraphics === 'Flat' && (
-            <FlatBackground />
-          )}
-          <div id='Underlay'>
-            <Connections bubbles={bubbles} />
-          </div>
-          <main id='MainContent'>
-            {bubbles.map((bubble: IBubble) => (
-              <Bubble
-                key={bubble.id}
-                setBubbleSceneReset={setBubbleSceneReset}
-                setBubbleScene={setBubbleScene}
-                setBubbles={setBubbles}
-                bubbleSceneReset={bubbleSceneReset}
-                bubbleScene={bubbleScene}
-                bubbles={bubbles}
-                bubble={bubble}
-              />
-            ))}
-          </main>
+      setBubbleScene(bubbleSceneReset);
+      setBubbles(structuredClone(bubbles.slice().reverse()));
+      bubbleResetTimeout.current = null;
+    }, 1000);
+
+    bubbleResetTimeout.current = timeout;
+  }, [bubbleSceneReset, bubbleScene, setBubbles]);
+
+  // Overrides the browser back button to allow for a smooth transition.
+  useEffect(() => {
+    const popState = () => {
+      setBubbleSceneReset(location.pathname === '/' ? 'index' : location.pathname.substring(1));
+      return;
+    };
+
+    addEventListener('popstate', popState);
+    return () => {
+      removeEventListener('popstate', popState);
+    };
+  }, []);
+
+  // Determines theme color
+  let color: string | undefined = 'hsl(0, 0%, 6%)';
+  if (effectiveGraphics === 'Flat') color = GRAPHICS_FLAT_COLOR_MODES.find(e => e.name === graphicsFlatColorTheme)?.primary;
+  else color = GRAPHICS_SPACE_COLOR_MODES.find(e => e.name === graphicsSpaceColorTheme)?.primary;
+
+  return (
+    <>
+      <Head>
+        <meta name='theme-color' content={color} />
+      </Head>
+      <div id='BackgroundDisplay'>
+        {effectiveGraphics === 'Particles' && (
+          <ParticlesBackground colorTheme={graphicsParticlesColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
+        )}
+        {effectiveGraphics === 'Space' && (
+          <SpaceBackground colorTheme={graphicsSpaceColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
+        )}
+        {effectiveGraphics === 'Flat' && (
+          <FlatBackground />
+        )}
+        <div id='Underlay'>
+          <Connections bubbles={bubbles} />
         </div>
-        <div id='OverlayDisplay'>
-          <HomeButton bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} setBubbleSceneReset={setBubbleSceneReset} />
-          <Settings
-            setTravelMode={setTravelMode}
-            travelMode={travelMode}
-            setGraphicsSpaceColorTheme={setGraphicsSpaceColorTheme}
-            graphicsSpaceColorTheme={graphicsSpaceColorTheme}
-            setGraphicsFlatColorTheme={setGraphicsFlatColorTheme}
-            graphicsFlatColorTheme={graphicsFlatColorTheme}
-            setGraphicsParticlesColorTheme={setGraphicsParticlesColorTheme}
-            graphicsParticlesColorTheme={graphicsParticlesColorTheme}
-            setAccessibility={setAccessibility}
-          />
-          {travelMode === 'Browser' && <BrowserMovement />}
-          {travelMode === 'Edge Scrolling' && <EdgeScrollMovement />}
-          {travelMode === 'Control Stick' && <ControlStickMovement />}
-          {travelMode === 'Panorama' && <PanoramaMovement />}
-          {travelMode === 'Prototype' && <PrototypeMovement />}
-        </div>
-      </>
-    );
-  };
+        <main id='MainContent'>
+          {bubbles.map((bubble: IBubble) => (
+            <Bubble
+              key={bubble.id}
+              setBubbleSceneReset={setBubbleSceneReset}
+              setBubbleScene={setBubbleScene}
+              setBubbles={setBubbles}
+              bubbleSceneReset={bubbleSceneReset}
+              bubbleScene={bubbleScene}
+              bubbles={bubbles}
+              bubble={bubble}
+            />
+          ))}
+        </main>
+      </div>
+      <div id='OverlayDisplay'>
+        <HomeButton bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} setBubbleSceneReset={setBubbleSceneReset} />
+        <Settings
+          setTravelMode={setTravelMode}
+          travelMode={travelMode}
+          setGraphicsSpaceColorTheme={setGraphicsSpaceColorTheme}
+          graphicsSpaceColorTheme={graphicsSpaceColorTheme}
+          setGraphicsFlatColorTheme={setGraphicsFlatColorTheme}
+          graphicsFlatColorTheme={graphicsFlatColorTheme}
+          setGraphicsParticlesColorTheme={setGraphicsParticlesColorTheme}
+          graphicsParticlesColorTheme={graphicsParticlesColorTheme}
+          setAccessibility={setAccessibility}
+        />
+        {travelMode === 'Browser' && <BrowserMovement />}
+        {travelMode === 'Edge Scrolling' && <EdgeScrollMovement />}
+        {travelMode === 'Control Stick' && <ControlStickMovement />}
+        {travelMode === 'Panorama' && <PanoramaMovement />}
+        {travelMode === 'Prototype' && <PrototypeMovement />}
+      </div>
+    </>
+  );
+};
 
 export default VisualsPage;
