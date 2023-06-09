@@ -100,6 +100,7 @@ const BrowserMovement: FunctionComponent = () => {
       document.addEventListener('keyup', keyEndEvent);
     };
 
+    let previousScale = 1;
     const zoomStartEvent = (e: WheelEvent) => {
       const rootFontSizeValue = window.getComputedStyle(document.body).getPropertyValue('font-size');
       const rootFontSize = parseInt(rootFontSizeValue);
@@ -126,10 +127,10 @@ const BrowserMovement: FunctionComponent = () => {
       mainContent?.style.setProperty('transform', `scale(${newScale}) translateX(${newTransform.x}px) translateY(${newTransform.y}px`);
 
       // Adjusts for scale and transform changes
-      const ratioChange = newScale / scale;
+      const ratioChange = newScale / previousScale;
       const distanceChanged = {
-        x: rootDocumentSize * scale * (1 - ratioChange),
-        y: rootDocumentSize * scale * (1 - ratioChange),
+        x: rootDocumentSize * previousScale * (1 - ratioChange),
+        y: rootDocumentSize * previousScale * (1 - ratioChange),
       };
       const scaleCorrection = {
         x: distanceChanged.x * -0.5,
@@ -151,6 +152,8 @@ const BrowserMovement: FunctionComponent = () => {
         left: scrollX + scaleCorrection.x + centerCorrection.x,
         top: scrollY + scaleCorrection.y + centerCorrection.y,
       });
+
+      previousScale = newScale;
     };
 
     if (!isMobileSafari) {
