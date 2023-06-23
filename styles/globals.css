@@ -140,17 +140,17 @@ button {
   line-height: 1em;
 }
 
-#Background > * {
+.FlatBackgroundPattern > * {
   position: absolute;
   width: var(--size);
   height: var(--size);
 }
 
-#Background > .fill {
+.FlatBackgroundPattern > .fill {
   background-color: var(--color-secondary);
 }
 
-#Background > .pattern {
+.FlatBackgroundPattern > .pattern {
   mask-image: radial-gradient(circle, transparent 15%, hsl(0deg, 0%, 100%, 60%));
 }
 

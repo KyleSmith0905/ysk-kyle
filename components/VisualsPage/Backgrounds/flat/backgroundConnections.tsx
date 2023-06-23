@@ -20,7 +20,7 @@ const BackgroundConnections: FunctionComponent = () => {
 			style={{position: 'absolute'}}
 		>
 			<path
-				d={PathCross() + PathCircle(333) + PathCircle(666) + PathCircle(999) + PathCircle(1332)}
+				d={PathCross() + PathCircle(333) + PathCircle(666) + PathCircle(999)}
 				stroke='var(--color-text)'
 				opacity={0.15}
 				strokeWidth={1}

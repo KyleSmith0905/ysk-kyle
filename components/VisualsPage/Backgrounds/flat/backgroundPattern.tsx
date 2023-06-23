@@ -1,17 +1,31 @@
 const BackgroundPattern = () => {
-  return (
-    <div id='Background'>
-      <div className='fill' />
-      <svg className='pattern' height="100%" width="100%">
-        <defs>
-          <pattern id="background-pattern" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="rotate(135)">
-            <circle cx="16" cy="16" r="0.7" fill="var(--color-text)" />
-          </pattern>
-        </defs>
-        <rect fill="url(#background-pattern)" height="200%" width="200%" />
-      </svg>
-    </div>
-  );
+	return (
+		<div className='FlatBackgroundPattern'>
+			<svg className='pattern' height='100%' width='100%'>
+				<defs>
+					<pattern
+						id='pattern-background'
+						width='16'
+						height='16'
+						patternUnits='userSpaceOnUse'
+						patternTransform='rotate(135)'
+					>
+						<circle cx='16' cy='16' r='1.2' fill='var(--color-text)' />
+					</pattern>
+					<clipPath id='pattern-circular-clip'>
+						<path d='M1000,1a999,999 0 1,0 0, 1998a999,999 0 1,0 0, -1998' />
+					</clipPath>
+				</defs>
+        <circle
+          cx={1000}
+          cy={1000}
+					r={999}
+					fill='url(#pattern-background)'
+					clipPath='url(#pattern-circular-clip)'
+				/>
+			</svg>
+		</div>
+	);
 };
 
 export default BackgroundPattern;
