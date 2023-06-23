@@ -88,7 +88,7 @@ const BackgroundNoise = () => {
           ></feColorMatrix>
         </filter>
 				<clipPath id='noise-circular-clip'>
-					<path d='M1000,1a999,999 0 1,0 0, 1998a999,999 0 1,0 0, -1998' />
+          <circle r={999} cx={1000} cy={1000}/>
 				</clipPath>
 			</defs>
 			<g filter="url(#gggrain-saturate)" opacity={0.05}>

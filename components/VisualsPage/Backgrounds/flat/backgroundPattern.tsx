@@ -12,16 +12,12 @@ const BackgroundPattern = () => {
 					>
 						<circle cx='16' cy='16' r='1.2' fill='var(--color-text)' />
 					</pattern>
-					<clipPath id='pattern-circular-clip'>
-						<path d='M1000,1a999,999 0 1,0 0, 1998a999,999 0 1,0 0, -1998' />
-					</clipPath>
 				</defs>
         <circle
           cx={1000}
           cy={1000}
 					r={999}
 					fill='url(#pattern-background)'
-					clipPath='url(#pattern-circular-clip)'
 				/>
 			</svg>
 		</div>
