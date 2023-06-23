@@ -104,13 +104,13 @@ const VisualsPage: FunctionComponent<{
       <Head>
         <meta name='theme-color' content={color} />
       </Head>
+      {effectiveGraphics === 'Space' && (
+        <SpaceBackground colorTheme={graphicsSpaceColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
+      )}
+      {effectiveGraphics === 'Particles' && (
+        <ParticlesBackground colorTheme={graphicsParticlesColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
+      )}
       <div id='BackgroundDisplay'>
-        {effectiveGraphics === 'Particles' && (
-          <ParticlesBackground colorTheme={graphicsParticlesColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
-        )}
-        {effectiveGraphics === 'Space' && (
-          <SpaceBackground colorTheme={graphicsSpaceColorTheme} bubbleScene={bubbleScene} bubbleSceneReset={bubbleSceneReset} />
-        )}
         {effectiveGraphics === 'Flat' && (
           <FlatBackground />
         )}
