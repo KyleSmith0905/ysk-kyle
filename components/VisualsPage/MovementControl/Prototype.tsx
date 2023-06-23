@@ -1,14 +1,20 @@
 import { clamp, pythagorean, IsUserMobileSafari } from '@lib/utils';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { FunctionComponent, useEffect } from 'react';
 
-const BrowserMovement: FunctionComponent = () => {
+const PrototypeMovement: FunctionComponent = () => {
 
   const [isMobileSafari, setIsMobileSafari] = useState(false);
+
+	const centerX = useRef(0);
+	const centerY = useRef(0);
+	const zoom = useRef(1);
 
   useEffect(() => {
     const isMobileSafari = IsUserMobileSafari();
     setIsMobileSafari(isMobileSafari);
+    
+    scrollTo({left: 0, top: 0});
 
 		document.documentElement.style.setProperty('cursor', 'grab');
 		document.documentElement.style.setProperty('user-select', 'none');
@@ -33,11 +39,19 @@ const BrowserMovement: FunctionComponent = () => {
       }
     };
 
+    const hydrateChanges = () => {
+      const newTransformX = centerX.current;
+      const newTransformY = centerY.current;
+
+      const mainContent = document.querySelector<HTMLDivElement>('#BackgroundDisplay');
+      mainContent?.style.setProperty('transform', `scale(${zoom.current}) translateX(${newTransformX}px) translateY(${newTransformY}px`);
+    };
+
     const interactStartEvent = (e: MouseEvent | TouchEvent) => {
-      const startPosition = getMousePosition(e);
-      const startScrollX = scrollX;
-      const startScrollY = scrollY;
+      let previousPosition = getMousePosition(e);
       let maxChange = 0;
+      let totalDeltaX = 0;
+      let totalDeltaY = 0;
 
       // User is holding mouse, user is intending to drag, not click
       const dragTimer = setTimeout(() => {
@@ -47,20 +61,26 @@ const BrowserMovement: FunctionComponent = () => {
       const interactMoveEvent = (e: MouseEvent | TouchEvent) => {
         const position = getMousePosition(e);
         
-        const deltaPosition = {
-          x: startPosition.x - position.x,
-          y: startPosition.y - position.y,
-        };
-        const change = pythagorean(deltaPosition.x, deltaPosition.y);
+        // Changes in scroll this current frame
+        const deltaPositionX = previousPosition.x - position.x;
+        const deltaPositionY = previousPosition.y - position.y;
+
+        // The total amount of change since started dragging
+        totalDeltaX = totalDeltaX + deltaPositionX;
+        totalDeltaY = totalDeltaY + deltaPositionY;
+        const change = Math.abs(pythagorean(totalDeltaX, totalDeltaY));
+
+        // Save the furthest the user has dragged the mouse
         if (change > maxChange) {
           maxChange = change;
         }
-        const newScrollLocation = {
-          x: startScrollX + deltaPosition.x,
-          y: startScrollY + deltaPosition.y,
-        };
-        scrollTo({left: newScrollLocation.x, top: newScrollLocation.y});
 
+        centerX.current = clamp(centerX.current - (deltaPositionX * (1 / zoom.current)), -1000, 1000);
+        centerY.current = clamp(centerY.current - (deltaPositionY * (1 / zoom.current)), -1000, 1000);
+        hydrateChanges();
+
+        previousPosition = position;
+        
         // User is dragging mouse around, prevent any clicks
         if (maxChange > 75) {
           document.body.style.setProperty('pointer-events', 'none');
@@ -88,11 +108,18 @@ const BrowserMovement: FunctionComponent = () => {
     const pressedKeys: Record<string, true> = {};
     const keyStartEvent = (e: KeyboardEvent) => {
       pressedKeys[e.key] = true;
-      if (pressedKeys['ArrowLeft'] || pressedKeys['a']) scrollBy({left: -10});
-      if (pressedKeys['ArrowRight'] || pressedKeys['d']) scrollBy({left: 10});
-      if (pressedKeys['ArrowUp'] || pressedKeys['w']) scrollBy({top: -10});
-      if (pressedKeys['ArrowDown'] || pressedKeys['s']) scrollBy({top: 10});
-      
+
+      let deltaPositionX = 0;
+      let deltaPositionY = 0;
+      if (pressedKeys['ArrowLeft'] || pressedKeys['a']) deltaPositionX -= 15;
+      if (pressedKeys['ArrowRight'] || pressedKeys['d']) deltaPositionX += 15;
+      if (pressedKeys['ArrowUp'] || pressedKeys['w']) deltaPositionY -= 15;
+      if (pressedKeys['ArrowDown'] || pressedKeys['s']) deltaPositionY += 15;
+
+      centerX.current = clamp(centerX.current - (deltaPositionX * (1 / zoom.current)), -1000, 1000);
+      centerY.current = clamp(centerY.current - (deltaPositionY * (1 / zoom.current)), -1000, 1000);
+      hydrateChanges();
+
       const keyEndEvent = (e: KeyboardEvent) => {
         delete pressedKeys[e.key];
       };
@@ -100,60 +127,16 @@ const BrowserMovement: FunctionComponent = () => {
       document.addEventListener('keyup', keyEndEvent);
     };
 
-    let previousScale = 1;
     const zoomStartEvent = (e: WheelEvent) => {
-      const rootFontSizeValue = window.getComputedStyle(document.body).getPropertyValue('font-size');
-      const rootFontSize = parseInt(rootFontSizeValue);
-      const rootDocumentSize = rootFontSize * 125;
-
-      const mainContent = document.querySelector<HTMLDivElement>('#BackgroundDisplay');
-      const scale = parseFloat(mainContent?.style.getPropertyValue('transform')?.split('scale(')[1]?.split(')')[0] || '1');
       const displayedDelta = e.deltaY / 2500;
-      const newScale = clamp(scale - displayedDelta, 0.5, 2.5);
+      const newScale = clamp(zoom.current - displayedDelta, 0.5, 2.5);
+
       // If scale is not changing, do nothing
-      if (scale === newScale) return;
-      
-      // The amount to translate to center zoom
-      const newTransform = {
-        x: 1000 * newScale - 1000,
-        y: (1 / (newScale * -0.001)) + 1000,
-      };
-      
-      // Zooms in and ensure page resizes to the content
-      const newPageWidth = Math.max(rootDocumentSize * newScale, window.innerWidth);
-      const newPageHeight = Math.max(rootDocumentSize * newScale, window.innerHeight);
-      document.documentElement.style.setProperty('width', `${newPageWidth}px`);
-      document.documentElement.style.setProperty('height', `${newPageHeight}px`);
-      mainContent?.style.setProperty('transform', `scale(${newScale}) translateX(${newTransform.x}px) translateY(${newTransform.y}px`);
+      if (zoom.current === newScale) return;
 
-      // Adjusts for scale and transform changes
-      const ratioChange = newScale / previousScale;
-      const distanceChanged = {
-        x: rootDocumentSize * previousScale * (1 - ratioChange),
-        y: rootDocumentSize * previousScale * (1 - ratioChange),
-      };
-      const scaleCorrection = {
-        x: distanceChanged.x * -0.5,
-        y: distanceChanged.y * -0.5,
-      };
+      zoom.current = newScale;
 
-      // Gets center point of screen
-      const center = {
-        x: scrollX + window.innerWidth / 2,
-        y: scrollY + window.innerHeight / 2,
-      };
-      // Get change that will be applied to the center point
-      const centerCorrection = {
-        x: ((rootDocumentSize * scale / 2) - center.x) * (1 - ratioChange),
-        y: ((rootDocumentSize * scale / 2) - center.y) * (1 - ratioChange),
-      };
-
-      scrollTo({
-        left: scrollX + scaleCorrection.x + centerCorrection.x,
-        top: scrollY + scaleCorrection.y + centerCorrection.y,
-      });
-
-      previousScale = newScale;
+      hydrateChanges();
     };
 
     if (!isMobileSafari) {
@@ -191,4 +174,4 @@ const BrowserMovement: FunctionComponent = () => {
 	);
 };
 
-export default BrowserMovement;
+export default PrototypeMovement;
