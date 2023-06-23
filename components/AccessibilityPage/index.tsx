@@ -100,7 +100,9 @@ const AccessibilityPage: FunctionComponent<{
         </div>
         <div className='buttonRow'>
           <Link href='/'>
-            <Button onClick={() => changePage('index')}>Home Page</Button>
+            <span>
+              <Button onClick={() => changePage('index')}>Home Page</Button>
+            </span>
           </Link>
           <Button onClick={() => setAccessibility('Visuals')}>To Visual Page</Button>
         </div>

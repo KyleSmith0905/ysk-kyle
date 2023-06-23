@@ -14,7 +14,7 @@ const BackgroundNoise = () => {
 					height='140%'
 					filterUnits='objectBoundingBox'
 					primitiveUnits='userSpaceOnUse'
-					color-interpolation-filters='sRGB'
+					colorInterpolationFilters='sRGB'
 				>
 					<feTurbulence
 						type='fractalNoise'
@@ -74,7 +74,7 @@ const BackgroundNoise = () => {
           height='140%'
           filterUnits='objectBoundingBox'
           primitiveUnits='userSpaceOnUse'
-          color-interpolation-filters='sRGB'
+          colorInterpolationFilters='sRGB'
         >
           <feColorMatrix
             type='saturate'

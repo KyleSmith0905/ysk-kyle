@@ -14,7 +14,13 @@ const PrototypeMovement: FunctionComponent = () => {
     const isMobileSafari = IsUserMobileSafari();
     setIsMobileSafari(isMobileSafari);
     
-    scrollTo({left: 0, top: 0});
+		// Center screen to origin.
+		const rootFontSizeValue = window.getComputedStyle(document.body).getPropertyValue('font-size');
+		const rootFontSize = parseInt(rootFontSizeValue);
+		scrollTo(
+			(62.5 * rootFontSize) - (window.innerWidth / 2),
+			(62.5 * rootFontSize) - (window.innerHeight / 2),
+		);
 
 		document.documentElement.style.setProperty('cursor', 'grab');
 		document.documentElement.style.setProperty('user-select', 'none');

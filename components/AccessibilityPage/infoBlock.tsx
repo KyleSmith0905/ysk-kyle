@@ -35,12 +35,16 @@ const InfoBlock: FunctionComponent<{
               {bubble.size === 'small' && <h3>{bubble.name}</h3>}
               {(bubble.link && bubble.link.startsWith('https://')) && (
                 <Link href={bubble.link} passHref={true}>
-                  <Button polymorphic='a' target='_blank' size='small'>Navigate There</Button>
+                  <span>
+                    <Button polymorphic='a' target='_blank' size='small'>Navigate There</Button>
+                  </span>
                 </Link>
               )}
               {(bubble.link && !bubble.link.startsWith('https://')) && (
                 <Link href={bubble.link}>
-                  <Button onClick={() => changePage(bubble.link ?? 'index')} size='small'>More Details</Button>
+                  <span>
+                    <Button onClick={() => changePage(bubble.link ?? 'index')} size='small'>More Details</Button>
+                  </span>
                 </Link>
               )}
               {bubble.image && (
