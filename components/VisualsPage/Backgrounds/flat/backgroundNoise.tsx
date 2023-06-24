@@ -1,7 +1,10 @@
 const BackgroundNoise = () => {
 	return (
-		<svg style={{ position: 'absolute' }} height='125rem' width='125rem'>
+		<svg style={{ position: 'absolute', transform: 'translateZ(0px)'}} width="2000" height="2000">
 			<defs>
+        <clipPath id='noise-circular-clip'>
+          <path	d='M1000,1a999,999 0 1,0 0, 1998a999,999 0 1,0 0, -1998'/>
+				</clipPath>
 				<radialGradient id='gggrain-gradient' r='0.5'>
 					<stop offset='0%' stopColor='var(--color-text)' stopOpacity={0} />
 					<stop offset='100%' stopColor='var(--color-text)' stopOpacity={1} />
@@ -85,25 +88,21 @@ const BackgroundNoise = () => {
             height='100%'
             in='SourceGraphic'
             result='colormatrix'
-          ></feColorMatrix>
+          />
         </filter>
-				<clipPath id='noise-circular-clip'>
-          <circle r={999} cx={1000} cy={1000}/>
-				</clipPath>
 			</defs>
-			<g filter="url(#gggrain-saturate)" opacity={0.05}>
+			<g opacity={0.05}>
 				<circle
           cx={1000}
           cy={1000}
 					r={999}
 					fill='url(#gggrain-gradient)'
-				/>
-				<circle
-          r={999}
-          cx={1000}
-          cy={1000}
-					fill='transparent'
+          />
+				<rect
+          width="100%"
+          height="100%"
 					filter='url(#gggrain-filter)'
+					fill='transparent'
 					clipPath='url(#noise-circular-clip)'
 				/>
 			</g>

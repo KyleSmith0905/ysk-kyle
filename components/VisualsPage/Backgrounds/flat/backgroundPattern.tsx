@@ -1,7 +1,7 @@
 const BackgroundPattern = () => {
 	return (
 		<div className='FlatBackgroundPattern'>
-			<svg className='pattern' height='100%' width='100%'>
+			<svg className='pattern' width="125rem" height="125rem">
 				<defs>
 					<pattern
 						id='pattern-background'
