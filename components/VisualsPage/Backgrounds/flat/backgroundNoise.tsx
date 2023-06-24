@@ -1,9 +1,16 @@
 const BackgroundNoise = () => {
+	const scale = 2;
+
 	return (
-		<svg style={{ position: 'absolute', transform: 'translateZ(0px)'}} width="2000" height="2000">
+		<svg style={{ position: 'absolute', transform: 'translateZ(1px)'}} width="2000" height="2000">
 			<defs>
         <clipPath id='noise-circular-clip'>
-          <path	d='M1000,1a999,999 0 1,0 0, 1998a999,999 0 1,0 0, -1998'/>
+        <circle
+          cx={1000 / scale}
+          cy={1000 / scale}
+					r={999 / scale}
+					fill='url(#pattern-background)'
+				/>
 				</clipPath>
 				<radialGradient id='gggrain-gradient' r='0.5'>
 					<stop offset='0%' stopColor='var(--color-text)' stopOpacity={0} />
@@ -21,14 +28,13 @@ const BackgroundNoise = () => {
 				>
 					<feTurbulence
 						type='fractalNoise'
-						baseFrequency='0.54'
+						baseFrequency='1'
 						numOctaves='2'
 						seed='2'
-						stitchTiles='stitch'
 						x='0%'
 						y='0%'
-						width='100%'
-						height='100%'
+						width={`${100 / scale}%`}
+						height={`${100 / scale}%`}
 						result='turbulence'
 					/>
 					<feColorMatrix
@@ -99,6 +105,7 @@ const BackgroundNoise = () => {
 					fill='url(#gggrain-gradient)'
           />
 				<rect
+					style={{transform: `scale(${scale})`}}
           width="100%"
           height="100%"
 					filter='url(#gggrain-filter)'
