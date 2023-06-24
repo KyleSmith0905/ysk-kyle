@@ -32,6 +32,7 @@
   border-radius: 1rem;
   box-shadow: 1rem 1rem 3rem 1rem var(--color-primary), -1rem -1rem 6rem -3rem var(--color-text);
   background: linear-gradient(315deg, var(--color-text) -1500%, var(--color-primary) 100%);
+  background-color: var(--color-primary);
 }
 
 .alertContainer > .alertBox {

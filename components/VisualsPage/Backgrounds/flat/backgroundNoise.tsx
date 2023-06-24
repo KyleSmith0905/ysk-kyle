@@ -2,7 +2,7 @@ const BackgroundNoise = () => {
 	const scale = 2;
 
 	return (
-		<svg style={{ position: 'absolute', transform: 'translateZ(1px)'}} width="2000" height="2000">
+		<svg style={{ position: 'absolute', transform: 'translateZ(-1px)'}} width="2000" height="2000">
 			<defs>
         <clipPath id='noise-circular-clip'>
         <circle
@@ -103,7 +103,7 @@ const BackgroundNoise = () => {
           cy={1000}
 					r={999}
 					fill='url(#gggrain-gradient)'
-          />
+				/>
 				<rect
 					style={{transform: `scale(${scale})`}}
           width="100%"
