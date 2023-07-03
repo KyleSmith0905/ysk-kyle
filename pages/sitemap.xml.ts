@@ -15,7 +15,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
 
 	for (let i = 0; i < allPaths.length; i++) {
 		sitemap += '<url>';
-		sitemap += '<loc>https://yskkyle.com' + allPaths[i] + '</loc>';
+		sitemap += '<loc>https://www.yskkyle.com' + allPaths[i] + '</loc>';
 		sitemap += '<changefreq>monthly</changefreq>';
 		if (allPaths[i] === '') sitemap += '<priority>1.0</priority>';
 		else sitemap += '<priority>0.5</priority>';

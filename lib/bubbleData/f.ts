@@ -18,7 +18,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
     id: redirectData.source.split('f/')[1],
     name: redirectData.name,
     summary: '',
-    link: `https://yskkyle.com${redirectData.source}`,
+    link: `https://www.yskkyle.com${redirectData.source}`,
     connection: 'forwarding',
     radius: 75,
     size: 'small',

@@ -25,7 +25,7 @@ describe('Redirects', () => {
     
     cy.get('#Bubble_e2e_externalLink').invoke('removeAttr', 'target').click();
 
-    cy.url().should('eq', 'https://yskkyle.com/');
+    cy.url().should('eq', 'https://blog.yskkyle.com/');
   });
 
   it('External `a` tags have correct attributes', () => {

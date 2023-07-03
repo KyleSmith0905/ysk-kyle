@@ -44,7 +44,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		name: 'Example External Link',
 		summary: 'An example external link for automated testing.',
 		connection: 'core',
-    link: 'https://yskkyle.com',
+    link: 'https://blog.yskkyle.com',
 		radius: 100,
 		size: 'medium',
 	},

@@ -17,7 +17,7 @@ const bubbleData: IBubbleWithoutPosition[] = [
 		id: 'image',
 		name: 'YSK Kyle Webpage',
 		image: 'ysk-kyle-page',
-		link: 'https://yskkyle.com/',
+		link: 'https://www.yskkyle.com/',
 		connection: 'about',
 		radius: 100,
 	},

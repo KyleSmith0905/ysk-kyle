@@ -59,7 +59,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name='HandheldFriendly' content='True' />
         {/* Open Graphics */}
         <meta property='og:site_name' content='YSK Kyle' />
-        <meta property='og:url' content='https://yskkyle.com' />
+        <meta property='og:url' content='https://www.yskkyle.com' />
         <meta property='og:keywords' content='portfolio, programming, resume, web design, experience, frontend programmer' />
         <meta property='og:locale' content='en-US' />
         <meta property='og:type' content='website' />
